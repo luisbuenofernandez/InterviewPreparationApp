@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('questions-container');
             data.lines.forEach((line, index) => {
                 const questionLink = document.createElement('a');
-                questionLink.href = `edit.html?index=${index}`;
+                questionLink.href = `fetchQ&A.html?index=${index}`;
                 questionLink.textContent = line.question;
                 container.appendChild(questionLink);
             });
