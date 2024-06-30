@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layout Example</title>
+<style>
+
+    
+</style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="container">
+    <div class="section-1">
+        <h1>Questions / Answers</h1>
+        <div class="space-between margin8px">
+            <div>
+                <a href="index.html"><button id="back" class="btn">Home</button></a>
+            </div>
+            <div>
+                <a href="#"><button id="deleteButton" class="btn">Trash</button></a>
+                <a href="edit.html"><button id="back" class="btn">Edit</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="section-2 margin8px">
+        <div id="editableText" class="scrollable">
+            <div>
+                <h4 id="displayText1">Question</h4>
+            </div>
+            <hr>
+            <div id="displayText2">Explanation</div>
+            <hr>
+            <div id="displayText3">
+                <h4>Answer</h4>
+            </div>
+            <hr>
+            <div id="displayText4">Example</div>
+        </div>
+    </div>
+    <div class="section-3 margin8px">
+        <button id="fetchButton" class="btn">Fetch Random Text</button>
+    </div>
+
+
+
+
+
+    <script src="fetchQ&A.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>
