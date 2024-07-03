@@ -50,6 +50,12 @@ h1 {
     justify-content: space-between;
 }
 
+.topLeftCorner {
+    display: flex;
+    flex-direction: row;
+}
+
+
 .section1, .section-2, .section-3 {
     margin: 8px; 
     max-width: 600px;
@@ -70,7 +76,10 @@ h1 {
     min-width: 75px;
     border-radius: 8px;
     box-shadow: 0px 2px 0px 0 rgba(0, 0, 0, 0.1);
-
+    border: 2px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn:hover {
@@ -117,7 +126,15 @@ button#fetchButton:hover, button#submitButton:hover {
     justify-content: center;
     align-items: center;
     margin: auto;
-    width: 300px;
+
+    border: 2px solid #333;
+    border-radius: 16px;
+    box-shadow: 0px 2px 0px 0 rgba(0, 0, 0, 0.1);
+
+
+    max-width: 500px;
+    width: 90vw;
+    height: 90vh;
 
 
 
@@ -154,6 +171,9 @@ button#fetchButton:hover, button#submitButton:hover {
 /* TEXTAREA */
 
 textarea {
+    font-size: 16px;
+    font-weight: bold;
+
     width: 100%;
     max-width: 600px;
     height: 100px;

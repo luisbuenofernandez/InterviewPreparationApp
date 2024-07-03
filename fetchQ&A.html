@@ -11,38 +11,44 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="container">
+
+
+    
     <div class="section-1">
         <h1>Questions / Answers</h1>
         <div class="space-between margin8px">
-            <div>
-                <a href="index.html"><button id="back" class="btn">Home</button></a>
-            </div>
-            <div>
+            <div id="goBackOrGoHome" class="btn"> </div>
+
+            <div class="topLeftCorner">
                 <a href="#"><button id="deleteButton" class="btn">Trash</button></a>
-                <a href="edit.html"><button id="back" class="btn">Edit</button></a>
+                <button id="editBtn" class="btn">Edit</button>
             </div>
         </div>
     </div>
+
+
+
     <div class="section-2 margin8px">
         <div id="editableText" class="scrollable">
             <div>
-                <h4 id="displayText1">Question</h4>
+                <h3 id="displayText1">Question</h3>
             </div>
             <hr>
             <div id="displayText2">Explanation</div>
             <hr>
-            <div id="displayText3">
-                <h4>Answer</h4>
+            <div >
+                <h4 id="displayText3">Answer</h4>
             </div>
             <hr>
             <div id="displayText4">Example</div>
         </div>
     </div>
+
+
+
     <div class="section-3 margin8px">
         <button id="fetchButton" class="btn">Fetch Random Text</button>
     </div>
-
-
 
 
 
