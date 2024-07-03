@@ -11,7 +11,9 @@ html {
 
 }
 
-
+body.container {
+    padding: 0;
+}
 
 .container {
     justify-content: center;
@@ -53,6 +55,10 @@ h1 {
 .topLeftCorner {
     display: flex;
     flex-direction: row;
+justify-content: center;}
+
+#deleteButton {
+    margin-right: 8px;
 }
 
 
@@ -133,8 +139,8 @@ button#fetchButton:hover, button#submitButton:hover {
 
 
     max-width: 500px;
-    width: 90vw;
-    height: 90vh;
+    width: 95vw;
+    height: 95vh;
 
 
 
@@ -152,7 +158,10 @@ button#fetchButton:hover, button#submitButton:hover {
 /* SCROLLABLE */
 
 .scrollable {
+    
+    margin: auto;
     width: 100%;
+    max-width: 600px;
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
@@ -166,6 +175,23 @@ button#fetchButton:hover, button#submitButton:hover {
 
 
 }
+
+
+/* SEARCH BAR */
+
+#search-input {
+    width: 100%;
+    margin: 0 8px;
+    height: 25px;
+    border-radius: 8px;
+    font-size: 16px;
+
+}
+
+.hidden {
+    display: none;
+}
+
 
 
 /* TEXTAREA */
@@ -190,7 +216,6 @@ textarea {
 #questions-container {
     height: 100%;
     width: 100%;
-    max-width: 500px;
         /* Container styling for questions */
         overflow-x: hidden;
         
