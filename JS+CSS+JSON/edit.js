@@ -35,7 +35,7 @@ function goToFetchOrHome() {
 
 
 
-        fetch('data.json')
+        fetch('JS+CSS+JSON/data.json')
             .then(response => response.json())
             .then(data => {
 
@@ -59,7 +59,8 @@ function goToFetchOrHome() {
 
 
 
-}
+
+}   /* FUNCTION CLOSING TAG */
 
 
 goToFetchOrHome()

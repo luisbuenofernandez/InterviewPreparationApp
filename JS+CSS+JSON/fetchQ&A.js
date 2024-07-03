@@ -1,19 +1,20 @@
 let data = { lines: [] };
 let currentTextIndex = -1;
 
-function showJustEditedQuestion(){
+function showJustEditedQuestion() {
 
-if (localStorage.getItem('savedQuestion')) {
+    if (localStorage.getItem('savedQuestion')) {
 
-    let savedQuestion = localStorage.getItem('savedQuestion');
+        let savedQuestion = localStorage.getItem('savedQuestion');
 
-    fetch('data.json')
+        fetch('JS+CSS+JSON/data.json')
+
             .then(response => response.json())
             .then(data => {
 
                 // If you want to find a specific question
                 const foundLine = data.lines.find(line => line.question === savedQuestion);
-                
+
                 if (foundLine) {
                     /* GET TEXTAREAS FROM "EDIT.HTML" */
                     document.getElementById('displayText1').innerHTML = foundLine.question;
@@ -22,11 +23,11 @@ if (localStorage.getItem('savedQuestion')) {
                     document.getElementById('displayText4').innerHTML = foundLine.example;
 
                     localStorage.removeItem('savedQuestion');
-                } 
+                }
             })
             .catch(error => console.error('Error fetching JSON:', error));
 
-}
+    }
 
 }
 
@@ -54,9 +55,10 @@ function goToFetchOrHome() {
 }
 
 
- /* FETCH THE INITIAL DATA FROM "DATA.JSON" DOCUMENT*/
+/* FETCH THE INITIAL DATA FROM "DATA.JSON" DOCUMENT*/
 
-fetch('data.json')
+fetch('JS+CSS+JSON/data.json')
+
     .then(response => response.json())
     .then(jsonData => {
         data = jsonData;
@@ -101,11 +103,11 @@ function saveData() {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
-    .then(jsonData => {
-        console.log('Data saved:', jsonData);
-    })
-    .catch(error => console.error('Error saving data:', error));
+        .then(response => response.json())
+        .then(jsonData => {
+            console.log('Data saved:', jsonData);
+        })
+        .catch(error => console.error('Error saving data:', error));
 }
 
 
