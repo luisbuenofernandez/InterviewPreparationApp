@@ -246,8 +246,3 @@ a {
     text-decoration: none;
     /* Inline-block anchor styling */
 }
-
-a:hover {
-    text-decoration: underline;
-    /* Hover effect for anchor links */
-}
