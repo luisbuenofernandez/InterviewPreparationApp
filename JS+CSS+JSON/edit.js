@@ -64,3 +64,37 @@ function goToFetchOrHome() {
 
 
 goToFetchOrHome()
+
+
+
+
+
+
+function addNewData() {
+    
+
+    const newData = {
+
+        question: document.getElementById('question').value,
+        explanation: document.getElementById('explanation').value,
+        answer: document.getElementById('example').value,
+        example: document.getElementById('answer').value
+    };
+    
+    
+    
+    // Function to add new data to the endpoint (PUT request to replace entire data)
+        fetch("https://api.npoint.io/3ba28e4574ca6a967200", {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newData)
+        })
+            .then(response => response.json())
+            .then(data => console.log('Data added successfully:', data))
+            .catch(error => console.error('Error adding data:', error));
+
+}
+
+
+
+document.getElementById("submitButton").addEventListener("click", addNewData)
