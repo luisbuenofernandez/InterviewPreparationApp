@@ -93,6 +93,26 @@ function addNewData() {
             .then(data => console.log('Data added successfully:', data))
             .catch(error => console.error('Error adding data:', error));
 
+
+
+
+
+             document.getElementById('question').value = ""
+         document.getElementById('explanation').value = ""
+         document.getElementById('example').value = ""
+         document.getElementById('answer').value = ""
+
+
+
+         fetch('https://api.npoint.io/3ba28e4574ca6a967200')
+            .then(response => response.json())
+            .then(data => {
+
+                console.log(data)
+
+            }
+        )
+
 }
 
 
