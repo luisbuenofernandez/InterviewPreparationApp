@@ -1,5 +1,7 @@
 let data = { lines: [] };
 let currentTextIndex = -1;
+const urlData = "https://api.npoint.io/3ba28e4574ca6a967200"
+
 
 function showJustEditedQuestion() {
 
@@ -7,7 +9,7 @@ function showJustEditedQuestion() {
 
         let savedQuestion = localStorage.getItem('savedQuestion');
 
-        fetch('JS+CSS+JSON/data.json')
+        fetch(urlData)
 
             .then(response => response.json())
             .then(data => {
@@ -57,7 +59,7 @@ function goToFetchOrHome() {
 
 /* FETCH THE INITIAL DATA FROM "DATA.JSON" DOCUMENT*/
 
-fetch('JS+CSS+JSON/data.json')
+fetch(urlData)
 
     .then(response => response.json())
     .then(jsonData => {
@@ -96,7 +98,7 @@ function fetchRandomText() {
 /* THIS FUNCTION ACTUALIZES THE JSON AFTER EDITING OR DELETING */
 
 function saveData() {
-    fetch('data.json', {
+    fetch(urlData, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

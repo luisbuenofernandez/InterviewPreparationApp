@@ -1,4 +1,4 @@
-
+const urlData = "https://api.npoint.io/3ba28e4574ca6a967200"
 
 
 function goToFetchOrHome() {
@@ -35,7 +35,7 @@ function goToFetchOrHome() {
 
 
 
-        fetch('JS+CSS+JSON/data.json')
+        fetch(urlData)
             .then(response => response.json())
             .then(data => {
 
@@ -84,7 +84,7 @@ function addNewData() {
     
     
     // Function to add new data to the endpoint (PUT request to replace entire data)
-        fetch("https://api.npoint.io/3ba28e4574ca6a967200", {
+        fetch(urlData, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newData)
@@ -104,7 +104,7 @@ function addNewData() {
 
 
 
-         fetch('https://api.npoint.io/3ba28e4574ca6a967200')
+         fetch(urlData)
             .then(response => response.json())
             .then(data => {
 

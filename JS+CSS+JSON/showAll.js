@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-          fetch('JS+CSS+JSON/data.json')
+
+  const urlData = "https://api.npoint.io/3ba28e4574ca6a967200"
+
+          fetch(urlData)
 
     .then(response => response.json())
     .then(data => {
