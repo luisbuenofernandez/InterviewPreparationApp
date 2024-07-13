@@ -7,7 +7,7 @@ function showJustEditedQuestion() {
 
         let savedQuestion = localStorage.getItem('savedQuestion');
 
-        fetch('https://api.npoint.io/3ba28e4574ca6a967200')
+        fetch('JS+CSS+JSON/data.json')
 
             .then(response => response.json())
             .then(data => {
@@ -57,7 +57,7 @@ function goToFetchOrHome() {
 
 /* FETCH THE INITIAL DATA FROM "DATA.JSON" DOCUMENT*/
 
-fetch('https://api.npoint.io/3ba28e4574ca6a967200')
+fetch('JS+CSS+JSON/data.json')
 
     .then(response => response.json())
     .then(jsonData => {
@@ -96,7 +96,7 @@ function fetchRandomText() {
 /* THIS FUNCTION ACTUALIZES THE JSON AFTER EDITING OR DELETING */
 
 function saveData() {
-    fetch('https://api.npoint.io/3ba28e4574ca6a967200', {
+    fetch('data.json', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

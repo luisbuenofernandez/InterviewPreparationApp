@@ -35,7 +35,7 @@ function goToFetchOrHome() {
 
 
 
-        fetch('https://api.npoint.io/3ba28e4574ca6a967200')
+        fetch('JS+CSS+JSON/data.json')
             .then(response => response.json())
             .then(data => {
 
