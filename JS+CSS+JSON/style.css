@@ -18,7 +18,7 @@ body.container {
 .container {
     justify-content: center;
 
-    max-width: 600px;
+    max-width: 800px;
 
     margin: auto;
 
@@ -31,6 +31,7 @@ button, a {
 
 h1 {
     text-align: center;
+    margin: 24px;
 }
 
 .margin8px {
@@ -47,6 +48,18 @@ h1 {
     width: 50%;
 }
 
+
+.fetch-heading   {
+   
+    margin-bottom: 0;
+    }
+
+.fetch-heading  .btn {
+width: 35px;
+height: 35px;
+margin-bottom: 0;
+}
+
 .space-between {
     display: flex;
     justify-content: space-between;
@@ -57,14 +70,42 @@ h1 {
     flex-direction: row;
 justify-content: center;}
 
+
 #deleteButton {
+    background-color: rgb(255, 93, 93);
     margin-right: 8px;
+    border: 2px solid;
+    border-color: rgb(230, 89, 89);
+    width: 35px;
+}
+
+#deleteButton:hover {
+    background-color: rgb(230, 89, 89);
+    
+
 }
 
 
+#editBtn {
+    background-color: rgb(128, 239, 103);
+    border: 2px solid;
+    border-color: rgb(121, 225, 98);
+    width: 35px;
+
+}
+
+#editBtn:hover {
+    background-color: rgb(121, 225, 98);
+
+}
+/* 
+.section-1 h1 {
+    margin-bottom: 16px;
+} */
+
 .section1, .section-2, .section-3 {
     margin: 8px; 
-    max-width: 600px;
+    max-width: 800px;
 }
 
 .section-2 {
@@ -81,8 +122,8 @@ justify-content: center;}
     height: 50px;
     min-width: 75px;
     border-radius: 8px;
-    box-shadow: 0px 2px 0px 0 rgba(0, 0, 0, 0.1);
-    border: 2px solid #333;
+    box-shadow: 0px 1px 0px 0 rgba(0, 0, 0, 0.1);
+    border: .5px solid #9595955a;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,6 +134,9 @@ justify-content: center;}
 
 }
 
+#goBackOrGoHome {
+    margin-right: 8px;
+}
 
 button#fetchButton, button#submitButton {
     background-color: #3498db;
@@ -107,7 +151,7 @@ button#fetchButton, button#submitButton {
     border: none;
     border-radius: 8px;
     transition: background-color 0.3s ease;
-    border: 1px solid grey;
+    border: .5px solid #9595955a;
     height: 50px;
     /* Fetch button specific styling */
 }
@@ -160,14 +204,15 @@ button#fetchButton:hover, button#submitButton:hover {
     
     margin: auto;
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     background-color: #fff;
-    border: 2px solid #333;
+    border: .5px solid #9595955a;
     border-radius: 8px;
     padding: 8px;
+    margin-top: 0;
     box-sizing: border-box; /* Ensure padding does not cause overflow */
     overflow-x: hidden; /* Prevent horizontal scrolling */
     overflow-x: hidden;
@@ -180,11 +225,14 @@ button#fetchButton:hover, button#submitButton:hover {
 
 #search-input {
     width: 100%;
+    max-width: 800px;
     margin: 0 8px;
     padding-left: 8px;
     height: 25px;
     border-radius: 8px;
     font-size: 16px;
+    border: .5px solid #9595955a;
+
 
 }
 
@@ -199,9 +247,10 @@ button#fetchButton:hover, button#submitButton:hover {
 textarea {
     font-size: 16px;
     font-weight: bold;
+    border: .5px solid #9595955a;
 
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     height: 100px;
     /* Hidden textarea with specific dimensions */
     border-radius: 8px;
