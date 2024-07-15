@@ -74,6 +74,15 @@ fetch(urlData)
 /* SHOW QUESTION AND ANSWER INSIDE THE SCROLLABLE AREA */
 
 function fetchRandomText() {
+
+
+
+
+
+
+
+
+
     if (data.lines.length > 0) {
         currentTextIndex = Math.floor(Math.random() * data.lines.length);
         savedQuestion = data.lines[currentTextIndex].question;
@@ -117,6 +126,35 @@ function saveData() {
 /* DELETES CURRENT QUESTION AND ANSWER */
 
 function deleteCurrentText() {
+
+
+    /* 
+    
+    1. Get "displayText1.value" (QUESTION)
+    2. Si: question.value !== "":
+            A: entonces buscar la pregunta en el array
+            B: borrar el objeto entero de esa pregunta.
+            C: entonces actualizar html con la pregunta al siguiente disponible (fetch random question)
+   
+   
+   3. Sino: alert('No hay texto para eliminar.')
+
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* chatGPT FUNCTION GENERATED */
+
     if (currentTextIndex >= 0 && currentTextIndex < data.lines.length) {
         data.lines.splice(currentTextIndex, 1);
         saveData();

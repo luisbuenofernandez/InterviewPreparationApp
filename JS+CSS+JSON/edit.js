@@ -1,10 +1,12 @@
 const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON"
 let dataStoredOnline;
+let savedQuestion;
+let foundLine;
+let isEditing;
 
 
 function goToFetchOrHome() {
 
-    let savedQuestion;
 
     if (localStorage.getItem('savedQuestion')) {
 
@@ -53,15 +55,71 @@ function goToFetchOrHome() {
 
 
                 // If you want to find a specific question
-                const foundLine = data.lines.find(line => line.question === savedQuestion);
+                foundLine = data.lines.find(line => line.question === savedQuestion);
 
                 if (foundLine) {
-
+                    /*                     isEditing = true;
+                     */
                     /* GET TEXTAREAS FROM "EDIT.HTML" */
                     document.getElementById('question').value = foundLine.question;
                     document.getElementById('explanation').value = foundLine.explanation;
                     document.getElementById('example').value = foundLine.example;
                     document.getElementById('answer').value = foundLine.answer;
+
+
+                    dataStoredOnline.lines = dataStoredOnline.lines.filter(line => line.question !== savedQuestion);
+                    console.log(dataStoredOnline.lines);
+
+
+                    document.getElementById("submitButton").addEventListener("click", addNewData)
+
+                    /* ----------------------------------------------------------------------- */
+
+                    /* 
+                    
+
+
+                    USE THIS SECTION TO ADD DUE TO ALREADY HAVING 
+                    THE QUESTION TO EDIT DISPLAYED IN THE TEXTAREAS
+                    
+                    
+                    
+                   
+                1. Use a true or false variable to determine if you are editing a previous question or not.
+                       let isEditing = true;  //  this value Change to false if you are adding a new question
+
+                2. Call addNewData function.
+
+
+
+
+                // FROM NOW ON YOULL NEED TO EDIT THE ADDNEWDATA FUNCTION 
+
+                3. In addNewData function:
+                
+                        if: isEditing = true { 
+                        
+                            // find this object by the question in the array, the one currentl being displayed in the textareas, 
+                            and delete it
+                        
+                            }
+
+
+
+                            THIS NEXT PART IS ACTUALLY WHAT IS ALREADY DONE AND WORKING IN THE FUNCTION
+
+                            // when click in submit, create the new object with the questions and answers just edited
+                            // PUSH the existing question with the new data at the end of the array.
+                             // UPLOAD the info into the JSON database.
+
+ */
+
+
+
+
+
+
+                    /* ----------------------------------------------------------------------- */
 
                 }   /* IF STATEMENT CLOSING TAG */
 
@@ -86,6 +144,36 @@ goToFetchOrHome()
 
 
 function addNewData() {
+
+
+    /* 
+    
+    
+        / FROM NOW ON YOULL NEED TO EDIT THE ADDNEWDATA FUNCTION 
+
+        3. In addNewData function:
+                
+             if: isEditing = true { 
+                        
+                  // find this object by the question in the array, the one currentl being displayed in the textareas, 
+                   and delete it
+                        
+                      }
+
+
+
+                THIS NEXT PART IS ACTUALLY WHAT IS ALREADY DONE AND WORKING IN THE FUNCTION
+
+                   // when click in submit, create the new object with the questions and answers just edited
+                     // PUSH the existing question with the new data at the end of the array.
+                   // UPLOAD the info into the JSON database.
+                        
+
+    */
+
+
+
+
 
 
     // Retrieve data from text areas
@@ -152,27 +240,13 @@ function addNewData() {
 
 
 
-
-
-
         })
         .catch(error => console.error('Error adding new data:', error));
 
 
 
 
-    fetch(urlData)
-        .then(response => response.json())
-        .then(data => {
 
-            console.log('All data after adding new one:')
-            console.log(data)
-
-        }
-        )
-
-    /*         window.location.href = 'fetchQ&A.html';
-     */
 }
 
 
