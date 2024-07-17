@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Layout Example</title>
-<link rel="stylesheet" href="JS+CSS+JSON/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Example</title>
+    <link rel="stylesheet" href="JS+CSS+JSON/style.css">
 </head>
+
 <body class="container">
 
 
-    
+
     <div class="section-1">
         <h1>Questions / Answers</h1>
         <div class="space-between margin8px fetch-heading">
             <div id="goBackOrGoHome" class="btn"> <img src="JS+CSS+JSON/house-heart-fill.svg" alt=" Home Button"> </div>
 
             <div class="topLeftCorner">
-                <button id="deleteButton" class="delete-btn btn"><img src="JS+CSS+JSON/trash-fill.svg" alt="Delete Button"></button>
-                <button id="editBtn" class="edit-btn btn"><img src="JS+CSS+JSON/pen-fill.svg" alt="Edit Button"></button>
+                <button id="deleteButton" class="delete-btn btn"><img src="JS+CSS+JSON/trash-fill.svg"
+                        alt="Delete Button"></button>
+                <button id="editBtn" class="edit-btn btn"><img src="JS+CSS+JSON/pen-fill.svg"
+                        alt="Edit Button"></button>
             </div>
         </div>
     </div>
@@ -27,13 +31,32 @@
     <div class="section-2 margin8px">
         <div id="editableText" class="scrollable">
             <div>
-                <h3 id="displayText1">Question</h3>
+                <div class="space-between">
+                    <div>
+                        <label for="dropdown">Topic</label>
+                        <select id="dropdown" onchange="handleSelection()">
+                            <option value="Interviewer" selected>Interviewer</option>
+
+                            <option value="Candidate">Candidate</option>
+                            <option value="Advice">Advice</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="dropdown">Needs Editing?</label>
+                        <select id="dropdown" onchange="handleSelection()">
+                            <option value="yes">Yes</option>
+                            <option value="no" selected>No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h2 id="displayText1">Question</h2>
             </div>
             <hr>
             <div id="displayText2">Explanation</div>
             <hr>
-            <div >
-                <h4 id="displayText3">Answer</h4>
+            <div>
+                <h3 id="displayText3">Answer</h3>
             </div>
             <hr>
             <div id="displayText4">Example</div>

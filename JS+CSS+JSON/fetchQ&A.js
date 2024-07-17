@@ -57,6 +57,42 @@ function goToFetchOrHome() {
 }
 
 
+/* EDIT THIS FUNCTION TO SELECT YES OR NOT TO EDITTING */
+
+/* 
+    Make for this question to add a new atribute to the object
+
+    ****** ALSO *******
+
+    Use the same function and do the same but for topic to choose between candidate,
+    interviewe and stuff, depending on the selected change the background of the question
+
+
+*/
+function handleSelection() {
+    let dropdown = document.getElementById("dropdown");
+    let selectedValue = dropdown.value;
+    let resultText;
+
+    if (selectedValue) {
+        resultText = `You selected: ${selectedValue}`;
+    } else {
+        resultText = "No option selected";
+    }
+
+    document.getElementById("result").innerText = resultText;
+    console.log(resultText);
+}
+
+// Initialize the default selection result on page load
+document.addEventListener("DOMContentLoaded", function() {
+    handleSelection();
+});
+
+
+
+
+
 /* FETCH THE INITIAL DATA FROM "DATA.JSON" DOCUMENT*/
 
 fetch(urlData)
