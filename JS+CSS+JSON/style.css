@@ -226,7 +226,7 @@ button#fetchButton:hover, button#submitButton:hover {
 #search-input {
     width: 100%;
     max-width: 800px;
-    margin: 0 8px;
+    margin: 8px 8px 0 8px;
     padding-left: 8px;
     height: 25px;
     border-radius: 8px;
