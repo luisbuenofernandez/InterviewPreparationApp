@@ -219,6 +219,21 @@ button#fetchButton:hover, button#submitButton:hover {
 
 }
 
+
+ /* Define soft pastel colors */
+ .interviewer-bg {
+    background-color: #b3cde0; /* Soft pastel blue */
+}
+
+.candidate-bg {
+    background-color: #ccebc5; /* Soft pastel green */
+}
+
+.advice-bg {
+    background-color: #ffcc80; /* Soft pastel orange-yellow */
+}
+
+
 #question-additionals {
     display: flex;
     flex-direction: column;
