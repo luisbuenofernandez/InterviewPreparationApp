@@ -10,8 +10,11 @@ html {
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
     /* Prevent body from scrolling */
-    
 
+}
+
+#icon {
+    color: whitesmoke;
 }
 
 body.container {
@@ -210,7 +213,7 @@ button#fetchButton:hover, button#submitButton:hover {
     box-shadow: 0px 1px 0px 0 rgba(0, 0, 0, 0.1);
     border: .5px solid #9595955a;
     margin-bottom: 0;
-    border-radius: 16px;
+    border-radius: 12px;
     padding: 8px;
     position: relative;
 
