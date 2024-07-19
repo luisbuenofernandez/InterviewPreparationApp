@@ -13,9 +13,6 @@ html {
 
 }
 
-#icon {
-    color: whitesmoke;
-}
 
 body.container {
     padding: 0;
@@ -222,15 +219,15 @@ button#fetchButton:hover, button#submitButton:hover {
 
  /* Define soft pastel colors */
  .interviewer-bg {
-    background-color: skyblue; /* Soft pastel blue */
+    border: 3px solid skyblue; /* Soft pastel blue */
 }
 
 .candidate-bg {
-    background-color: #ccebc5; /* Soft pastel green */
+    border: 3px solid rgb(121, 225, 98); /* Soft pastel green */
 }
 
 .advice-bg {
-    background-color: #ffcc80; /* Soft pastel orange-yellow */
+    border: 3px solid #ffcc80; /* Soft pastel orange-yellow */
 }
 
 
@@ -281,7 +278,7 @@ button#fetchButton:hover, button#submitButton:hover {
     overflow-x: hidden; /* Prevent horizontal scrolling */
     overflow-x: hidden;
 
-
+scroll-behavior: smooth;
 }
 
 
@@ -358,3 +355,9 @@ a {
     text-decoration: none;
     /* Inline-block anchor styling */
 }
+
+
+
+/* --------------------- */
+
+

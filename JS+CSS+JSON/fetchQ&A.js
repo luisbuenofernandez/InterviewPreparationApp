@@ -30,12 +30,12 @@ function showJustEditedQuestion() {
                         document.getElementById('dropdown_topic').value = foundLine.topic
                         document.getElementById('dropdown_edition').value = foundLine.edition
                         document.getElementById('dropdown_representation').value = foundLine.representation
-            
-                        console.log("  Topic:"  +  foundLine.topic)
-                        console.log("  EditionStatus:"  +  foundLine.edition)
-                        console.log("  Representation:"  +  foundLine.representation)
+
+                        console.log("  Topic:" + foundLine.topic)
+                        console.log("  EditionStatus:" + foundLine.edition)
+                        console.log("  Representation:" + foundLine.representation)
                     }
-            
+
 
 
                     document.getElementById('displayText3').innerHTML = foundLine.answer;
@@ -90,7 +90,7 @@ function showJustEditedQuestion() {
 
     // Find the specific object in savedData that contains the fetched question
     const matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
-    
+
     if (matchedObject) {
         console.log("Found the matched object:", matchedObject);
     } else {
@@ -159,20 +159,24 @@ function showJustEditedQuestion() {
         },
         body: JSON.stringify(savedData),
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to add new data');
-        }
-        console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
-    })
-    .catch(error => console.error('Error adding new data:', error));
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to add new data');
+            }
+            console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
+        })
+        .catch(error => console.error('Error adding new data:', error));
+
+
+
+        
 }
 
 // Initialize the default selection result on page load
-document.addEventListener("DOMContentLoaded", function () {
+/* document.addEventListener("DOMContentLoaded", function () {
     handleSelection();
 });
-
+ */
 
 
 
@@ -197,108 +201,112 @@ fetch(urlData)
 
 /*  THIS PART TAKES DE TARA IN THE DROPDOWNS FROM THE HTML AND UPLOAD THE JSON ONLINE*/
 
-     /*    function saveAdditionalData () {
+/*    function saveAdditionalData () {
 
-            console.log("FUNCTIN SAVE ADDITIONAL DATA GOES IN")
-            console.log(savedData)
-
-
-            
-            const topic = document.getElementById('dropdown_topic').value;
-        const edition = document.getElementById('dropdown_edition').value;
-        const representation = document.getElementById('dropdown_representation').value;
-
-        // Create new data object
-        newData = {
-            question: question,
-            explanation: explanation,
-
-            topic: topic,
-            edition: edition,
-            representation: representation,
-
-            answer: answer,
-            example: example
-        };
+       console.log("FUNCTIN SAVE ADDITIONAL DATA GOES IN")
+       console.log(savedData)
 
 
-        savedData.lines.push(newData);
+       
+       const topic = document.getElementById('dropdown_topic').value;
+   const edition = document.getElementById('dropdown_edition').value;
+   const representation = document.getElementById('dropdown_representation').value;
+
+   // Create new data object
+   newData = {
+       question: question,
+       explanation: explanation,
+
+       topic: topic,
+       edition: edition,
+       representation: representation,
+
+       answer: answer,
+       example: example
+   };
+
+
+   savedData.lines.push(newData);
 
 
 
-        fetch(urlData, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(savedData),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to add new data');
-                }
-                // Wait 3 seconds before fetching and displaying updated data
-    
-    
-                
-    
-    
-    
-    
-            })
-            .catch(error => console.error('Error adding new data:', error));
-    
-    
-        } */
+   fetch(urlData, {
+       method: 'POST',
+       headers: {
+           'Content-Type': 'application/json',
+       },
+       body: JSON.stringify(savedData),
+   })
+       .then(response => {
+           if (!response.ok) {
+               throw new Error('Failed to add new data');
+           }
+           // Wait 3 seconds before fetching and displaying updated data
+ 
+ 
+           
+ 
+ 
+ 
+ 
+       })
+       .catch(error => console.error('Error adding new data:', error));
+ 
+ 
+   } */
 
 /* SHOW QUESTION AND ANSWER INSIDE THE SCROLLABLE AREA */
 
 function fetchRandomText() {
 
+    document.getElementById('editableText').scrollTop = 0;
+
+
 
     if (data.lines.length > 0) {
         currentTextIndex = Math.floor(Math.random() * data.lines.length);
 
-        
+
         savedQuestion = data.lines[currentTextIndex].question;
         console.log(savedQuestion)
-        
-        const foundObject = savedData.lines.find(obj => obj.question === savedQuestion);    
+
+        const foundObject = savedData.lines.find(obj => obj.question === savedQuestion);
         console.log("Found the matched object:", foundObject);
-        
+
 
         document.getElementById('displayText1').innerText = foundObject.question;
         document.getElementById('displayText2').innerText = foundObject.explanation;
-            
+
         document.getElementById('displayText3').innerText = foundObject.answer;
         document.getElementById('displayText4').innerText = foundObject.example;
 
 
 
-        
-    let dropdownTopic = document.getElementById("dropdown_topic");
-    let topic = dropdownTopic.value;
 
-    let dropdownEdition = document.getElementById("dropdown_edition");
-    let edition = dropdownEdition.value;
+        let dropdownTopic = document.getElementById("dropdown_topic");
+        let topic = dropdownTopic.value;
 
-    let dropdownRepresentation = document.getElementById("dropdown_representation");
-    let representation = dropdownRepresentation.value;
+        let dropdownEdition = document.getElementById("dropdown_edition");
+        let edition = dropdownEdition.value;
 
-    // Change background color based on the selected value
-    
-    
-    
+        let dropdownRepresentation = document.getElementById("dropdown_representation");
+        let representation = dropdownRepresentation.value;
+
+        // Change background color based on the selected value
+
+        if (foundObject.topic || foundObject.edition || foundObject.representation) {
+
+
             document.getElementById('dropdown_topic').value = foundObject.topic
             document.getElementById('dropdown_edition').value = foundObject.edition
             document.getElementById('dropdown_representation').value = foundObject.representation
 
-            console.log("  Topic:"  +  foundObject.topic)
-            console.log("  EditionStatus:"  +  foundObject.edition)
-            console.log("  Representation:"  +  foundObject.representation)
-        
+            console.log("  Topic:" + foundObject.topic)
+            console.log("  EditionStatus:" + foundObject.edition)
+            console.log("  Representation:" + foundObject.representation)
 
-            
+
+
             let questionSection = document.querySelector(".questionSection");
             questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg');
             switch (topic) {
@@ -314,8 +322,8 @@ function fetchRandomText() {
                 default:
                     break;
             }
-            
-            
+
+
 
             document.getElementById("question-additionals").classList.remove('questionToEdit', 'questionNotToEdit');
             if (edition === "yes") {
@@ -323,16 +331,26 @@ function fetchRandomText() {
             } else {
                 document.getElementById("question-additionals").classList.add('questionNotToEdit')
             }
-        
-        
-            
-            
+
+
+        } else {
+
+
+            document.getElementById('dropdown_topic').value = "Interviewer"
+            document.getElementById('dropdown_edition').value = "No"
+            document.getElementById('dropdown_representation').value = "3"
+
+        }
 
 
 
-/*         saveAdditionalData();
- */
-        
+
+
+
+        /*         saveAdditionalData();
+        */
+
+
 
 
 
@@ -345,6 +363,9 @@ function fetchRandomText() {
 
 
     }
+
+
+    handleSelection()
 }
 
 

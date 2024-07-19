@@ -12,6 +12,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+
+        
 </head>
 
 <body class="container">
@@ -76,8 +78,8 @@
                         </select>
                     </div>
                     <div class="margin8px">
-                        <label for="dropdown_representation">Accurate Representation?</label>
-                        <select id="dropdown_representation" onchange="handleSelection()">
+                        <label for="dropdown_representation">Response Score: </label>
+                        <select id="dropdown_representation" >
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3" selected>3</option>
@@ -85,6 +87,8 @@
                             <option value="5">5</option>
                         </select>
                     </div>
+
+                    
                 </div>
 
             </div>
@@ -103,7 +107,7 @@
         <div id="editableText" class="scrollable">
 
             <div>
-                <h4 id="displayText3">Answer</h4>
+                <h5 id="displayText3">Answer</h5>
             </div>
             <hr>
             <div id="displayText4">Example</div>
