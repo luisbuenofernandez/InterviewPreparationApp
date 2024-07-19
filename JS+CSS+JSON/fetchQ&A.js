@@ -123,6 +123,14 @@ function showJustEditedQuestion() {
             break;
     }
 
+    document.getElementById("question-additionals").classList.remove('questionToEdit', 'questionNoToEdit');
+    if (edition === "yes") {
+        document.getElementById("question-additionals").classList.add('questionToEdit')
+    } else {
+        document.getElementById("question-additionals").classList.add('questionNotToEdit')
+    }
+
+
     // Create new data object
     let newData = {
         question: matchedObject.question,
@@ -308,7 +316,15 @@ function fetchRandomText() {
             }
             
             
-            
+
+            document.getElementById("question-additionals").classList.remove('questionToEdit', 'questionNotToEdit');
+            if (edition === "yes") {
+                document.getElementById("question-additionals").classList.add('questionToEdit')
+            } else {
+                document.getElementById("question-additionals").classList.add('questionNotToEdit')
+            }
+        
+        
             
             
 

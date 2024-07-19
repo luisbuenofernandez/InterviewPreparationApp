@@ -211,7 +211,7 @@ button#fetchButton:hover, button#submitButton:hover {
 
 .questionSection {
     box-shadow: 0px 1px 0px 0 rgba(0, 0, 0, 0.1);
-    border: .5px solid #9595955a;
+    border: 1px solid #9595955a;
     margin-bottom: 0;
     border-radius: 12px;
     padding: 8px;
@@ -238,7 +238,7 @@ button#fetchButton:hover, button#submitButton:hover {
     display: flex;
     flex-direction: column;
     border: 0;
-    background-color: white;
+    background-color: transparent;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -247,9 +247,18 @@ button#fetchButton:hover, button#submitButton:hover {
 
 }
 
-#question-additionals:hover {
+.questionToEdit {
     color: rgb(255, 55, 55);
 }
+
+/* .questionNotToEdit {
+    color: #333;
+}
+ */
+/* 
+#question-additionals:hover {
+    
+} */
 
 
 
