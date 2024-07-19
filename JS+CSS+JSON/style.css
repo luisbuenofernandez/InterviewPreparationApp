@@ -222,7 +222,7 @@ button#fetchButton:hover, button#submitButton:hover {
 
  /* Define soft pastel colors */
  .interviewer-bg {
-    background-color: #b3cde0; /* Soft pastel blue */
+    background-color: skyblue; /* Soft pastel blue */
 }
 
 .candidate-bg {

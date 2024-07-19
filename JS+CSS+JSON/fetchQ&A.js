@@ -155,7 +155,7 @@ function showJustEditedQuestion() {
         if (!response.ok) {
             throw new Error('Failed to add new data');
         }
-        alert('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
+        console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
     })
     .catch(error => console.error('Error adding new data:', error));
 }
