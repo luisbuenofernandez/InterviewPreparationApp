@@ -34,7 +34,7 @@ function showJustEditedQuestion() {
 }
 
 
-function goToFetchOrHome() {
+/* function goToFetchOrHome() {
 
     if (localStorage.getItem('savedQuestion')) {
         console.log(localStorage.getItem('savedQuestion'))
@@ -54,7 +54,7 @@ function goToFetchOrHome() {
 
     }
 
-}
+} */
 
 
 /* EDIT THIS FUNCTION TO SELECT YES OR NOT TO EDITTING */

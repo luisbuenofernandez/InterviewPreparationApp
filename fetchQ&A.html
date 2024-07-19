@@ -6,15 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layout Example</title>
     <link rel="stylesheet" href="JS+CSS+JSON/style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 
 <body class="container">
 
-
-
     <div class="section-1">
         <div class="space-between margin8px fetch-heading">
-            <div id="goBackOrGoHome" class="btn"> <img src="JS+CSS+JSON/house-heart-fill.svg" alt=" Home Button"> </div>
+            <a href="index.html">
+                <div id="goBackOrGoHome" class="btn"> <img src="JS+CSS+JSON/house-heart-fill.svg" alt=" Home Button">
+                </div>
+            </a>
 
             <div class="topLeftCorner">
                 <button id="deleteButton" class="delete-btn btn"><img src="JS+CSS+JSON/trash-fill.svg"
@@ -23,15 +28,36 @@
                         alt="Edit Button"></button>
             </div>
         </div>
-    </div>
+
+
+        <div class="margin8px  questionSection">
 
 
 
-    <div class="section-2 margin8px">
-        <div id="editableText" class="scrollable">
+
+
             <div>
-                <div class="space-between">
-                    <div>
+
+                <h2 id="displayText1">Question</h2>
+
+                <div >
+                    <button id="question-additionals" class="margin8px" button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                        </svg> 
+                    </button>
+                </div>
+
+            </div>
+            
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <div id="displayText2" class=" questionSection">Explanation</div>
+
+
+                    <div class="margin8px">
                         <label for="dropdown">Topic</label>
                         <select id="dropdown" onchange="handleSelection()">
                             <option value="Interviewer" selected>Interviewer</option>
@@ -40,20 +66,40 @@
                             <option value="Advice">Advice</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="margin8px">
                         <label for="dropdown">Needs Editing?</label>
                         <select id="dropdown" onchange="handleSelection()">
                             <option value="yes">Yes</option>
                             <option value="no" selected>No</option>
                         </select>
                     </div>
+                    <div class="margin8px">
+                        <label for="dropdown">Accurate Representation?</label>
+                        <select id="dropdown" onchange="handleSelection()">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
                 </div>
 
-                <h2 id="displayText1">Question</h2>
             </div>
-            <hr>
-            <div id="displayText2">Explanation</div>
-            <hr>
+
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+    <div class="section-2 margin8px">
+        <div id="editableText" class="scrollable">
+
             <div>
                 <h3 id="displayText3">Answer</h3>
             </div>
