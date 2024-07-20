@@ -14,6 +14,9 @@ html {
 }
 
 
+
+
+
 body.container {
     padding: 0;
 }
@@ -110,17 +113,29 @@ justify-content: center;}
     margin-bottom: 16px;
 } */
 
-.section1, .section-2, .section-3 {
+.section1, .section-3 {
     margin: 8px; 
     max-width: 800px;
 }
 
 .section-2 {
-    flex: 1;
+    margin: 8px;
+    max-width: 800px;
+    flex: 1; /* This makes it grow and fill available space */
     overflow-y: auto;
-    margin-bottom: 0;
-    
+}.section-4 {
+    margin: auto;
+    max-width: 800px;
+    display: flex;
+    flex-wrap: nowrap; /* Prevents wrapping to the next line */
+    overflow-x: auto; /* Adds horizontal scroll if needed */
+}
 
+.section-4 .btn-index {
+    flex: 0 0 auto; /* Prevents the buttons from shrinking */
+    width: 100%; /* Minimum width for buttons */
+    margin: 4px; /* Spacing between buttons */
+    text-align: center; /* Centers text inside buttons */
 }
 
 /* ------------------------------------------------------- BUTTONS */
@@ -203,6 +218,11 @@ button#fetchButton:hover, button#submitButton:hover {
     margin-bottom: 8px;
 }
 
+
+
+#navBar button {
+    border: 2px solid #333
+}
 /* ------------------------------------------------------------- */
 
 
@@ -228,6 +248,10 @@ button#fetchButton:hover, button#submitButton:hover {
 
 .advice-bg {
     border: 3px solid #ffcc80; /* Soft pastel orange-yellow */
+}
+
+.encouragment-bg {
+    border: 3px solid rgb(204, 153, 255); /* Soft pastel orange-yellow */
 }
 
 

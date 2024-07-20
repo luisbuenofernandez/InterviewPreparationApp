@@ -108,18 +108,20 @@ function showJustEditedQuestion() {
 
     // Change background color based on the selected value
     let questionSection = document.querySelector(".questionSection");
-    questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg');
+    questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
     switch (topic) {
-        case 'Interviewer':
-            questionSection.classList.add('interviewer-bg');
-            break;
         case 'Candidate':
             questionSection.classList.add('candidate-bg');
             break;
         case 'Advice':
             questionSection.classList.add('advice-bg');
             break;
+
+        case 'Encouragement':
+            questionSection.classList.add('encouragment-bg');
+            break;
         default:
+            questionSection.classList.add('interviewer-bg');
             break;
     }
 
@@ -169,7 +171,7 @@ function showJustEditedQuestion() {
 
 
 
-        
+
 }
 
 // Initialize the default selection result on page load
@@ -264,7 +266,8 @@ function fetchRandomText() {
 
 
     if (data.lines.length > 0) {
-        currentTextIndex = Math.floor(Math.random() * data.lines.length);
+        currentTextIndex = Math.floor(Math.random() * data.lines.length + Date.now() % data.lines.length) % data.lines.length;
+
 
 
         savedQuestion = data.lines[currentTextIndex].question;
@@ -308,18 +311,21 @@ function fetchRandomText() {
 
 
             let questionSection = document.querySelector(".questionSection");
-            questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg');
+            questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
             switch (topic) {
-                case 'Interviewer':
-                    questionSection.classList.add('interviewer-bg');
-                    break;
                 case 'Candidate':
                     questionSection.classList.add('candidate-bg');
                     break;
                 case 'Advice':
                     questionSection.classList.add('advice-bg');
                     break;
+
+
+                case 'Encouragement':
+                    questionSection.classList.add('encouragment-bg');
+                    break;
                 default:
+                    questionSection.classList.add('interviewer-bg');
                     break;
             }
 
