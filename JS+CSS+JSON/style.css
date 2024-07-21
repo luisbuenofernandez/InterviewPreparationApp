@@ -233,9 +233,14 @@ button#fetchButton:hover, button#submitButton:hover {
     border-radius: 12px;
     padding: 8px;
     position: relative;
-
+    
 }
 
+.show-question {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
 
  /* Define soft pastel colors */
  .interviewer-bg {

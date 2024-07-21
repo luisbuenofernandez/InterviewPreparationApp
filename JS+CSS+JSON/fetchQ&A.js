@@ -1,15 +1,148 @@
 let data = { lines: [] };
 let currentTextIndex = -1;
+
+
+
+let currentUrl = window.location.href;
 const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON"
+let dataStoredOnline;
+
 let newData;
 let savedQuestion;
 let savedData = null;
+
+
+
+
+
+function addNewData() {
+
+    console.log("submitButton read")
+
+    savedData.lines = savedData.lines.filter(line => line.question !== foundLine.question);
+    
+
+    // Retrieve data from text areas
+    const question = document.getElementById('edit-question').value;
+    const explanation = document.getElementById('edit-explanation').value;
+    const answer = document.getElementById('edit-answer').value;
+    const example = document.getElementById('edit-example').value;
+
+    savedQuestion = question;
+    localStorage.setItem("savedQuestion", savedQuestion);
+
+    // Create new data object
+    const newData = {
+        question: question,
+        explanation: explanation,
+        answer: answer,
+        example: example
+    };
+
+    console.log("NEW DATA")
+    
+    console.log(newData)
+
+
+
+    console.log("data stored online before updating new one")
+    console.log(savedData)
+
+
+
+    savedData.lines.push(newData);
+    let dataToUpload = savedData;
+
+
+    console.log("new DATA ABOUT TO BE UPDATED")
+    console.log(dataToUpload    );
+
+
+
+
+
+
+
+
+
+    // POST request to add new data
+    fetch(urlData, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToUpload),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to add new data');
+            }
+            // Wait 3 seconds before fetching and displaying updated data
+
+
+            console.log("CLEAR TEXTAREA");
+            document.getElementById('edit-question').value = ""
+            document.getElementById('edit-explanation').value = ""
+            document.getElementById('edit-answer').value = ""
+            document.getElementById('edit-example').value = ""
+
+            alert('New data added successfully!');
+
+            /* window.location.href = "index.html" */
+            localStorage.setItem('savedQuestion', savedQuestion);
+            window.location.href = currentUrl;
+
+
+        })
+        .catch(error => console.error('Error adding new data:', error));
+
+}
+
+
+
+
+
+ function editBtnShowModal() {
+
+    current_question = localStorage.getItem("savedQuestion")
+
+    console.log("EDIT BTN FUNCTION START")
+
+        
+        console.log("current_question" + savedQuestion)
+        
+
+            // If you want to find a specific question
+            foundLine = savedData.lines.find(line => line.question === savedQuestion);
+            
+            console.log("found object: " + foundLine.question)
+            console.log("found object: " + foundLine.explanation)
+            console.log("found object: " + foundLine.answer)
+            console.log("found object: " + foundLine.example)
+
+                document.getElementById('edit-question').value = foundLine.question;
+                document.getElementById('edit-explanation').value = foundLine.explanation;
+                document.getElementById('edit-example').value = foundLine.example;
+                document.getElementById('edit-answer').value = foundLine.answer;
+
+
+                /* Delete the current object after showin it in the model */
+                
+
+                /* addNewData() */
+                document.getElementById("submitButton").addEventListener("click", addNewData);
+
+    
+    
+} 
+
 
 function showJustEditedQuestion() {
 
     if (localStorage.getItem('savedQuestion')) {
 
-        let savedQuestion = localStorage.getItem('savedQuestion');
+        savedQuestion = localStorage.getItem('savedQuestion');
+        console.log("shiowjusteditedquestion: " + savedQuestion)
 
         fetch(urlData)
 
@@ -41,7 +174,9 @@ function showJustEditedQuestion() {
                     document.getElementById('displayText3').innerHTML = foundLine.answer;
                     document.getElementById('displayText4').innerHTML = foundLine.example;
 
-                    localStorage.removeItem('savedQuestion');
+                    document.getElementById("editBtn").addEventListener("click", editBtnShowModal);
+
+                    
                 }
             })
             .catch(error => console.error('Error fetching JSON:', error));
@@ -261,6 +396,8 @@ fetch(urlData)
 
 function fetchRandomText() {
 
+    console.log("button fech works")
+
     document.getElementById('editableText').scrollTop = 0;
 
 
@@ -272,6 +409,7 @@ function fetchRandomText() {
 
         savedQuestion = data.lines[currentTextIndex].question;
         console.log(savedQuestion)
+        localStorage.setItem('savedQuestion', savedQuestion)
 
         const foundObject = savedData.lines.find(obj => obj.question === savedQuestion);
         console.log("Found the matched object:", foundObject);
@@ -449,20 +587,21 @@ function deleteCurrentText() {
 
 /* THIS FUNCTION GOES TO "EDIT.HTML" AFTER SAVING THE QUESTION TO SHOW IN THE LOCAL STORAGE */
 
-function goToEdit() {
+/* function goToEdit() {
     localStorage.setItem('savedQuestion', savedQuestion);
     window.location.href = 'edit.html';
 }
+ */
 
 
 
 
 
-
-
-document.getElementById('fetchButton').addEventListener('click', fetchRandomText);
 document.getElementById('deleteButton').addEventListener('click', deleteCurrentText);
-document.getElementById('editBtn').addEventListener('click', goToEdit);
+document.getElementById("editBtn").addEventListener("click", editBtnShowModal);
+
+document.getElementById('fetchButton').addEventListener('click' || "enter", fetchRandomText);
+/* document.getElementById('editBtn').addEventListener('click', goToEdit); */
 
 showJustEditedQuestion();
 /* goToFetchOrHome(); */

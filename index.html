@@ -5,23 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interview Mastery</title>
-    <link id="icon" rel="icon" type="image/png" href="JS+CSS+JSON/money_4395964.png">
+   
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href="JS+CSS+JSON/style.css">
+
 </head>
 
 <body class="container">
-    
 
-    <h1>Interview Mastery</h1>
     <div class="index">
+        
+            <h1>Interview Mastery</h1>
 
 
         <a href="fetchQ&A.html"><button class="btn">Get Random Question</button></a>
-        <a href="edit.html" id="addNew_Btn">
-            <button class="btn">Add New Question</button>
-        </a>
+        
+
+            <!-- Button trigger modal -->
+            <button id="addNew_Btn" type="button" class="btn " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Add New
+            </button>
+        
         <a href="showAll.html"><button class="btn">View All Questions</button></a>
         <a href="Common Interview Questions and Answers.html"><button class="btn">Common Questions</button></a>
         <a href="Academic and Working Experience.html"><button class="btn">Academic & Work History</button></a>
@@ -30,6 +37,56 @@
     </div>
 
 
+
+              
+    <!-- Modal -->
+    <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">ADD NEW</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+                
+    <div Id="editableText" class="">
+        <div >
+            <h4>Question</h4>
+            <textarea id="edit-question"></textarea>
+
+        </div>
+        <div >
+            <h4>Explanation</h4>
+
+            <textarea id="edit-explanation"></textarea>
+
+        </div>
+        <div >
+            <h4>Answer</h4> <textarea id="edit-answer"></textarea>
+
+        </div>
+        <div >
+            <h4>Example</h4>
+            <textarea id="edit-example"></textarea>
+
+
+        </div>
+    </div>
+            </div>
+            <div class="modal-footer">
+                
+                <button id="submitButton" type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+crossorigin="anonymous"></script>
+
+<script src="JS+CSS+JSON/edit.js"></script>
 </body>
 
 </html>
