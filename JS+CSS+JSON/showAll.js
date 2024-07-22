@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     .then(response => response.json())
     .then(data => {
-      const container = document.getElementById('questions-container');
+      const container = document.getElementById('output');
       const searchInput = document.getElementById('search-input');
 
       // Function to display questions based on search term
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
           container.appendChild(questionLink);
 
           // Optional: Add a line break after each link for better readability
-          container.appendChild(document.createElement('br'));
+          
         });
       }
 

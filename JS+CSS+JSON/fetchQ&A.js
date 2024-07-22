@@ -10,6 +10,7 @@ let dataStoredOnline;
 let newData;
 let savedQuestion;
 let savedData = null;
+let matchedObject;
 
 
 
@@ -224,7 +225,7 @@ function showJustEditedQuestion() {
     console.log("-------------------")
 
     // Find the specific object in savedData that contains the fetched question
-    const matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
+    matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
 
     if (matchedObject) {
         console.log("Found the matched object:", matchedObject);
@@ -450,6 +451,7 @@ function fetchRandomText() {
 
             let questionSection = document.querySelector(".questionSection");
             questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
+            
             switch (topic) {
                 case 'Candidate':
                     questionSection.classList.add('candidate-bg');
@@ -560,27 +562,31 @@ function deleteCurrentText() {
 
 
 
+   matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
 
 
+    // This line deletes the previous object with 4 keys from the array
+    savedData.lines = savedData.lines.filter(obj => obj !== matchedObject);
+/* 
+    savedData.lines.push(newData);
+    console.log("Whole object about to send to JSON with the new info");
+    console.log(savedData); */
 
-
-    /* chatGPT FUNCTION GENERATED */
-
-    if (currentTextIndex >= 0 && currentTextIndex < data.lines.length) {
-        data.lines.splice(currentTextIndex, 1);
-        saveData();
-        /* document.getElementById('displayText1').innerText = 'Text deleted. Fetch another text.';
-        document.getElementById('displayText2').innerText = '-';
-        document.getElementById('displayText3').innerText = '-';
-        document.getElementById('displayText4').innerText = '-'; */
-
-        currentTextIndex = -1;
-
-        alert('Question deleted.')
-        fetchRandomText();
-    } else {
-        alert('No text to delete.');
-    }
+    fetch(urlData, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(savedData),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to add new data');
+            }
+            alert('New data deleted successfully to JSON ONLINE!');
+            fetchRandomText()
+        })
+        .catch(error => console.error('Error adding new data:', error));
 }
 
 

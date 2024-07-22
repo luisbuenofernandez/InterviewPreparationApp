@@ -202,7 +202,6 @@ button#fetchButton:hover, button#submitButton:hover {
     margin: auto;
 
     border-radius: 16px;
-    box-shadow: 0px 2px 0px 0 rgba(0, 0, 0, 0.1);
 
 
     max-width: 300px;
@@ -288,6 +287,62 @@ button#fetchButton:hover, button#submitButton:hover {
 
 
 
+
+
+/* styles.css */
+
+/* Basic styling for the checkboxes and output container */
+
+#checkboxes {
+    margin-bottom: 20px;
+ 
+}
+
+#checkboxes label {
+    padding: 8px 16px;
+    cursor: pointer;
+    border: 1px solid #333;
+    border-radius: 8px
+}
+
+#output {
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-width: 600px;
+    background-color: #f9f9f9;
+}
+
+/* Customizing the appearance of checkboxes */
+input[type="checkbox"] {
+    accent-color: green; /* Modern browsers */
+}
+
+/* Fallback for older browsers */
+/* input[type="checkbox"]:checked {
+    background-color: green;
+    border-color: green;
+}
+ */
+
+
+
+/* SEARCH BAR */
+
+#search-input {
+    width: 100%;
+    max-width: 800px;
+    margin: 8px 8px 0 8px;
+    padding-left: 8px;
+    height: 45px;
+    border-radius: 16px;
+    font-size: 16px;
+    border: .5px solid #9595955a;
+
+
+}
+
+
+
 /* SCROLLABLE */
 
 .scrollable {
@@ -311,20 +366,11 @@ scroll-behavior: smooth;
 }
 
 
-/* SEARCH BAR */
-
-#search-input {
-    width: 100%;
-    max-width: 800px;
-    margin: 8px 8px 0 8px;
-    padding-left: 8px;
-    height: 45px;
-    border-radius: 16px;
-    font-size: 16px;
-    border: .5px solid #9595955a;
-
-
+.scrollable a {
+    margin: 4px;
 }
+
+
 
 .hidden {
     display: none;
