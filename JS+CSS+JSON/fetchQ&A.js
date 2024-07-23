@@ -221,8 +221,11 @@ function showJustEditedQuestion() {
     interviewe and stuff, depending on the selected change the background of the question
 
 
-*/function handleSelection() {
-    console.log("-------------------")
+*/
+
+
+function handleSelection() {
+    console.log("-------------------");
 
     // Find the specific object in savedData that contains the fetched question
     matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
@@ -233,14 +236,13 @@ function showJustEditedQuestion() {
         console.log("No matched object found.");
     }
 
-    let dropdownTopic = document.getElementById("dropdown_topic");
-    let topic = dropdownTopic.value;
+    // Get the selected radio button value
+    let radios = document.querySelectorAll('input[name="topic"]:checked');
+    let topic = radios.length > 0 ? radios[0].value : 'Interviewer';
 
-    let dropdownEdition = document.getElementById("dropdown_edition");
-    let edition = dropdownEdition.value;
-
-    let dropdownRepresentation = document.getElementById("dropdown_representation");
-    let representation = dropdownRepresentation.value;
+    // Get the checkbox value
+    let checkboxEdit = document.getElementById("checkboxEdit");
+    let edition = checkboxEdit.checked ? "yes" : "no";
 
     // Change background color based on the selected value
     let questionSection = document.querySelector(".questionSection");
@@ -252,7 +254,6 @@ function showJustEditedQuestion() {
         case 'Advice':
             questionSection.classList.add('advice-bg');
             break;
-
         case 'Encouragement':
             questionSection.classList.add('encouragment-bg');
             break;
@@ -261,13 +262,14 @@ function showJustEditedQuestion() {
             break;
     }
 
-    document.getElementById("question-additionals").classList.remove('questionToEdit', 'questionNoToEdit');
+    // Update the question additionals class based on the checkbox
+    let questionAdditionals = document.getElementById("question-additionals");
+    questionAdditionals.classList.remove('questionToEdit', 'questionNoToEdit');
     if (edition === "yes") {
-        document.getElementById("question-additionals").classList.add('questionToEdit')
+        questionAdditionals.classList.add('questionToEdit');
     } else {
-        document.getElementById("question-additionals").classList.add('questionNotToEdit')
+        questionAdditionals.classList.add('questionNoToEdit');
     }
-
 
     // Create new data object
     let newData = {
@@ -279,7 +281,6 @@ function showJustEditedQuestion() {
         answer: matchedObject.answer,
         example: matchedObject.example
     };
-
     console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully!');
     console.log(newData);
 
@@ -304,12 +305,7 @@ function showJustEditedQuestion() {
             console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
         })
         .catch(error => console.error('Error adding new data:', error));
-
-
-
-
 }
-
 // Initialize the default selection result on page load
 /* document.addEventListener("DOMContentLoaded", function () {
     handleSelection();
@@ -395,45 +391,50 @@ fetch(urlData)
 
 /* SHOW QUESTION AND ANSWER INSIDE THE SCROLLABLE AREA */
 function fetchRandomText() {
+    
     console.log("Button fetch works");
 
     document.getElementById('editableText').scrollTop = 0;
-
+    
     // Filter questions based on selected checkboxes
     const topicCheckboxes = Array.from(document.querySelectorAll('#checkboxes input[type="checkbox"]:not([value="yes"])'));
     const isEditingChecked = document.querySelector('#checkboxes input[value="yes"]').checked;
-
+    
     let filteredLines = data.lines.filter(item => {
         const matchesTopic = topicCheckboxes.length === 0 || topicCheckboxes.some(checkbox => checkbox.checked && item.topic === checkbox.value);
         const matchesEditing = !isEditingChecked || (isEditingChecked && item.edition === 'yes');
         return matchesTopic && matchesEditing;
     });
-
+    
     if (filteredLines.length > 0) {
         const randomIndex = Math.floor(Math.random() * filteredLines.length);
         const selectedItem = filteredLines[randomIndex];
-
+    
         savedQuestion = selectedItem.question;
         console.log(savedQuestion);
         localStorage.setItem('savedQuestion', savedQuestion);
-
+    
         document.getElementById('displayText1').innerText = selectedItem.question;
         document.getElementById('displayText2').innerText = selectedItem.explanation;
         document.getElementById('displayText3').innerText = selectedItem.answer;
         document.getElementById('displayText4').innerText = selectedItem.example;
-
-        let dropdownTopic = document.getElementById("dropdown_topic");
-        let dropdownEdition = document.getElementById("dropdown_edition");
-        let dropdownRepresentation = document.getElementById("dropdown_representation");
-
-        dropdownTopic.value = selectedItem.topic || "Interviewer";
-        dropdownEdition.value = selectedItem.edition || "No";
-        dropdownRepresentation.value = selectedItem.representation || "3";
-
+    
+        // Automatically select the corresponding radio button
+        let radios = document.querySelectorAll('input[name="topic"]');
+        radios.forEach(radio => {
+            if (radio.value === selectedItem.topic) {
+                radio.checked = true;
+            }
+        });
+    
+        // Automatically check the checkbox based on the `edition` key
+        let checkboxEdit = document.getElementById("checkboxEdit");
+        checkboxEdit.checked = selectedItem.edition === 'yes';
+    
+        // Change background color based on the selected value
         let questionSection = document.querySelector(".questionSection");
         questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
-
-        switch (dropdownTopic.value) {
+        switch (selectedItem.topic) {
             case 'Candidate':
                 questionSection.classList.add('candidate-bg');
                 break;
@@ -447,22 +448,24 @@ function fetchRandomText() {
                 questionSection.classList.add('interviewer-bg');
                 break;
         }
-
-        document.getElementById("question-additionals").classList.remove('questionToEdit', 'questionNotToEdit');
-        if (dropdownEdition.value === "yes") {
+    
+        // Update the question additionals class based on the checkbox
+        document.getElementById("question-additionals").classList.remove('questionToEdit', 'questionNoToEdit');
+        if (checkboxEdit.checked) {
             document.getElementById("question-additionals").classList.add('questionToEdit');
         } else {
-            document.getElementById("question-additionals").classList.add('questionNotToEdit');
+            document.getElementById("question-additionals").classList.add('questionNoToEdit');
         }
-
+    
     } else {
         document.getElementById('displayText1').innerText = 'No text available based on the selected filters.';
         document.getElementById('displayText2').innerText = '';
         document.getElementById('displayText3').innerText = '';
         document.getElementById('displayText4').innerText = '';
     }
-
+    
     handleSelection();
+    
 }
 
 
@@ -491,54 +494,35 @@ function saveData() {
 /* DELETES CURRENT QUESTION AND ANSWER */
 
 function deleteCurrentText() {
+    // Find the specific object in savedData that contains the fetched question
+    let matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
 
+    if (matchedObject) {
+        console.log("Found the matched object:", matchedObject);
 
-    /* 
-    
-    1. Get "displayText1.value" (QUESTION)
-    2. Si: question.value !== "":
-            A: entonces buscar la pregunta en el array
-            B: borrar el objeto entero de esa pregunta.
-            C: entonces actualizar html con la pregunta al siguiente disponible (fetch random question)
-   
-   
-   3. Sino: alert('No hay texto para eliminar.')
+        // This line deletes the previous object from the array
+        savedData.lines = savedData.lines.filter(obj => obj !== matchedObject);
+        console.log("Object deleted. Remaining data:", savedData.lines);
 
-    */
-
-
-
-
-
-
-
-
-
-   matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
-
-
-    // This line deletes the previous object with 4 keys from the array
-    savedData.lines = savedData.lines.filter(obj => obj !== matchedObject);
-/* 
-    savedData.lines.push(newData);
-    console.log("Whole object about to send to JSON with the new info");
-    console.log(savedData); */
-
-    fetch(urlData, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(savedData),
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to add new data');
-            }
-            alert('New data deleted successfully to JSON ONLINE!');
-            fetchRandomText()
+        // Upload the modified data online
+        fetch(urlData, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(savedData),
         })
-        .catch(error => console.error('Error adding new data:', error));
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update data');
+                }
+                alert('Data deleted successfully online!');
+                fetchRandomText(); // Call fetchRandomText after successful deletion
+            })
+            .catch(error => console.error('Error updating data:', error));
+    } else {
+        console.log("No matched object found to delete.");
+    }
 }
 
 
@@ -563,3 +547,13 @@ document.getElementById('fetchButton').addEventListener('click' || "enter", fetc
 
 showJustEditedQuestion();
 /* goToFetchOrHome(); */
+
+
+// Add event listeners to radio buttons and checkbox to update the UI in real time
+document.querySelectorAll('input[name="topic"]').forEach(radio => {
+    radio.addEventListener('change', handleSelection);
+});
+document.getElementById('checkboxEdit').addEventListener('change', handleSelection);
+
+// Initial call to set the UI based on default values
+handleSelection();

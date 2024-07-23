@@ -2,11 +2,11 @@
 
 const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON"
 let data;
-function fetchData() {
+/* function fetchData() {
 
 
 
-}
+} */
 
 document.addEventListener('DOMContentLoaded', function () {
   const dataList = document.getElementById('output');
