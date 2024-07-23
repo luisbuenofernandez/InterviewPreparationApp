@@ -33,99 +33,130 @@
 
 
 
+                
+                    <button id="filter-btn" class="btn" button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                        FILTER
+                    </button>
+                
+
+            </div>
 
 
-                <!-- Modal -->
-                <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">EDIT</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body ">
-
-                                <div Id="editableText" class="">
-                                    <div>
-                                        <h4>Question</h4>
-                                        <textarea id="edit-question"></textarea>
-
-                                    </div>
-                                    <div>
-                                        <h4>Explanation</h4>
-
-                                        <textarea id="edit-explanation"></textarea>
-
-                                    </div>
-                                    <div>
-                                        <h4>Answer</h4> <textarea id="edit-answer"></textarea>
-
-                                    </div>
-                                    <div>
-                                        <h4>Example</h4>
-                                        <textarea id="edit-example"></textarea>
+        </div>
+    </div>
 
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
+    <div class="collapse collapseExample" id="collapseExample2">
+        <div class="card card-body">
 
-                                <button id="submitButton" type="button" class="btn btn-primary">Understood</button>
-                            </div>
+
+
+            <div id="checkboxes" class="space-between margin8px section-1">
+                <input type="checkbox" id="interviewer" class="checkbox" value="Interviewer" checked>
+                <label for="interviewer">Int</label>
+            
+                <input type="checkbox" id="candidate" class="checkbox" value="Candidate" checked>
+                <label for="candidate">Can</label>
+            
+                <input type="checkbox" id="advice" class="checkbox" value="Advice" checked>
+                <label for="advice">Adv</label>
+            
+                <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement" checked>
+                <label for="encouragement">Enc</label>
+            
+                <input type="checkbox" id="edit" class="checkbox" value="yes" data-key="editing">
+                <label for="edit">Edit</label>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- MODAL TO EDIT QUESTION -->
+    <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">EDIT</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+
+                    <div Id="editableText" class="">
+                        <div>
+                            <h4>Question</h4>
+                            <textarea id="edit-question"></textarea>
+
+                        </div>
+                        <div>
+                            <h4>Explanation</h4>
+
+                            <textarea id="edit-explanation"></textarea>
+
+                        </div>
+                        <div>
+                            <h4>Answer</h4> <textarea id="edit-answer"></textarea>
+
+                        </div>
+                        <div>
+                            <h4>Example</h4>
+                            <textarea id="edit-example"></textarea>
+
+
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
 
-
+                    <button id="submitButton" type="button" class="btn btn-primary">Understood</button>
+                </div>
             </div>
         </div>
-        <div id="checkboxes" class="space-between margin8px section-1">
-            <input type="checkbox" id="interviewer" class="checkbox" value="Interviewer">
-            <label for="interviewer">Int</label>
-        
-            <input type="checkbox" id="candidate" class="checkbox" value="Candidate">
-            <label for="candidate">Can</label>
-        
-            <input type="checkbox" id="advice" class="checkbox" value="Advice">
-            <label for="advice">Adv</label>
-        
-            <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement">
-            <label for="encouragement">Enc</label>
-        
-            <input type="checkbox" id="edit" class="checkbox" value="yes" data-key="editing">
-            <label for="edit">Edit</label>
-        </div>
-                <div class="margin8px  questionSection">
+    </div>
+
+
+
+    <div class="margin8px  questionSection">
 
 
 
 
+
+        <div>
+            <div class="show-question">
+                <h2 id="displayText1">Question</h2>
+
+            </div>
 
             <div>
-                <div class="show-question">
-                    <h2 id="displayText1">Question</h2>
-
-                </div>
-
-                <div>
-                    <button id="question-additionals" class="margin8px" button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
-                        </svg>
-                    </button>
-                </div>
-
+                <button id="question-additionals" class="margin8px" button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                    </svg>
+                </button>
             </div>
 
-            <div class="collapse collapseExample" id="collapseExample">
-                <div class="card card-body">
-                    <div id="displayText2" class=" questionSection">Explanation</div>
+        </div>
+
+        <div class="collapse collapseExample" id="collapseExample">
+            <div class="card card-body">
+                                    <div id="displayText2" class=" questionSection">Explanation</div>
 
 
                     <div class="margin8px">
@@ -158,14 +189,14 @@
                     </div>
 
 
-                </div>
-
             </div>
 
-
-
-
         </div>
+
+
+
+
+    </div>
 
     </div>
 
