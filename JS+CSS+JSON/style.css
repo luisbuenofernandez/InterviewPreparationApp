@@ -293,28 +293,57 @@ button#fetchButton:hover, button#submitButton:hover {
 
 /* Basic styling for the checkboxes and output container */
 
-#checkboxes {
-    margin-bottom: 20px;
- 
-}
-
+/* Basic styling for checkbox labels */
 #checkboxes label {
-    padding: 8px 16px;
+    padding: 4px 16px;
     cursor: pointer;
-    border: 1px solid #333;
-    border-radius: 8px
+    border: 3px solid whitesmoke; /* Default border color and thickness */
+    border-radius: 8px;
+    display: inline-block;
+    
+    font-weight: normal; /* Default text weight */
+    transition: border-color 0.3s, color 0.3s; /* Smooth transition */
 }
 
-#output {
-    border: 1px solid #ccc;
-    padding: 10px;
-    max-width: 600px;
-    background-color: #f9f9f9;
-}
-
-/* Customizing the appearance of checkboxes */
+/* Default styling for checkboxes */
 input[type="checkbox"] {
-    accent-color: green; /* Modern browsers */
+    display: none; /* Hide the default checkbox */
+}
+
+/* Styling for each checkbox label when checked */
+input[type="checkbox"]:checked + label {
+    font-weight: bolder; /* Make text bold when checked */
+    color: #fff; /* Text color for visibility */
+}
+
+/* Border colors for checked checkboxes */
+input[type="checkbox"]#interviewer:checked + label {
+    border-color: skyblue; /* Soft pastel blue for Interviewer */
+    color: skyblue; /* Text color for Interviewer */
+}
+
+input[type="checkbox"]#candidate:checked + label {
+    border-color: rgb(121, 225, 98); /* Soft pastel green for Candidate */
+    color: rgb(121, 225, 98); /* Text color for Candidate */
+}
+
+input[type="checkbox"]#advice:checked + label {
+    border-color: #ffcc80; /* Soft pastel orange-yellow for Advice */
+    color: #ffcc80; /* Text color for Advice */
+}
+
+input[type="checkbox"]#encouragement:checked + label {
+    border-color: rgb(204, 153, 255); /* Soft pastel purple for Encouragement */
+    color: rgb(204, 153, 255); /* Text color for Encouragement */
+}
+/* 
+input[type="checkbox"]#edit {
+    margin-right: 0;
+} */
+
+input[type="checkbox"]#edit:checked + label {
+    border-color: rgb(255, 55, 55); /* Distinct color for Edit */
+    color: rgb(255, 55, 55); /* Text color for Edit */
 }
 
 /* Fallback for older browsers */

@@ -1,43 +1,87 @@
+
+
+const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON"
+let data;
+function fetchData() {
+
+
+
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+  const dataList = document.getElementById('output');
+  const checkboxes = document.querySelectorAll('.checkbox');
+  const searchBar = document.getElementById('search-input');
 
-  const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON"
+  checkboxes.forEach(checkbox => checkbox.addEventListener('change', filterData));
+  searchBar.addEventListener('input', filterData);
 
-          fetch(urlData)
+  function filterData() {
+    let filteredData = data.lines;
+    console.log(filteredData);
 
-    .then(response => response.json())
-    .then(data => {
-      const container = document.getElementById('output');
-      const searchInput = document.getElementById('search-input');
+    // Get checked topic values and the 'editing' checkbox status
+    const checkedTopics = Array.from(checkboxes)
+        .filter(checkbox => checkbox.checked && checkbox.value !== 'yes')
+        .map(checkbox => checkbox.value);
 
-      // Function to display questions based on search term
-      function displayQuestions(questions) {
-        container.innerHTML = ''; // Clear the container
-        questions.forEach((line, index) => {
-          const questionLink = document.createElement('a');
-          questionLink.href = `fetchQ&A.html?index=${index}`;
-          questionLink.textContent = line.question;
+    const isEditingChecked = Array.from(checkboxes)
+        .some(checkbox => checkbox.checked && checkbox.value === 'yes');
 
-          // Add click event listener to store link text in localStorage
-          questionLink.addEventListener('click', function (event) {
-            localStorage.setItem('savedQuestion', line.question);
-          });
+    // Apply filters
+    filteredData = filteredData.filter(item => {
+        const matchesTopic = checkedTopics.length === 0 || checkedTopics.includes(item.topic);
+        const matchesEditing = !isEditingChecked || item.edition === 'yes';
+        return matchesTopic && matchesEditing;
+    });
 
-          container.appendChild(questionLink);
+    // Apply search filter
+    const searchTerm = searchBar.value.toLowerCase();
+    if (searchTerm) {
+        filteredData = filteredData.filter(item => item.question.toLowerCase().includes(searchTerm));
+    }
 
-          // Optional: Add a line break after each link for better readability
-          
+    displayData(filteredData);
+}
+
+
+function displayData(filteredData) {
+    dataList.innerHTML = '';
+    filteredData.forEach(item => {
+        const a = document.createElement('a');
+        a.classList.add('data-item');
+        a.href = 'fetchQ&A.html';
+
+        // Save the question in localStorage with "savedQuestion"
+        a.addEventListener('click', () => {
+            localStorage.setItem('savedQuestion', item.question);
         });
-      }
 
-      // Display all questions initially
-      displayQuestions(data.lines);
+        a.textContent = item.question;
+        dataList.appendChild(a);
+    });
+}
 
-      // Add event listener for search input
-      searchInput.addEventListener('input', function () {
-        const searchTerm = searchInput.value.toLowerCase();
-        const filteredQuestions = data.lines.filter(line => line.question.toLowerCase().includes(searchTerm));
-        displayQuestions(filteredQuestions);
-      });
+
+
+
+
+  
+  fetch(urlData)
+    .then(response => response.json())
+    .then(jsonData => {
+        data = jsonData;
+        /* console.log('Data loaded:', data.lines); */
+
+        // Save the data to savedData for later manipulation
+        /* savedData = data; */
+        displayData(data.lines);
+
+        // Correctly log the savedData object
+        
     })
-    .catch(error => console.error('Error fetching data:', error));
+    .catch(error => console.error('Error loading data:', error));
+
+  // Initial display of all data
+  
 });

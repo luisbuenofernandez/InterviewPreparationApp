@@ -4,25 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questions List</title>
-    <link id="icon" rel="icon" type="image/png" href="JS+CSS+JSON/money_4395964.png">
+   
     <link rel="stylesheet" href="JS+CSS+JSON/style.css">
 </head>
 <body class="container">
     <input type="text" id="search-input" placeholder="Search questions...">
-    
     <div id="checkboxes" class="space-between margin8px section-1">
-        <label><input class=".checkbox" type="checkbox" value="yes"> Edit</label>
-        <label><input class=".checkbox" type="checkbox" value="Interviewer"> Int</label>
-        <label><input class=".checkbox"  type="checkbox" value="Candidate"> Can</label>
-        <label><input class=".checkbox" type="checkbox" value="Advice"> Adv</label>
-        <label><input class=".checkbox" type="checkbox" value="Encouragement"> Enc</label>
+        <input type="checkbox" id="interviewer" class="checkbox" value="Interviewer">
+        <label for="interviewer">Int</label>
+    
+        <input type="checkbox" id="candidate" class="checkbox" value="Candidate">
+        <label for="candidate">Can</label>
+    
+        <input type="checkbox" id="advice" class="checkbox" value="Advice">
+        <label for="advice">Adv</label>
+    
+        <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement">
+        <label for="encouragement">Enc</label>
+    
+        <input type="checkbox" id="edit" class="checkbox" value="yes" data-key="editing">
+        <label for="edit">Edit</label>
     </div>
-
+    
     <div class="section-2">
         <div class="scrollable" id="output">
             <!-- Filtered questions will be dynamically inserted here -->
         </div>
     </div>
+
 
     <div class="section-3">
         <a href="index.html"><button id="back" class="btn"><img src="JS+CSS+JSON/house-heart-fill.svg" alt=""></button></a>

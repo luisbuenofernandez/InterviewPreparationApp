@@ -394,125 +394,77 @@ fetch(urlData)
    } */
 
 /* SHOW QUESTION AND ANSWER INSIDE THE SCROLLABLE AREA */
-
 function fetchRandomText() {
-
-    console.log("button fech works")
+    console.log("Button fetch works");
 
     document.getElementById('editableText').scrollTop = 0;
 
+    // Filter questions based on selected checkboxes
+    const topicCheckboxes = Array.from(document.querySelectorAll('#checkboxes input[type="checkbox"]:not([value="yes"])'));
+    const isEditingChecked = document.querySelector('#checkboxes input[value="yes"]').checked;
 
+    let filteredLines = data.lines.filter(item => {
+        const matchesTopic = topicCheckboxes.length === 0 || topicCheckboxes.some(checkbox => checkbox.checked && item.topic === checkbox.value);
+        const matchesEditing = !isEditingChecked || (isEditingChecked && item.edition === 'yes');
+        return matchesTopic && matchesEditing;
+    });
 
-    if (data.lines.length > 0) {
-        currentTextIndex = Math.floor(Math.random() * data.lines.length + Date.now() % data.lines.length) % data.lines.length;
+    if (filteredLines.length > 0) {
+        const randomIndex = Math.floor(Math.random() * filteredLines.length);
+        const selectedItem = filteredLines[randomIndex];
 
+        savedQuestion = selectedItem.question;
+        console.log(savedQuestion);
+        localStorage.setItem('savedQuestion', savedQuestion);
 
-
-        savedQuestion = data.lines[currentTextIndex].question;
-        console.log(savedQuestion)
-        localStorage.setItem('savedQuestion', savedQuestion)
-
-        const foundObject = savedData.lines.find(obj => obj.question === savedQuestion);
-        console.log("Found the matched object:", foundObject);
-
-
-        document.getElementById('displayText1').innerText = foundObject.question;
-        document.getElementById('displayText2').innerText = foundObject.explanation;
-
-        document.getElementById('displayText3').innerText = foundObject.answer;
-        document.getElementById('displayText4').innerText = foundObject.example;
-
-
-
+        document.getElementById('displayText1').innerText = selectedItem.question;
+        document.getElementById('displayText2').innerText = selectedItem.explanation;
+        document.getElementById('displayText3').innerText = selectedItem.answer;
+        document.getElementById('displayText4').innerText = selectedItem.example;
 
         let dropdownTopic = document.getElementById("dropdown_topic");
-        let topic = dropdownTopic.value;
-
         let dropdownEdition = document.getElementById("dropdown_edition");
-        let edition = dropdownEdition.value;
-
         let dropdownRepresentation = document.getElementById("dropdown_representation");
-        let representation = dropdownRepresentation.value;
 
-        // Change background color based on the selected value
+        dropdownTopic.value = selectedItem.topic || "Interviewer";
+        dropdownEdition.value = selectedItem.edition || "No";
+        dropdownRepresentation.value = selectedItem.representation || "3";
 
-        if (foundObject.topic || foundObject.edition || foundObject.representation) {
+        let questionSection = document.querySelector(".questionSection");
+        questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
 
-
-            document.getElementById('dropdown_topic').value = foundObject.topic
-            document.getElementById('dropdown_edition').value = foundObject.edition
-            document.getElementById('dropdown_representation').value = foundObject.representation
-
-            console.log("  Topic:" + foundObject.topic)
-            console.log("  EditionStatus:" + foundObject.edition)
-            console.log("  Representation:" + foundObject.representation)
-
-
-
-            let questionSection = document.querySelector(".questionSection");
-            questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
-            
-            switch (topic) {
-                case 'Candidate':
-                    questionSection.classList.add('candidate-bg');
-                    break;
-                case 'Advice':
-                    questionSection.classList.add('advice-bg');
-                    break;
-
-
-                case 'Encouragement':
-                    questionSection.classList.add('encouragment-bg');
-                    break;
-                default:
-                    questionSection.classList.add('interviewer-bg');
-                    break;
-            }
-
-
-
-            document.getElementById("question-additionals").classList.remove('questionToEdit', 'questionNotToEdit');
-            if (edition === "yes") {
-                document.getElementById("question-additionals").classList.add('questionToEdit')
-            } else {
-                document.getElementById("question-additionals").classList.add('questionNotToEdit')
-            }
-
-
-        } else {
-
-
-            document.getElementById('dropdown_topic').value = "Interviewer"
-            document.getElementById('dropdown_edition').value = "No"
-            document.getElementById('dropdown_representation').value = "3"
-
+        switch (dropdownTopic.value) {
+            case 'Candidate':
+                questionSection.classList.add('candidate-bg');
+                break;
+            case 'Advice':
+                questionSection.classList.add('advice-bg');
+                break;
+            case 'Encouragement':
+                questionSection.classList.add('encouragment-bg');
+                break;
+            default:
+                questionSection.classList.add('interviewer-bg');
+                break;
         }
 
-
-
-
-
-
-        /*         saveAdditionalData();
-        */
-
-
-
-
-
+        document.getElementById("question-additionals").classList.remove('questionToEdit', 'questionNotToEdit');
+        if (dropdownEdition.value === "yes") {
+            document.getElementById("question-additionals").classList.add('questionToEdit');
+        } else {
+            document.getElementById("question-additionals").classList.add('questionNotToEdit');
+        }
 
     } else {
-        document.getElementById('displayText1').innerText = 'No text available. Please add new text.';
+        document.getElementById('displayText1').innerText = 'No text available based on the selected filters.';
         document.getElementById('displayText2').innerText = '';
         document.getElementById('displayText3').innerText = '';
         document.getElementById('displayText4').innerText = '';
-
-
     }
 
-
-    handleSelection()
+    handleSelection();
 }
+
 
 
 
