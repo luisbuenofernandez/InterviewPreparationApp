@@ -15,6 +15,31 @@ let matchedObject;
 
 
 
+function colorAssociation(topic, edition) {
+    let questionSection = document.querySelector(".questionSection");
+    questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
+    
+    switch (topic) {
+        case 'Candidate':
+            questionSection.classList.add('candidate-bg');
+            break;
+        case 'Advice':
+            questionSection.classList.add('advice-bg');
+            break;
+        case 'Encouragement':
+            questionSection.classList.add('encouragment-bg');
+            break;
+        default:
+            questionSection.classList.add('interviewer-bg');
+            break;
+    }
+
+    // Update the question additionals class based on the checkbox
+    let questionAdditionals = document.getElementById("question-additionals");
+    questionAdditionals.classList.remove('questionToEdit', 'questionNoToEdit');
+    questionAdditionals.classList.add(edition ? 'questionToEdit' : 'questionNoToEdit');
+}
+
 
 function addNewData() {
 
@@ -158,22 +183,22 @@ function showJustEditedQuestion() {
                     document.getElementById('displayText1').innerHTML = foundLine.question;
                     document.getElementById('displayText2').innerHTML = foundLine.explanation;
 
+                    /* QUESTION ADDITIONALS */
 
-
-                    if (foundLine.topic || foundLine.edition || foundLine.representation) {
-                        document.getElementById('dropdown_topic').value = foundLine.topic
-                        document.getElementById('dropdown_edition').value = foundLine.edition
-                        document.getElementById('dropdown_representation').value = foundLine.representation
-
-                        console.log("  Topic:" + foundLine.topic)
-                        console.log("  EditionStatus:" + foundLine.edition)
-                        console.log("  Representation:" + foundLine.representation)
-                    }
-
-
+                    document.querySelectorAll('input[name="topic"]').forEach(radio => {
+                        if (radio.value === foundLine.topic) {
+                            radio.checked = true;
+                        }
+                    });
+                    document.getElementById('checkboxEdit').checked = foundLine.edition === true;
 
                     document.getElementById('displayText3').innerHTML = foundLine.answer;
                     document.getElementById('displayText4').innerHTML = foundLine.example;
+
+
+
+
+                    colorAssociation(foundLine.topic, foundLine.edition);
 
                     document.getElementById("editBtn").addEventListener("click", editBtnShowModal);
 
@@ -223,18 +248,20 @@ function showJustEditedQuestion() {
 
 */
 
-
 function handleSelection() {
     console.log("-------------------");
 
     // Find the specific object in savedData that contains the fetched question
-    matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
+    let matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
 
     if (matchedObject) {
         console.log("Found the matched object:", matchedObject);
     } else {
         console.log("No matched object found.");
+        return; // Exit if no matched object is found
     }
+
+
 
     // Get the selected radio button value
     let radios = document.querySelectorAll('input[name="topic"]:checked');
@@ -242,55 +269,32 @@ function handleSelection() {
 
     // Get the checkbox value
     let checkboxEdit = document.getElementById("checkboxEdit");
-    let edition = checkboxEdit.checked ? "yes" : "no";
+    let edition = checkboxEdit.checked; // true or false
 
     // Change background color based on the selected value
-    let questionSection = document.querySelector(".questionSection");
-    questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
-    switch (topic) {
-        case 'Candidate':
-            questionSection.classList.add('candidate-bg');
-            break;
-        case 'Advice':
-            questionSection.classList.add('advice-bg');
-            break;
-        case 'Encouragement':
-            questionSection.classList.add('encouragment-bg');
-            break;
-        default:
-            questionSection.classList.add('interviewer-bg');
-            break;
-    }
-
-    // Update the question additionals class based on the checkbox
-    let questionAdditionals = document.getElementById("question-additionals");
-    questionAdditionals.classList.remove('questionToEdit', 'questionNoToEdit');
-    if (edition === "yes") {
-        questionAdditionals.classList.add('questionToEdit');
-    } else {
-        questionAdditionals.classList.add('questionNoToEdit');
-    }
-
+    colorAssociation(topic, edition);
     // Create new data object
     let newData = {
         question: matchedObject.question,
         explanation: matchedObject.explanation,
         topic: topic,
-        edition: edition,
-        representation: representation,
+        edition: edition, // true or false
+     
         answer: matchedObject.answer,
         example: matchedObject.example
     };
     console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully!');
     console.log(newData);
 
-    // This line deletes the previous object with 4 keys from the array
-    savedData.lines = savedData.lines.filter(obj => obj !== matchedObject);
+    // Remove the previous object with the same question from the array
+    savedData.lines = savedData.lines.filter(obj => obj.question !== matchedObject.question);
 
+    // Add the new data to the array
     savedData.lines.push(newData);
     console.log("Whole object about to send to JSON with the new info");
     console.log(savedData);
 
+    // Send the updated data to the server
     fetch(urlData, {
         method: 'POST',
         headers: {
@@ -298,13 +302,13 @@ function handleSelection() {
         },
         body: JSON.stringify(savedData),
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to add new data');
-            }
-            console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
-        })
-        .catch(error => console.error('Error adding new data:', error));
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to add new data');
+        }
+        console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
+    })
+    .catch(error => console.error('Error adding new data:', error));
 }
 // Initialize the default selection result on page load
 /* document.addEventListener("DOMContentLoaded", function () {
@@ -397,14 +401,15 @@ function fetchRandomText() {
     document.getElementById('editableText').scrollTop = 0;
     
     // Filter questions based on selected checkboxes
-    const topicCheckboxes = Array.from(document.querySelectorAll('#checkboxes input[type="checkbox"]:not([value="yes"])'));
-    const isEditingChecked = document.querySelector('#checkboxes input[value="yes"]').checked;
-    
-    let filteredLines = data.lines.filter(item => {
-        const matchesTopic = topicCheckboxes.length === 0 || topicCheckboxes.some(checkbox => checkbox.checked && item.topic === checkbox.value);
-        const matchesEditing = !isEditingChecked || (isEditingChecked && item.edition === 'yes');
-        return matchesTopic && matchesEditing;
-    });
+    const topicCheckboxes = Array.from(document.querySelectorAll('#checkboxes input[type="checkbox"]:not([value="true"])'));
+const isEditingChecked = document.querySelector('#checkboxes input[value="true"]').checked;
+
+let filteredLines = data.lines.filter(item => {
+    const matchesTopic = topicCheckboxes.length === 0 || topicCheckboxes.some(checkbox => checkbox.checked && item.topic === checkbox.value);
+    const matchesEditing = !isEditingChecked || (isEditingChecked && (item.edition === true || item.edition === "true"));
+    return matchesTopic && matchesEditing;
+});
+
     
     if (filteredLines.length > 0) {
         const randomIndex = Math.floor(Math.random() * filteredLines.length);
@@ -427,44 +432,18 @@ function fetchRandomText() {
             }
         });
     
-        // Automatically check the checkbox based on the `edition` key
-        let checkboxEdit = document.getElementById("checkboxEdit");
-        checkboxEdit.checked = selectedItem.edition === 'yes';
-    
-        // Change background color based on the selected value
-        let questionSection = document.querySelector(".questionSection");
-        questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
-        switch (selectedItem.topic) {
-            case 'Candidate':
-                questionSection.classList.add('candidate-bg');
-                break;
-            case 'Advice':
-                questionSection.classList.add('advice-bg');
-                break;
-            case 'Encouragement':
-                questionSection.classList.add('encouragment-bg');
-                break;
-            default:
-                questionSection.classList.add('interviewer-bg');
-                break;
-        }
-    
-        // Update the question additionals class based on the checkbox
-        document.getElementById("question-additionals").classList.remove('questionToEdit', 'questionNoToEdit');
-        if (checkboxEdit.checked) {
-            document.getElementById("question-additionals").classList.add('questionToEdit');
-        } else {
-            document.getElementById("question-additionals").classList.add('questionNoToEdit');
-        }
-    
+        document.getElementById('checkboxEdit').checked = selectedItem.edition === true;
+            
+
+    colorAssociation(selectedItem.topic, selectedItem.edition)    
     } else {
         document.getElementById('displayText1').innerText = 'No text available based on the selected filters.';
         document.getElementById('displayText2').innerText = '';
         document.getElementById('displayText3').innerText = '';
         document.getElementById('displayText4').innerText = '';
     }
-    
-    handleSelection();
+    /* 
+    handleSelection(); */
     
 }
 

@@ -48,7 +48,7 @@
 
 
             <div id="checkboxes" class="space-between margin8px section-1">
-                <input type="checkbox" id="interviewer" class="checkbox" value="Interviewer" checked>
+                <input type="checkbox" id="interviewer" class="checkbox topic" value="Interviewer" checked>
                 <label for="interviewer">Int</label>
             
                 <input type="checkbox" id="candidate" class="checkbox" value="Candidate" checked>
@@ -57,10 +57,10 @@
                 <input type="checkbox" id="advice" class="checkbox" value="Advice" checked>
                 <label for="advice">Adv</label>
             
-                <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement" checked>
+                <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement" >
                 <label for="encouragement">Enc</label>
             
-                <input type="checkbox" id="edit" class="checkbox" value="yes" data-key="editing">
+                <input type="checkbox" id="edit" class="checkbox" value="true" data-key="edition">
                 <label for="edit">Edit</label>
             </div>
 
@@ -152,41 +152,6 @@
         <div class="collapse collapseExample" id="collapseExample">
             <div class="card card-body">
                                     <div id="displayText2" class=" questionSection">Explanation</div>
-<!-- 
-
-                    <div class="margin8px">
-                        <label for="dropdown_topic">Topic</label>
-                        <select id="dropdown_topic" onchange="handleSelection()">
-                            <option value="Interviewer">Interviewer</option>
-
-                            <option value="Candidate">Candidate</option>
-                            <option value="Advice">Advice</option>
-
-                            <option value="Encouragement">Encouragement</option>
-                        </select>
-                    </div>
-                    <div class="margin8px">
-                        <label for="dropdown_edition">Needs Editing?</label>
-                        <select id="dropdown_edition" onchange="handleSelection()">
-                            <option value="yes">Yes</option>
-                            <option value="no" selected>No</option>
-                        </select>
-                    </div>
-                    <div class="margin8px">
-                        <label for="dropdown_representation">Response Score: </label>
-                        <select id="dropdown_representation">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3" selected>3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-
-
-
-
- -->
                     <div id="radioButtonsContainer" class="space-between margin8px section-1">
                         <div id="radioButtonsWrapper">
                             <input type="radio" id="radioInterviewer" name="topic" class="radio" value="Interviewer">
@@ -198,11 +163,11 @@
                             <input type="radio" id="radioAdvice" name="topic" class="radio" value="Advice">
                             <label for="radioAdvice">Adv</label>
                     
-                            <input type="radio" id="radioEncouragement" name="topic" class="radio" value="Encouragement">
+                            <input type="radio" id="radioEncouragement" name="topic" class="radio"  value="Encouragement">
                             <label for="radioEncouragement">Enc</label>
                         </div>
                         <div id="checkboxWrapper">
-                            <input type="checkbox" id="checkboxEdit" class="checkbox" value="yes" data-key="editing">
+                            <input type="checkbox" id="checkboxEdit" class="checkbox" value="yes" data-key="editing" >
                             <label for="checkboxEdit">Edit</label>
                         </div>
                     </div>

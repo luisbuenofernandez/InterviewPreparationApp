@@ -285,7 +285,7 @@ button#fetchButton:hover, button#submitButton:hover {
 }
 
 .questionToEdit {
-    color: rgb(255, 55, 55);
+    color: rgb(255, 85, 55);
 }
 
 /* .questionNotToEdit {
@@ -308,7 +308,9 @@ button#fetchButton:hover, button#submitButton:hover {
 /* Basic styling for checkbox labels */
 #checkboxes {
     margin-top: 16px;
+    color: whitesmoke;
 }
+
 
 #checkboxes label {
     padding: 4px 16px;
@@ -344,30 +346,39 @@ input[type="checkbox"]#interviewer + label {
 input[type="checkbox"]#interviewer:checked + label {
     border-color: skyblue; /* Soft pastel blue for Interviewer */
     color: skyblue; /* Text color for Interviewer */
+
 }
+
+
+
+
 
 input[type="checkbox"]#candidate:checked + label {
     border-color: rgb(121, 225, 98); /* Soft pastel green for Candidate */
     color: rgb(121, 225, 98); /* Text color for Candidate */
 }
 
+
 input[type="checkbox"]#advice:checked + label {
     border-color: #ffcc80; /* Soft pastel orange-yellow for Advice */
     color: #ffcc80; /* Text color for Advice */
 }
+
 
 input[type="checkbox"]#encouragement:checked + label {
     border-color: rgb(204, 153, 255); /* Soft pastel purple for Encouragement */
     color: rgb(204, 153, 255); /* Text color for Encouragement */
 }
 
+
 input[type="checkbox"]#edit + label {
     margin-right: 0;
+
 }
 
 input[type="checkbox"]#edit:checked + label {
-    border-color: rgb(255, 100, 55); /* Distinct color for Edit */
-    color: rgb(255, 100, 55); /* Text color for Edit */
+    border-color: rgb(255, 85, 55); /* Distinct color for Edit */
+    color: rgb(255, 85, 55); /* Text color for Edit */
 }
 
 /* Fallback for older browsers */
@@ -387,9 +398,13 @@ input[type="checkbox"]#edit:checked + label {
 
 
  #radioButtonsContainer {
-    margin-top: 16px;
+    /* margin-top: 16px; */
     display: flex;
     justify-content: space-between;
+    color: whitesmoke;/* 
+    margin-left: 0;
+    margin-right: 0; */
+    margin: 4px 0;
 }
 
 #radioButtonsWrapper {
@@ -406,6 +421,7 @@ input[type="checkbox"]#edit:checked + label {
 
 #radioButtonsWrapper label,
 #checkboxWrapper label {
+    width: 45px;
     padding: 4px;
     cursor: pointer;
     border: 2px solid whitesmoke; /* Default border color and thickness */
@@ -413,7 +429,7 @@ input[type="checkbox"]#edit:checked + label {
     display: inline-block;
     font-weight: bold; /* Default text weight */
     transition: border-color 0.3s, color 0.3s; /* Smooth transition */
-    
+    margin: 2px;
     text-align: center;
 }
 
@@ -460,8 +476,8 @@ input[type="checkbox"]#checkboxEdit + label {
 }
 
 input[type="checkbox"]#checkboxEdit:checked + label {
-    border-color: rgb(255, 100, 55); /* Distinct color for Edit */
-    color: rgb(255, 100, 55); /* Text color for Edit */
+    border-color: rgb(255, 85, 55); /* Distinct color for Edit */
+    color: rgb(255, 85, 55); /* Text color for Edit */
 }
 
 
