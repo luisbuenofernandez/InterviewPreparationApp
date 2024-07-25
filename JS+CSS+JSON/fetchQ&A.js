@@ -11,6 +11,7 @@ let newData;
 let savedQuestion;
 let savedData = null;
 let matchedObject;
+let foundLine;
 
 
 
@@ -45,8 +46,9 @@ function addNewData() {
 
     console.log("submitButton read")
 
-    savedData.lines = savedData.lines.filter(line => line.question !== foundLine.question);
-    
+    if (foundLine.edition = true ) {
+        foundLine.edition = false;
+    }
 
     // Retrieve data from text areas
     const question = document.getElementById('edit-question').value;
@@ -61,6 +63,8 @@ function addNewData() {
     const newData = {
         question: question,
         explanation: explanation,
+        "topic": foundLine.topic,
+        "edition": foundLine.edition,
         answer: answer,
         example: example
     };
@@ -69,6 +73,7 @@ function addNewData() {
     
     console.log(newData)
 
+    savedData.lines = savedData.lines.filter(line => line.question !== foundLine.question);
 
 
     console.log("data stored online before updating new one")
