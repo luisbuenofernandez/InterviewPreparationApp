@@ -542,8 +542,7 @@ textarea {
     border: .5px solid #9595955a;
 
     width: 100%;
-    max-width: 800px;
-    height: 100px;
+    height: 100%;
     /* Hidden textarea with specific dimensions */
     border-radius: 8px;
 }   
