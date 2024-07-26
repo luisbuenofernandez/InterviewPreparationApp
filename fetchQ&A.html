@@ -6,12 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learning Time</title>
 
-
-
     <link rel="stylesheet" href="JS+CSS+JSON/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+
+    <style>
+        #textInput {
+            width: 100%;
+            height: 200px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        #output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .format-buttons {
+            display: none;
+            padding: 8px;
+            align-items: center;
+            justify-content: center;
+    border: .5px solid #9595955a;
+            border-radius: 8px;
+        }
+
+        button {
+            margin-right: 5px;
+        }
+
+        .highlight-button {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            padding: 0;
+            margin-top: 8px;
+        }
+
+
+        #saveButton,
+#cancelButton {
+    display: none; /* Hide buttons by default */
+    width: 100%;
+    font-weight: bold;
+    border-radius: 25px;
+}
+
+#saveButton {
+    background-color: #3498db;
+    color: white;
+}
+
+#cancelButton {
+    border: 3px solid grey;
+    color: grey;
+}
+
+    </style>
 
 
 </head>
@@ -28,114 +85,58 @@
             <div class="topLeftCorner">
                 <button id="deleteButton" class="delete-btn btn"><img src="JS+CSS+JSON/trash-fill.svg"
                         alt="Delete Button"></button>
-                <button id="editBtn" class="edit-btn btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><img
-                        src="JS+CSS+JSON/pen-fill.svg" alt="Edit Button"></button>
-
-
-
-                
-
+                <button id="editButton" class="edit-btn btn"><img src="JS+CSS+JSON/pen-fill.svg"
+                        alt="Edit Button"></button>
             </div>
-
-
         </div>
     </div>
 
-<!-- 
-    <div class="collapse collapseExample" id="collapseExample2">
-        <div class="card card-body">
- -->
+    <div id="checkboxes" class="space-between margin8px ">
+        <input type="checkbox" id="interviewer" class="checkbox topic" value="Interviewer" checked>
+        <label for="interviewer">Int</label>
 
+        <input type="checkbox" id="candidate" class="checkbox" value="Candidate" checked>
+        <label for="candidate">Can</label>
 
-            <div id="checkboxes" class="space-between margin8px section-1">
-                <input type="checkbox" id="interviewer" class="checkbox topic" value="Interviewer" checked>
-                <label for="interviewer">Int</label>
-            
-                <input type="checkbox" id="candidate" class="checkbox" value="Candidate" checked>
-                <label for="candidate">Can</label>
-            
-                <input type="checkbox" id="advice" class="checkbox" value="Advice" checked>
-                <label for="advice">Adv</label>
-            
-                <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement" >
-                <label for="encouragement">Enc</label>
-            
-                <input type="checkbox" id="edit" class="checkbox" value="true" data-key="edition">
-                <label for="edit">Edit</label>
-            </div>
+        <input type="checkbox" id="advice" class="checkbox" value="Advice" checked>
+        <label for="advice">Adv</label>
 
+        <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement">
+        <label for="encouragement">Enc</label>
 
-        </div>
+        <input type="checkbox" id="edit" class="checkbox" value="true" data-key="edition">
+        <label for="edit">Edit</label>
+
     </div>
 
 
 
 
-
-
-
-
-
-
-
-
-    <!-- MODAL TO EDIT QUESTION -->
-    <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">EDIT</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body ">
-
-                    <div Id="editableText" class="">
-                        <div>
-                            <h4>Question</h4>
-                            <textarea id="edit-question"></textarea>
-
-                        </div>
-                        <div>
-                            <h4>Explanation</h4>
-
-                            <textarea id="edit-explanation"></textarea>
-
-                        </div>
-                        <div>
-                            <h4>Answer</h4> <textarea id="edit-answer"></textarea>
-
-                        </div>
-                        <div>
-                            <h4>Example</h4>
-                            <textarea id="edit-example"></textarea>
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-
-                    <button id="submitButton" type="button" class="btn btn-primary">Understood</button>
-                </div>
+    <div class="format-buttons margin8px">
+        <div id="format-buttons">
+            <button onclick="formatText('bold')">Bold</button>
+            <button onclick="formatText('strikethrough')">Strikethrough</button>
+            <button onclick="formatText('italic')">Italic</button>
+            <button onclick="formatText('underline')">Underline</button>
+            <div id="highlightContainer">
+                <button class="highlight-button" style="background-color: #33CCFF;" onclick="highlightText('#33CCFF')"></button>
+                <button class="highlight-button" style="background-color: lightgreen;" onclick="highlightText('lightgreen')"></button>
+                <button class="highlight-button" style="background-color: #ffcc80;" onclick="highlightText('yellow')"></button>
+                <button class="highlight-button" style="background-color: pink;" onclick="highlightText('pink')"></button>
+                <button class="highlight-button" style="background-color: rgb(204, 153, 255);;" onclick="highlightText('lightcoral')"></button>
+                <button class="highlight-button" style="background-color: white; border: .5px solid #9595955a" onclick="removeHighlight()"></button>
             </div>
         </div>
     </div>
+    
 
+    <div class="margin8px questionSection">
 
-
-    <div class="margin8px  questionSection">
-
-
-
-
-
+        
         <div>
-            <div class="show-question">
+            <div class="show-question" contenteditable="false">
                 <h2 id="displayText1">Question</h2>
-
             </div>
-
             <div>
                 <button id="question-additionals" class="margin8px" button" data-bs-toggle="collapse"
                     data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -146,76 +147,76 @@
                     </svg>
                 </button>
             </div>
-
         </div>
 
         <div class="collapse collapseExample" id="collapseExample">
             <div class="card card-body">
-                                    <div id="displayText2" class=" questionSection">Explanation</div>
-                    <div id="radioButtonsContainer" class="space-between margin8px section-1">
-                        <div id="radioButtonsWrapper">
-                            <input type="radio" id="radioInterviewer" name="topic" class="radio" value="Interviewer">
-                            <label for="radioInterviewer">Int</label>
-                    
-                            <input type="radio" id="radioCandidate" name="topic" class="radio" value="Candidate">
-                            <label for="radioCandidate">Can</label>
-                    
-                            <input type="radio" id="radioAdvice" name="topic" class="radio" value="Advice">
-                            <label for="radioAdvice">Adv</label>
-                    
-                            <input type="radio" id="radioEncouragement" name="topic" class="radio"  value="Encouragement">
-                            <label for="radioEncouragement">Enc</label>
-                        </div>
-                        <div id="checkboxWrapper">
-                            <input type="checkbox" id="checkboxEdit" class="checkbox" value="yes" data-key="editing" >
-                            <label for="checkboxEdit">Edit</label>
-                        </div>
+                <div id="displayText2" class=" questionSection">Explanation</div>
+                <div id="radioButtonsContainer" class="space-between margin8px section-1">
+                    <div id="radioButtonsWrapper">
+                        <input type="radio" id="radioInterviewer" name="topic" class="radio" value="Interviewer">
+                        <label for="radioInterviewer">Int</label>
+
+                        <input type="radio" id="radioCandidate" name="topic" class="radio" value="Candidate">
+                        <label for="radioCandidate">Can</label>
+
+                        <input type="radio" id="radioAdvice" name="topic" class="radio" value="Advice">
+                        <label for="radioAdvice">Adv</label>
+
+                        <input type="radio" id="radioEncouragement" name="topic" class="radio" value="Encouragement">
+                        <label for="radioEncouragement">Enc</label>
                     </div>
-                    
+                    <div id="checkboxWrapper">
+                        <input type="checkbox" id="checkboxEdit" class="checkbox" value="yes" data-key="editing">
+                        <label for="checkboxEdit">Edit</label>
+                    </div>
+                </div>
             </div>
-
         </div>
-
-
-
-
     </div>
-
-    </div>
-
-
-
 
     <div class="section-2 margin8px">
         <div id="editableText" class="scrollable">
-
-            <div>
+            <div contenteditable="false">
                 <h5 id="displayText3">Answer</h5>
             </div>
             <hr>
-            <div id="displayText4">Example</div>
+            <div id="displayText4" contenteditable="false">Example</div>
         </div>
     </div>
 
-
-
     <div class="section-3 margin8px">
         <button id="fetchButton" class="btn">Fetch Random Text</button>
+
+        <div class="space-between">
+            
+            <button id="cancelButton" class="btn">Cancel</button>
+            <button id="saveButton" class="btn">Save</button>
+        
+        </div>
     </div>
 
-
-
-
-
     <script src="JS+CSS+JSON/fetchQ&A.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-    <!-- <script src="JS+CSS+JSON/edit.js"></script> -->
 
 
+        <script>
+            function highlightText(color) {
+                document.execCommand('hiliteColor', false, color);
+            }
+            
+            function removeHighlight() {
+                document.execCommand('removeFormat', false, 'hiliteColor');
+            }
+            
+            function formatText(command) {
+                document.execCommand(command, false, null);
+            }
+            </script>
+            
 </body>
 
 </html>

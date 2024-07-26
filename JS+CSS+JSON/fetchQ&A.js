@@ -16,10 +16,102 @@ let foundLine;
 
 
 
+
+
+const editButton = document.getElementById('editButton');
+const saveButton = document.getElementById('saveButton');
+const cancelButton = document.getElementById('cancelButton');
+const fetchButton = document.getElementById('fetchButton');
+const deleteButton = document.getElementById('deleteButton');
+const checkboxes = document.getElementById('checkboxes');
+const formatButtons = document.querySelector('.format-buttons');
+const displayText1 = document.getElementById('displayText1');
+const displayText2 = document.getElementById('displayText2');
+const displayText3 = document.getElementById('displayText3');
+const displayText4 = document.getElementById('displayText4');
+const checkboxEdit = document.getElementById('checkboxEdit');
+
+
+let isEditing;
+
+
+function initDisplay() {
+    if (checkboxEdit.checked) {
+        displayText1.contentEditable = 'true';
+        displayText2.contentEditable = 'true';
+        displayText3.contentEditable = 'true';
+        displayText4.contentEditable = 'true';
+    } else {
+        displayText1.contentEditable = 'false';
+        displayText2.contentEditable = 'false';
+        displayText3.contentEditable = 'false';
+        displayText4.contentEditable = 'false';
+    }
+    // Ensure the buttons are initially hidden
+    saveButton.style.display = 'none';
+    cancelButton.style.display = 'none';
+}
+
+
+// Reset the layout and styles of checkboxes
+function resetCheckboxes() {
+    const labels = checkboxes.querySelectorAll('label');
+    labels.forEach(label => {
+        label.style.width = 'auto'; // Reset width to auto for proper wrapping
+        label.style.display = 'inline-block'; // Ensure labels are inline-block
+    });
+}
+
+// Toggle edit modelet originalContent1, originalContent2, originalContent3, originalContent4;
+
+function toggleEditing(isEditing) {
+    editButton.style.display = isEditing ? 'none' : 'inline-block';
+    deleteButton.style.display = isEditing ? 'none' : 'inline-block';
+    checkboxes.style.display = isEditing ? 'none' : 'flex'; // Set back to flex
+    formatButtons.style.display = isEditing ? 'block' : 'none';
+    fetchButton.style.display = isEditing ? 'none' : 'inline-block'; // Hide fetchButton when editing
+
+    // Show/Hide save and cancel buttons based on editing state
+    saveButton.style.display = isEditing ? 'inline-block' : 'none';
+    cancelButton.style.display = isEditing ? 'inline-block' : 'none';
+
+    // Toggle edit mode on text elements
+    const contentEditable = isEditing ? 'true' : 'false';
+    displayText1.contentEditable = contentEditable;
+    displayText2.contentEditable = contentEditable;
+    displayText3.contentEditable = contentEditable;
+    displayText4.contentEditable = contentEditable;
+
+    // Ensure highlighting and formatting can be applied during editing
+    if (isEditing) {
+        document.execCommand('defaultParagraphSeparator', false, 'p');
+
+        // Save the original content
+        originalContent1 = displayText1.innerHTML;
+        originalContent2 = displayText2.innerHTML;
+        originalContent3 = displayText3.innerHTML;
+        originalContent4 = displayText4.innerHTML;
+    }
+}
+
+
+function highlightText(color) {
+    if (isEditing) {
+        document.execCommand('hiliteColor', false, color);
+    }
+}
+
+function removeHighlight() {
+    if (isEditing) {
+        document.execCommand('removeFormat', false, null);
+    }
+}
+
+
 function colorAssociation(topic, edition) {
     let questionSection = document.querySelector(".questionSection");
     questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
-    
+
     switch (topic) {
         case 'Candidate':
             questionSection.classList.add('candidate-bg');
@@ -42,59 +134,43 @@ function colorAssociation(topic, edition) {
 }
 
 
+// Updated function to store styling and save data
 function addNewData() {
+    console.log("submitButton read");
 
-    console.log("submitButton read")
-
-    if (foundLine.edition = true ) {
+/*     if (foundLine.edition = true) {
         foundLine.edition = false;
     }
-
+ */
     // Retrieve data from text areas
-    const question = document.getElementById('edit-question').value;
-    const explanation = document.getElementById('edit-explanation').value;
-    const answer = document.getElementById('edit-answer').value;
-    const example = document.getElementById('edit-example').value;
 
-    savedQuestion = question;
+    savedQuestion = document.getElementById('displayText1').innerHTML;
+    console.log(savedQuestion)
     localStorage.setItem("savedQuestion", savedQuestion);
 
-    // Create new data object
+    // Create new data object including styled content
     const newData = {
-        question: question,
-        explanation: explanation,
+        question: document.getElementById('displayText1').innerHTML,
+        explanation: document.getElementById('displayText2').innerHTML,
         "topic": foundLine.topic,
         "edition": foundLine.edition,
-        answer: answer,
-        example: example
+        answer: document.getElementById('displayText3').innerHTML,
+        example: document.getElementById('displayText4').innerHTML
     };
 
-    console.log("NEW DATA")
-    
-    console.log(newData)
+    console.log("NEW DATA");
+    console.log(newData);
 
     savedData.lines = savedData.lines.filter(line => line.question !== foundLine.question);
 
-
-    console.log("data stored online before updating new one")
-    console.log(savedData)
-
-
+    console.log("data stored online before updating new one");
+    console.log(savedData);
 
     savedData.lines.push(newData);
     let dataToUpload = savedData;
 
-
-    console.log("new DATA ABOUT TO BE UPDATED")
-    console.log(dataToUpload    );
-
-
-
-
-
-
-
-
+    console.log("new DATA ABOUT TO BE UPDATED");
+    console.log(dataToUpload);
 
     // POST request to add new data
     fetch(urlData, {
@@ -104,172 +180,55 @@ function addNewData() {
         },
         body: JSON.stringify(dataToUpload),
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to add new data');
-            }
-            // Wait 3 seconds before fetching and displaying updated data
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to add new data');
+        }
+        // Wait 3 seconds before fetching and displaying updated data
+        console.log("CLEAR TEXTAREA");
+        document.getElementById('displayText1').value = "";
+        document.getElementById('displayText2').value = "";
+        document.getElementById('displayText3').value = "";
+        document.getElementById('displayText4').value = "";
 
-
-            console.log("CLEAR TEXTAREA");
-            document.getElementById('edit-question').value = ""
-            document.getElementById('edit-explanation').value = ""
-            document.getElementById('edit-answer').value = ""
-            document.getElementById('edit-example').value = ""
-
-            
-
-            /* window.location.href = "index.html" */
-            localStorage.setItem('savedQuestion', savedQuestion);
-            window.location.href = currentUrl;
-
-
-        })
-        .catch(error => console.error('Error adding new data:', error));
-
+        localStorage.setItem('savedQuestion', savedQuestion);
+        
+    })
+    .catch(error => console.error('Error adding new data:', error));
 }
 
-
-
-
-
- function editBtnShowModal() {
-
-    current_question = localStorage.getItem("savedQuestion")
-
-    console.log("EDIT BTN FUNCTION START")
-
-        
-        console.log("current_question" + savedQuestion)
-        
-
-            // If you want to find a specific question
-            foundLine = savedData.lines.find(line => line.question === savedQuestion);
-            
-            console.log("found object: " + foundLine.question)
-            console.log("found object: " + foundLine.explanation)
-            console.log("found object: " + foundLine.answer)
-            console.log("found object: " + foundLine.example)
-
-                document.getElementById('edit-question').value = foundLine.question;
-                document.getElementById('edit-explanation').value = foundLine.explanation;
-                document.getElementById('edit-example').value = foundLine.example;
-                document.getElementById('edit-answer').value = foundLine.answer;
-
-
-                /* Delete the current object after showin it in the model */
-                
-
-                /* addNewData() */
-                document.getElementById("submitButton").addEventListener("click", addNewData);
-
-    
-    
-} 
-
-
+// Updated function to display saved question with styling
 function showJustEditedQuestion() {
-
-
-
-/* 
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-CARGAR DE LOCAL STORAGE QUE FILTROS ESTAN SELECCIONADOS PARA QUE SIEMPRE APAREZCAN LOS ULTIMOS
-
-
-
-*/
-
-
-
-
-
-
-
-
     if (localStorage.getItem('savedQuestion')) {
-
         savedQuestion = localStorage.getItem('savedQuestion');
-        console.log("shiowjusteditedquestion: " + savedQuestion)
+        console.log("showjusteditedquestion: " + savedQuestion);
 
         fetch(urlData)
+        .then(response => response.json())
+        .then(data => {
+            // If you want to find a specific question
+            foundLine = data.lines.find(line => line.question === savedQuestion);
 
-            .then(response => response.json())
-            .then(data => {
+            if (foundLine) {
+                document.getElementById('displayText1').innerHTML = foundLine.question;
+                document.getElementById('displayText2').innerHTML = foundLine.explanation;
 
-                // If you want to find a specific question
-                const foundLine = data.lines.find(line => line.question === savedQuestion);
+                document.querySelectorAll('input[name="topic"]').forEach(radio => {
+                    if (radio.value === foundLine.topic) {
+                        radio.checked = true;
+                    }
+                });
+                document.getElementById('checkboxEdit').checked = foundLine.edition === true;
 
-                if (foundLine) {
-                    /* GET TEXTAREAS FROM "EDIT.HTML" */
-                    document.getElementById('displayText1').innerHTML = foundLine.question;
-                    document.getElementById('displayText2').innerHTML = foundLine.explanation;
+                document.getElementById('displayText3').innerHTML = foundLine.answer;
+                document.getElementById('displayText4').innerHTML = foundLine.example;
 
-                    /* QUESTION ADDITIONALS */
-
-                    document.querySelectorAll('input[name="topic"]').forEach(radio => {
-                        if (radio.value === foundLine.topic) {
-                            radio.checked = true;
-                        }
-                    });
-                    document.getElementById('checkboxEdit').checked = foundLine.edition === true;
-
-                    document.getElementById('displayText3').innerHTML = foundLine.answer;
-                    document.getElementById('displayText4').innerHTML = foundLine.example;
-
-
-
-
-                    colorAssociation(foundLine.topic, foundLine.edition);
-
-                    document.getElementById("editBtn").addEventListener("click", editBtnShowModal);
-
-                    
-                }
-            })
-            .catch(error => console.error('Error fetching JSON:', error));
-
+                colorAssociation(foundLine.topic, foundLine.edition);
+            }
+        })
+        .catch(error => console.error('Error fetching JSON:', error));
     }
-
 }
-
-
-/* function goToFetchOrHome() {
-
-    if (localStorage.getItem('savedQuestion')) {
-        console.log(localStorage.getItem('savedQuestion'))
-
-        const backBtn = document.createElement('a');
-        backBtn.href = `showAll.html`;
-        backBtn.textContent = "Back";
-        document.getElementById('goBackOrGoHome').appendChild(backBtn);
-
-    } else {
-        console.log("not question saved")
-
-        const homeBtn = document.createElement('a');
-        homeBtn.href = `index.html`;
-        homeBtn.textContent = "Home";
-        document.getElementById('goBackOrGoHome').appendChild(homeBtn);
-
-    }
-
-} */
-
-
-/* EDIT THIS FUNCTION TO SELECT YES OR NOT TO EDITTING */
-
-/* 
-    Make for this question to add a new atribute to the object
-
-    ****** ALSO *******
-
-    Use the same function and do the same but for topic to choose between candidate,
-    interviewe and stuff, depending on the selected change the background of the question
-
-
-*/
 
 function handleSelection() {
     console.log("-------------------");
@@ -302,7 +261,7 @@ function handleSelection() {
         explanation: matchedObject.explanation,
         topic: topic,
         edition: edition, // true or false
-     
+
         answer: matchedObject.answer,
         example: matchedObject.example
     };
@@ -325,13 +284,13 @@ function handleSelection() {
         },
         body: JSON.stringify(savedData),
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to add new data');
-        }
-        console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
-    })
-    .catch(error => console.error('Error adding new data:', error));
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to add new data');
+            }
+            console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
+        })
+        .catch(error => console.error('Error adding new data:', error));
 }
 // Initialize the default selection result on page load
 /* document.addEventListener("DOMContentLoaded", function () {
@@ -360,93 +319,39 @@ fetch(urlData)
 
 
 
-/*  THIS PART TAKES DE TARA IN THE DROPDOWNS FROM THE HTML AND UPLOAD THE JSON ONLINE*/
-
-/*    function saveAdditionalData () {
-
-       console.log("FUNCTIN SAVE ADDITIONAL DATA GOES IN")
-       console.log(savedData)
-
-
-       
-       const topic = document.getElementById('dropdown_topic').value;
-   const edition = document.getElementById('dropdown_edition').value;
-   const representation = document.getElementById('dropdown_representation').value;
-
-   // Create new data object
-   newData = {
-       question: question,
-       explanation: explanation,
-
-       topic: topic,
-       edition: edition,
-       representation: representation,
-
-       answer: answer,
-       example: example
-   };
-
-
-   savedData.lines.push(newData);
 
 
 
-   fetch(urlData, {
-       method: 'POST',
-       headers: {
-           'Content-Type': 'application/json',
-       },
-       body: JSON.stringify(savedData),
-   })
-       .then(response => {
-           if (!response.ok) {
-               throw new Error('Failed to add new data');
-           }
-           // Wait 3 seconds before fetching and displaying updated data
- 
- 
-           
- 
- 
- 
- 
-       })
-       .catch(error => console.error('Error adding new data:', error));
- 
- 
-   } */
 
-/* SHOW QUESTION AND ANSWER INSIDE THE SCROLLABLE AREA */
-function fetchRandomText() {
-    
-    console.log("Button fetch works");
 
+/* SHOW QUESTION AND ANSWER INSIDE THE SCROLLABLE AREA */function fetchRandomText() {
     document.getElementById('editableText').scrollTop = 0;
-    
+
     // Filter questions based on selected checkboxes
     const topicCheckboxes = Array.from(document.querySelectorAll('#checkboxes input[type="checkbox"]:not([value="true"])'));
-const isEditingChecked = document.querySelector('#checkboxes input[value="true"]').checked;
+    const isEditingChecked = document.querySelector('#checkboxes input[value="true"]').checked;
 
-let filteredLines = data.lines.filter(item => {
-    const matchesTopic = topicCheckboxes.length === 0 || topicCheckboxes.some(checkbox => checkbox.checked && item.topic === checkbox.value);
-    const matchesEditing = !isEditingChecked || (isEditingChecked && (item.edition === true || item.edition === "true"));
-    return matchesTopic && matchesEditing;
-});
+    let filteredLines = data.lines.filter(item => {
+        const matchesTopic = topicCheckboxes.length === 0 || topicCheckboxes.some(checkbox => checkbox.checked && item.topic === checkbox.value);
+        const matchesEditing = !isEditingChecked || (isEditingChecked && (item.edition === true || item.edition === "true"));
+        return matchesTopic && matchesEditing;
+    });
 
-    
     if (filteredLines.length > 0) {
         const randomIndex = Math.floor(Math.random() * filteredLines.length);
         const selectedItem = filteredLines[randomIndex];
-    
+
         savedQuestion = selectedItem.question;
+        foundLine = selectedItem;
+        console.log('Selected item:', selectedItem);
         console.log(savedQuestion);
         localStorage.setItem('savedQuestion', savedQuestion);
-    
-        document.getElementById('displayText1').innerText = selectedItem.question;
-        document.getElementById('displayText2').innerText = selectedItem.explanation;
-        document.getElementById('displayText3').innerText = selectedItem.answer;
-        document.getElementById('displayText4').innerText = selectedItem.example;
-    
+
+        document.getElementById('displayText1').innerHTML = selectedItem.question;
+        document.getElementById('displayText2').innerHTML = selectedItem.explanation;
+        document.getElementById('displayText3').innerHTML = selectedItem.answer;
+        document.getElementById('displayText4').innerHTML = selectedItem.example;
+
         // Automatically select the corresponding radio button
         let radios = document.querySelectorAll('input[name="topic"]');
         radios.forEach(radio => {
@@ -454,20 +359,16 @@ let filteredLines = data.lines.filter(item => {
                 radio.checked = true;
             }
         });
-    
-        document.getElementById('checkboxEdit').checked = selectedItem.edition === true;
-            
 
-    colorAssociation(selectedItem.topic, selectedItem.edition)    
+        document.getElementById('checkboxEdit').checked = selectedItem.edition === true;
+
+        colorAssociation(selectedItem.topic, selectedItem.edition)
     } else {
         document.getElementById('displayText1').innerText = 'No text available based on the selected filters.';
         document.getElementById('displayText2').innerText = '';
         document.getElementById('displayText3').innerText = '';
         document.getElementById('displayText4').innerText = '';
     }
-    /* 
-    handleSelection(); */
-    
 }
 
 
@@ -542,20 +443,62 @@ function deleteCurrentText() {
 
 
 document.getElementById('deleteButton').addEventListener('click', deleteCurrentText);
-document.getElementById("editBtn").addEventListener("click", editBtnShowModal);
-
+/* document.getElementById("editBtn").addEventListener("click", editBtnShowModal);
+ */
 document.getElementById('fetchButton').addEventListener('click' || "enter", fetchRandomText);
 /* document.getElementById('editBtn').addEventListener('click', goToEdit); */
 
-showJustEditedQuestion();
 /* goToFetchOrHome(); */
 
 
 // Add event listeners to radio buttons and checkbox to update the UI in real time
-document.querySelectorAll('input[name="topic"]').forEach(radio => {
+/* document.querySelectorAll('input[name="topic"]').forEach(radio => {
     radio.addEventListener('change', handleSelection);
 });
 document.getElementById('checkboxEdit').addEventListener('change', handleSelection);
-
+ */
 // Initial call to set the UI based on default values
+
+// Handle the edit button click
+editButton.addEventListener('click', function () {
+    console.log("edit btn click")
+    toggleEditing(true);
+});
+
+// Handle the save button click
+saveButton.addEventListener('click', function () {
+    toggleEditing(false);
+
+    addNewData();
+    // Reset the checkboxes layout and styles
+
+
+    console.log("saving styled data")
+    resetCheckboxes();
+    // Implement saving logic here if needed
+});
+
+// Handle the cancel button click
+
+cancelButton.addEventListener('click', function () {
+    toggleEditing(false);
+    // Reset the checkboxes layout and styles
+    resetCheckboxes();
+    
+    // Revert to the original content
+    displayText1.innerHTML = originalContent1;
+    displayText2.innerHTML = originalContent2;
+    displayText3.innerHTML = originalContent3;
+    displayText4.innerHTML = originalContent4;
+});
+
+
+
+
+
+
+showJustEditedQuestion();
+// Initialize the display
+initDisplay();
+
 handleSelection();

@@ -255,7 +255,7 @@ button#fetchButton:hover, button#submitButton:hover {
 
  /* Define soft pastel colors */
  .interviewer-bg {
-    border: 3px solid skyblue; /* Soft pastel blue */
+    border: 3px solid #66D9FF; /* Soft pastel blue */
 }
 
 .candidate-bg {
@@ -305,27 +305,26 @@ button#fetchButton:hover, button#submitButton:hover {
 
 /* Basic styling for the checkboxes and output container */
 
-/* Basic styling for checkbox labels */
 #checkboxes {
     margin-top: 16px;
     color: whitesmoke;
+    display: flex; /* Use flexbox for alignment */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
 }
-
 
 #checkboxes label {
     padding: 4px 16px;
     cursor: pointer;
-    border: 3px solid whitesmoke; /* Default border color and thickness */
+    border: 3px solid whitesmoke;
     border-radius: 8px;
     display: inline-block;
-    width: 100%;    
-    font-weight: bold; /* Default text weight */
-    transition: border-color 0.3s, color 0.3s; /* Smooth transition */
+    width: auto; /* Ensure width is set to auto for proper wrapping */
+    font-weight: bold;
+    transition: border-color 0.3s, color 0.3s;
     margin: 4px;
     text-align: center;
 }
 
-/* Default styling for checkboxes */
 input[type="checkbox"] {
     display: none; /* Hide the default checkbox */
 }
@@ -344,8 +343,8 @@ input[type="checkbox"]#interviewer + label {
 
 /* Border colors for checked checkboxes */
 input[type="checkbox"]#interviewer:checked + label {
-    border-color: skyblue; /* Soft pastel blue for Interviewer */
-    color: skyblue; /* Text color for Interviewer */
+    border-color: #66D9FF; /* Soft pastel blue for Interviewer */
+    color: #66D9FF; /* Text color for Interviewer */
 
 }
 
@@ -451,8 +450,8 @@ input[type="radio"]#radioInterviewer + label {
 }
 
 input[type="radio"]#radioInterviewer:checked + label {
-    border-color: skyblue; /* Soft pastel blue for Interviewer */
-    color: skyblue; /* Text color for Interviewer */
+    border-color: #66D9FF; /* Soft pastel blue for Interviewer */
+    color: #66D9FF; /* Text color for Interviewer */
 }
 
 input[type="radio"]#radioCandidate:checked + label {

@@ -1,6 +1,4 @@
-
-
-const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON"
+const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON";
 let data;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -39,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function displayData(filteredData) {
         dataList.innerHTML = '';
+
         filteredData.forEach(item => {
             const a = document.createElement('a');
             a.classList.add('data-item');
@@ -49,9 +48,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem('savedQuestion', item.question);
             });
 
-            a.textContent = item.question;
+            // Strip HTML tags from the question before displaying
+            a.textContent = stripHtml(item.question);
+
             dataList.appendChild(a);
         });
+    }
+
+    // Function to strip HTML tags from a string
+    function stripHtml(html) {
+        const div = document.createElement('div');
+        div.innerHTML = html;
+        return div.textContent || div.innerText || '';
     }
 
     fetch(urlData)
