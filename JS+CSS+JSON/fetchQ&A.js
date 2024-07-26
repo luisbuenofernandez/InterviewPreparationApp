@@ -117,7 +117,7 @@ function addNewData() {
             document.getElementById('edit-answer').value = ""
             document.getElementById('edit-example').value = ""
 
-            alert('New data added successfully!');
+            
 
             /* window.location.href = "index.html" */
             localStorage.setItem('savedQuestion', savedQuestion);
@@ -169,6 +169,24 @@ function addNewData() {
 
 
 function showJustEditedQuestion() {
+
+
+
+/* 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+CARGAR DE LOCAL STORAGE QUE FILTROS ESTAN SELECCIONADOS PARA QUE SIEMPRE APAREZCAN LOS ULTIMOS
+
+
+
+*/
+
+
+
+
+
+
+
 
     if (localStorage.getItem('savedQuestion')) {
 
