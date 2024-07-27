@@ -232,6 +232,8 @@ function showJustEditedQuestion() {
             }
         })
         .catch(error => console.error('Error fetching JSON:', error));
+    } else {
+        fetchRandomText()
     }
 }
 function handleSelection() {
@@ -327,7 +329,9 @@ fetch(urlData)
 
 
 
-/* SHOW QUESTION AND ANSWER INSIDE THE SCROLLABLE AREA */function fetchRandomText() {
+/* SHOW QUESTION AND ANSWER INSIDE THE SCROLLABLE AREA */
+
+function fetchRandomText() {
     document.getElementById('editableText').scrollTop = 0;
 
     // Filter questions based on selected checkboxes
@@ -422,6 +426,10 @@ function deleteCurrentText() {
                 if (!response.ok) {
                     throw new Error('Failed to update data');
                 }
+
+
+
+                localStorage.removeItem("savedQuestion")
                 window.location.href = currentUrl;
             })
             .catch(error => console.error('Error updating data:', error));
