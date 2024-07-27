@@ -144,9 +144,9 @@
             <div id="highlightContainer">
                 <button class="highlight-button" style="background-color: #33CCFF;" onclick="highlightText('#33CCFF')"></button>
                 <button class="highlight-button" style="background-color: lightgreen;" onclick="highlightText('lightgreen')"></button>
-                <button class="highlight-button" style="background-color: #ffcc80;" onclick="highlightText('yellow')"></button>
+                <button class="highlight-button" style="background-color: #ffcc80;" onclick="highlightText('#ffcc80')"></button>
                 <button class="highlight-button" style="background-color: pink;" onclick="highlightText('pink')"></button>
-                <button class="highlight-button" style="background-color: rgb(204, 153, 255);;" onclick="highlightText('lightcoral')"></button>
+                <button class="highlight-button" style="background-color: rgb(204, 153, 255);;" onclick="highlightText('rgb(204, 153, 255)')"></button>
                 <button class="highlight-button" style="background-color: white; border: .5px solid #9595955a" onclick="removeHighlight()"></button>
             </div>
         </div>
@@ -159,33 +159,19 @@
         <div>
             <div class="show-question" contenteditable="false">
                 <h2 id="displayText1">Question</h2>
-            </div>
-            <div>
-                <button id="question-additionals" class="margin8px" button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
-                    </svg>
-                </button>
-            </div>
-        </div>
 
-        <div class="collapse collapseExample" id="collapseExample">
-            <div class="card card-body">
-                <div id="displayText2" class=" questionSection">Explanation</div>
+                
                 <div id="radioButtonsContainer" class="space-between margin8px section-1">
                     <div id="radioButtonsWrapper">
                         <input type="radio" id="radioInterviewer" name="topic" class="radio" value="Interviewer">
                         <label for="radioInterviewer">Int</label>
-
+    
                         <input type="radio" id="radioCandidate" name="topic" class="radio" value="Candidate">
                         <label for="radioCandidate">Can</label>
-
+    
                         <input type="radio" id="radioAdvice" name="topic" class="radio" value="Advice">
                         <label for="radioAdvice">Adv</label>
-
+    
                         <input type="radio" id="radioEncouragement" name="topic" class="radio" value="Encouragement">
                         <label for="radioEncouragement">Enc</label>
                     </div>
@@ -194,6 +180,27 @@
                         <label for="checkboxEdit">Edit</label>
                     </div>
                 </div>
+            </div>
+
+        <div class="collapse collapseExample" id="collapseExample">
+            <div class="card card-body">
+                <div id="displayText2" class=" questionSection">Explanation</div>
+        </div>
+            </div>
+
+
+
+
+            
+            <div>
+                <button id="question-additionals" class="margin8px" button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                    </svg> -->
+                </button>
             </div>
         </div>
     </div>

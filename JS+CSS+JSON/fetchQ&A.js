@@ -509,6 +509,17 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('checkboxEdit').addEventListener('change', handleSelection);
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Add event listener to checkbox
+    document.getElementById('checkboxEdit').addEventListener('change', handleSelection);
+
+    // Add event listeners to radio buttons
+    const radioButtons = document.querySelectorAll('input[name="topic"]');
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', handleSelection);
+    });
+});
+
 
 
 showJustEditedQuestion();
