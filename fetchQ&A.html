@@ -110,27 +110,49 @@
 
                 <button id="editButton" class="edit-btn btn"><img src="JS+CSS+JSON/pen-fill.svg"
                         alt="Edit Button"></button>
+                        
+                <button id="filter" class="btn" button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseExample">
+                    Filter
+                </button>
+                
+
+
+                
             </div>
         </div>
     </div>
 
-    <div id="checkboxes" class="space-between margin8px ">
-        <input type="checkbox" id="interviewer" class="checkbox topic" value="Interviewer" checked>
-        <label for="interviewer">Int</label>
+    <div class="margin8px">
 
-        <input type="checkbox" id="candidate" class="checkbox" value="Candidate" checked>
-        <label for="candidate">Can</label>
+        <div class="collapse collapseExample" id="collapseFilter">
+            <div class="card card-body">
 
-        <input type="checkbox" id="advice" class="checkbox" value="Advice" checked>
-        <label for="advice">Adv</label>
 
-        <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement">
-        <label for="encouragement">Enc</label>
-
-        <input type="checkbox" id="edit" class="checkbox" value="true" data-key="edition">
-        <label for="edit">Edit</label>
-
+                <div id="checkboxes" class="space-between">
+                    <input type="checkbox" id="interviewer" class="checkbox topic" value="Interviewer" checked>
+                    <label for="interviewer">Int</label>
+            
+                    <input type="checkbox" id="candidate" class="checkbox" value="Candidate" checked>
+                    <label for="candidate">Can</label>
+            
+                    <input type="checkbox" id="advice" class="checkbox" value="Advice" checked>
+                    <label for="advice">Adv</label>
+            
+                    <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement">
+                    <label for="encouragement">Enc</label>
+            
+                    <input type="checkbox" id="edit" class="checkbox" value="true" data-key="edition">
+                    <label for="edit">Edit</label>
+            
+                </div>
+            
+            
+        </div>
+            </div>
     </div>
+
+
 
 
 

@@ -114,8 +114,10 @@ justify-content: center;}
 }
 
 
-#filter-btn {
+#filter {
     margin-left: 8px;
+    border: 3px solid grey;
+    font-weight: bolder;
 }
 
 
@@ -309,8 +311,13 @@ button#fetchButton:hover, button#submitButton:hover {
 
 /* Basic styling for the checkboxes and output container */
 
+
+#collapseFilter {
+    border-radius: 8px;
+}
+
+
 #checkboxes {
-    margin-top: 16px;
     color: whitesmoke;
     display: flex; /* Use flexbox for alignment */
     flex-wrap: wrap; /* Allow items to wrap to the next line */
