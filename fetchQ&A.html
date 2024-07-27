@@ -33,6 +33,7 @@
             justify-content: center;
     border: .5px solid #9595955a;
             border-radius: 8px;
+            margin-bottom: 0;
         }
 
         button {
@@ -82,7 +83,16 @@
                 </div>
             </a>
 
+            
+
             <div class="topLeftCorner">
+
+
+                
+<button id="filter" class="btn" button" data-bs-toggle="collapse"
+data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseExample">
+Filter
+</button>
                 <button id="deleteButton" class="delete-btn btn" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="JS+CSS+JSON/trash-fill.svg"
                         alt="Delete Button"></button>
 
@@ -108,13 +118,9 @@
   </div>
 
 
+  
                 <button id="editButton" class="edit-btn btn"><img src="JS+CSS+JSON/pen-fill.svg"
                         alt="Edit Button"></button>
-                        
-                <button id="filter" class="btn" button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseExample">
-                    Filter
-                </button>
                 
 
 
@@ -123,13 +129,13 @@
         </div>
     </div>
 
-    <div class="margin8px">
+    <div class="">
 
         <div class="collapse collapseExample" id="collapseFilter">
-            <div class="card card-body">
+            <div class="card ">
 
 
-                <div id="checkboxes" class="space-between">
+                <div id="checkboxes" class="space-between margin8px>
                     <input type="checkbox" id="interviewer" class="checkbox topic" value="Interviewer" checked>
                     <label for="interviewer">Int</label>
             
@@ -139,7 +145,7 @@
                     <input type="checkbox" id="advice" class="checkbox" value="Advice" checked>
                     <label for="advice">Adv</label>
             
-                    <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement">
+                    <input type="checkbox" id="encouragement" class="checkbox" value="Encouragement" checked>
                     <label for="encouragement">Enc</label>
             
                     <input type="checkbox" id="edit" class="checkbox" value="true" data-key="edition">
@@ -175,7 +181,7 @@
     </div>
     
 
-    <div class="margin8px questionSection">
+    <div class="questionSection">
 
         
         <div>
@@ -237,7 +243,7 @@
         </div>
     </div>
 
-    <div class="section-3 margin8px">
+    <div id="section-3Fetch" class="section-3 margin8px">
         <button id="fetchButton" class="btn">Fetch Random Text</button>
 
         <div class="space-between">

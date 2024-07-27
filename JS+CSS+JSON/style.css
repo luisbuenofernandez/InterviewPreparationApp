@@ -126,9 +126,14 @@ justify-content: center;}
     margin-bottom: 16px;
 } */
 
+.card {
+    border-radius: 8px;
+}
 
 
-
+#section3-Fetch {
+    margin-top: 0;
+}
 
 
 .section1, .section-3 {
@@ -246,7 +251,7 @@ button#fetchButton:hover, button#submitButton:hover {
 .questionSection {
     box-shadow: 0px 1px 0px 0 rgba(0, 0, 0, 0.1);
     border: 1px solid #9595955a;
-    margin-bottom: 0;
+    margin: 8px 8px 0 8px;
     border-radius: 12px;
     padding: 8px;
     position: relative;

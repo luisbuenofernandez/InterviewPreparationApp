@@ -64,36 +64,38 @@ function resetCheckboxes() {
 
 // Toggle edit modelet originalContent1, originalContent2, originalContent3, originalContent4;
 
-function toggleEditing(isEditing) {
-    editButton.style.display = isEditing ? 'none' : 'inline-block';
-    deleteButton.style.display = isEditing ? 'none' : 'inline-block';
-    checkboxes.style.display = isEditing ? 'none' : 'flex'; // Set back to flex
-    formatButtons.style.display = isEditing ? 'block' : 'none';
+
+
+    function toggleEditing(isEditing) {
+        const section1 = document.querySelector('.section-1');
+    
+        section1.style.display = isEditing ? 'none' : 'block';
+        formatButtons.style.display = isEditing ? 'block' : 'none';
+    
+        // Show/Hide save and cancel buttons based on editing state
+        saveButton.style.display = isEditing ? 'inline-block' : 'none';
+        cancelButton.style.display = isEditing ? 'inline-block' : 'none';
+        
     fetchButton.style.display = isEditing ? 'none' : 'inline-block'; // Hide fetchButton when editing
-
-    // Show/Hide save and cancel buttons based on editing state
-    saveButton.style.display = isEditing ? 'inline-block' : 'none';
-    cancelButton.style.display = isEditing ? 'inline-block' : 'none';
-
-    // Toggle edit mode on text elements
-    const contentEditable = isEditing ? 'true' : 'false';
-    displayText1.contentEditable = contentEditable;
-    displayText2.contentEditable = contentEditable;
-    displayText3.contentEditable = contentEditable;
-    displayText4.contentEditable = contentEditable;
-
-    // Ensure highlighting and formatting can be applied during editing
-    if (isEditing) {
-        document.execCommand('defaultParagraphSeparator', false, 'p');
-
-        // Save the original content
-        originalContent1 = displayText1.innerHTML;
-        originalContent2 = displayText2.innerHTML;
-        originalContent3 = displayText3.innerHTML;
-        originalContent4 = displayText4.innerHTML;
+        // Toggle edit mode on text elements
+        const contentEditable = isEditing ? 'true' : 'false';
+        displayText1.contentEditable = contentEditable;
+        displayText2.contentEditable = contentEditable;
+        displayText3.contentEditable = contentEditable;
+        displayText4.contentEditable = contentEditable;
+    
+        // Ensure highlighting and formatting can be applied during editing
+        if (isEditing) {
+            document.execCommand('defaultParagraphSeparator', false, 'p');
+    
+            // Save the original content
+            originalContent1 = displayText1.innerHTML;
+            originalContent2 = displayText2.innerHTML;
+            originalContent3 = displayText3.innerHTML;
+            originalContent4 = displayText4.innerHTML;
+        }
     }
-}
-
+    
 
 function highlightText(color) {
     if (isEditing) {
@@ -504,10 +506,6 @@ cancelButton.addEventListener('click', function () {
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Add event listener to checkbox
-    document.getElementById('checkboxEdit').addEventListener('change', handleSelection);
-});
 
 document.addEventListener('DOMContentLoaded', function () {
     // Add event listener to checkbox
