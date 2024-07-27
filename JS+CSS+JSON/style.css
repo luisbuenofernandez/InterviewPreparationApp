@@ -79,9 +79,9 @@ justify-content: center;}
 
 
 #deleteButton {
-    background-color: rgb(255, 93, 93);
+    background-color: lightcoral;
     margin-right: 8px;
-    border: 2px solid;
+    border: 3px solid;
     border-color: rgb(230, 89, 89);
     width: 35px;
     display: flex;
@@ -94,9 +94,9 @@ justify-content: center;}
 }
 
 
-#editBtn {
-    background-color: rgb(128, 239, 103);
-    border: 2px solid;
+#editButton {
+    background-color: lightgreen;
+    border: 3px solid;
     border-color: rgb(121, 225, 98);
     width: 35px;
     display: flex;
@@ -107,6 +107,10 @@ justify-content: center;}
 #editBtn:hover {
     background-color: rgb(121, 225, 98);
 
+}
+
+#homeButton {
+    border: 3px solid whitesmoke;
 }
 
 

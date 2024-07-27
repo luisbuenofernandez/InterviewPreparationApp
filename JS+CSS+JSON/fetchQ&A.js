@@ -107,7 +107,6 @@ function removeHighlight() {
     }
 }
 
-
 function colorAssociation(topic, edition) {
     let questionSection = document.querySelector(".questionSection");
     questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
@@ -131,8 +130,13 @@ function colorAssociation(topic, edition) {
     let questionAdditionals = document.getElementById("question-additionals");
     questionAdditionals.classList.remove('questionToEdit', 'questionNoToEdit');
     questionAdditionals.classList.add(edition ? 'questionToEdit' : 'questionNoToEdit');
-}
 
+    // Update the SVG color based on the checkbox
+    let svgElement = document.querySelector('svg'); // Replace with the actual SVG selector
+    if (svgElement) {
+        svgElement.style.fill = edition ? 'rgb(255, 85, 55)' : '#333'; // Example colors
+    }
+}
 
 // Updated function to store styling and save data
 function addNewData() {
@@ -208,6 +212,7 @@ function showJustEditedQuestion() {
         .then(data => {
             // If you want to find a specific question
             foundLine = data.lines.find(line => line.question === savedQuestion);
+            console.log(foundLine)
 
             if (foundLine) {
                 document.getElementById('displayText1').innerHTML = foundLine.question;
@@ -229,7 +234,6 @@ function showJustEditedQuestion() {
         .catch(error => console.error('Error fetching JSON:', error));
     }
 }
-
 function handleSelection() {
     console.log("-------------------");
 
@@ -243,8 +247,6 @@ function handleSelection() {
         return; // Exit if no matched object is found
     }
 
-
-
     // Get the selected radio button value
     let radios = document.querySelectorAll('input[name="topic"]:checked');
     let topic = radios.length > 0 ? radios[0].value : 'Interviewer';
@@ -253,18 +255,19 @@ function handleSelection() {
     let checkboxEdit = document.getElementById("checkboxEdit");
     let edition = checkboxEdit.checked; // true or false
 
-    // Change background color based on the selected value
+    // Change background color and update SVG based on the selected values
     colorAssociation(topic, edition);
+
     // Create new data object
     let newData = {
         question: matchedObject.question,
         explanation: matchedObject.explanation,
         topic: topic,
         edition: edition, // true or false
-
         answer: matchedObject.answer,
         example: matchedObject.example
     };
+
     console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully!');
     console.log(newData);
 
@@ -419,8 +422,7 @@ function deleteCurrentText() {
                 if (!response.ok) {
                     throw new Error('Failed to update data');
                 }
-                alert('Data deleted successfully online!');
-                fetchRandomText(); // Call fetchRandomText after successful deletion
+                window.location.href = currentUrl;
             })
             .catch(error => console.error('Error updating data:', error));
     } else {
@@ -442,7 +444,7 @@ function deleteCurrentText() {
 
 
 
-document.getElementById('deleteButton').addEventListener('click', deleteCurrentText);
+document.getElementById('confirm-question-to-delete').addEventListener('click', deleteCurrentText);
 /* document.getElementById("editBtn").addEventListener("click", editBtnShowModal);
  */
 document.getElementById('fetchButton').addEventListener('click' || "enter", fetchRandomText);
@@ -494,6 +496,10 @@ cancelButton.addEventListener('click', function () {
 
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Add event listener to checkbox
+    document.getElementById('checkboxEdit').addEventListener('change', handleSelection);
+});
 
 
 
