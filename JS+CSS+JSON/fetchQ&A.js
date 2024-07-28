@@ -68,7 +68,6 @@ function resetCheckboxes() {
 
     function toggleEditing(isEditing) {
         const section1 = document.querySelector('.section-1');
-        const collapseFilter = document.getElementById("collapseFilter")
     
         section1.style.display = isEditing ? 'none' : 'block';
         formatButtons.style.display = isEditing ? 'block' : 'none';
@@ -77,8 +76,7 @@ function resetCheckboxes() {
         saveButton.style.display = isEditing ? 'inline-block' : 'none';
         cancelButton.style.display = isEditing ? 'inline-block' : 'none';
         
-        fetchButton.style.display = isEditing ? 'none' : 'inline-block'; // Hide fetchButton when editing
-        collapseFilter.style.display = isEditing ? 'none' : 'inline-block'; // Hide fetchButton when editing
+    fetchButton.style.display = isEditing ? 'none' : 'inline-block'; // Hide fetchButton when editing
         // Toggle edit mode on text elements
         const contentEditable = isEditing ? 'true' : 'false';
         displayText1.contentEditable = contentEditable;
