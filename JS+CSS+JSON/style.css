@@ -94,6 +94,7 @@ h1 {
     padding: 8px;
     
     border: .5px solid #9595955a;
+    text-decoration: none;
 
     background-color: #fff;
     display: flex;
@@ -106,7 +107,7 @@ h1 {
     margin-right: 0;
 }
 
-#homeButton {
+#homeButton, #search, #addNew {
     color: #333;
     text-decoration: none;
 }
