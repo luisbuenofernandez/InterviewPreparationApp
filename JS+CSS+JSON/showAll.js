@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         filteredData.forEach(item => {
             const a = document.createElement('a');
             a.classList.add('data-item');
-            a.href = 'fetchQ&A.html';
+            a.href = 'fetch.html';
 
             // Save the question in localStorage with "savedQuestion"
             a.addEventListener('click', () => {

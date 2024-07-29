@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questions List</title>
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
    
     <link rel="stylesheet" href="JS+CSS+JSON/style.css">
 </head>
 <body class="container">
-    <div class="section-1 margin8px">
+    <div class="section-1 ">
 
-        <input type="text" id="search-input" placeholder="Search questions...">
+        <input type="text" id="search-input" class="" placeholder="Search questions...">
         <div id="checkboxes" class="space-between">
             <input type="checkbox" id="interviewer" class="checkbox" value="Interviewer">
             <label for="interviewer">Int</label>
@@ -37,7 +40,14 @@
 
 
     <div class="section-3">
-        <a href="index.html"><button id="back" class="btn"><img src="JS+CSS+JSON/house-heart-fill.svg" alt=""></button></a>
+        <a href="index.html" id="homeButton">
+            <div class="circleButton">
+                <span class="material-symbols-rounded">
+                    home
+                </span>
+            </div>
+        </a>
+
     </div>
 
     <script src="JS+CSS+JSON/showAll.js"></script>

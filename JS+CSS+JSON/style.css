@@ -30,7 +30,8 @@ body.container {
 
 }
 
-button, a {
+button,
+a {
     font-weight: 600;
     font-size: 16px;
 }
@@ -47,7 +48,8 @@ h1 {
 
 .flex {
     display: flex;
-    margin: 8px;;
+    margin: 8px;
+    ;
 }
 
 .flex button {
@@ -55,16 +57,16 @@ h1 {
 }
 
 
-.fetch-heading   {
-   
-    margin-bottom: 0;
-    }
+.fetch-heading {
 
-.fetch-heading  .btn {
-width: 35px;
-height: 45px;
-margin-bottom: 0;
-border-radius: 50px;
+    margin-bottom: 0;
+}
+
+.fetch-heading .btn {
+    width: 35px;
+    height: 45px;
+    margin-bottom: 0;
+    border-radius: 50px;
 }
 
 .space-between {
@@ -75,17 +77,22 @@ border-radius: 50px;
 .topLeftCorner {
     display: flex;
     flex-direction: row;
-justify-content: center;}
+    justify-content: center;
+}
 
 
+#section-3Fetch {
+    margin-top: 0;
+    font-weight: bolder;
+}
 
 .circleButton {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    
+    border: none;
     padding: 6px;
-    
+
     background-color: #fff;
     display: flex;
     justify-content: center;
@@ -97,57 +104,11 @@ justify-content: center;}
     margin-right: 0;
 }
 
-/* #deleteButton {
-    background-color: lightcoral;
-    margin-right: 8px;
-    border: 3px solid;
-    border-color: rgb(230, 89, 89);
-    width: 35px;
-    display: flex;
-}
-
-#deleteButton:hover {
-    background-color: rgb(230, 89, 89);
-    
-
-}
-
-
-#editButton {
-    background-color: lightgreen;
-    border: 3px solid;
-    border-color: rgb(121, 225, 98);
-    width: 35px;
-    display: flex;
-
-
-}
-
-#editBtn:hover {
-    background-color: rgb(121, 225, 98);
-
-}
-
 #homeButton {
-    border: 3px solid whitesmoke;
+    color: #333;
+    text-decoration: none;
 }
 
-
-#filter {
-    margin-left: 8px;
-    border: 3px solid grey;
-    font-weight: bolder;
-} */
-
-
-/* 
-.section-1 h1 {
-    margin-bottom: 16px;
-} */
-
-.card {
-    border-radius: 8px;
-}
 
 
 #section3-Fetch {
@@ -155,38 +116,54 @@ justify-content: center;}
 }
 
 
-.section1, .section-3 {
-    margin: 8px; 
+.section1,
+.section-3 {
+    margin: 0 8px 8px 8px;
     max-width: 800px;
 }
 
 .section-2 {
     margin: 8px;
     max-width: 800px;
-    flex: 1; /* This makes it grow and fill available space */
+    flex: 1;
+    /* This makes it grow and fill available space */
     overflow-y: auto;
-}.section-4 {
+}
+
+.section-4 {
     margin: auto;
     max-width: 800px;
     display: flex;
-    flex-wrap: nowrap; /* Prevents wrapping to the next line */
-    overflow-x: auto; /* Adds horizontal scroll if needed */
+    flex-wrap: nowrap;
+    /* Prevents wrapping to the next line */
+    overflow-x: auto;
+    /* Adds horizontal scroll if needed */
 }
 
 .section-4 .btn-index {
-    flex: 0 0 auto; /* Prevents the buttons from shrinking */
-    width: 100%; /* Minimum width for buttons */
-    margin: 4px; /* Spacing between buttons */
-    text-align: center; /* Centers text inside buttons */
+    flex: 0 0 auto;
+    /* Prevents the buttons from shrinking */
+    width: 100%;
+    /* Minimum width for buttons */
+    margin: 4px;
+    /* Spacing between buttons */
+    text-align: center;
+    /* Centers text inside buttons */
 }
 
+
+
+#displayText2 {
+    padding: 8px;
+    border: .5px solid #9595955a;
+    border-radius: 4px;
+}
 /* ------------------------------------------------------- BUTTONS */
 
 .btn {
     height: 50px;
     min-width: 65px;
     border-radius: 8px;
-    box-shadow: 0px 1px 0px 0 rgba(0, 0, 0, 0.1);
     border: .5px solid #9595955a;
     border-radius: 50px;
     display: flex;
@@ -204,7 +181,8 @@ justify-content: center;}
     display: flex;
 }
 
-button#fetchButton, button#submitButton {
+button#fetchButton,
+button#submitButton {
     background-color: #3498db;
     color: white;
     padding: 10px 32px;
@@ -213,6 +191,7 @@ button#fetchButton, button#submitButton {
     display: inline-block;
     width: 100%;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     border: none;
     border-radius: 50px;
@@ -222,7 +201,8 @@ button#fetchButton, button#submitButton {
     /* Fetch button specific styling */
 }
 
-button#fetchButton:hover, button#submitButton:hover {
+button#fetchButton:hover,
+button#submitButton:hover {
     background-color: #2980b9;
     /* Hover effect for fetch button */
 }
@@ -264,17 +244,18 @@ button#fetchButton:hover, button#submitButton:hover {
 #navBar button {
     border: 2px solid #333
 }
+
 /* ------------------------------------------------------------- */
 
 
 .questionSection {
-    box-shadow: 0px 1px 0px 0 rgba(0, 0, 0, 0.1);
+    
     border: 1px solid #9595955a;
     margin: 8px 8px 0 8px;
     border-radius: 12px;
     padding: 8px;
     position: relative;
-    
+
 }
 
 .show-question {
@@ -283,21 +264,25 @@ button#fetchButton:hover, button#submitButton:hover {
     justify-content: end;
 }
 
- /* Define soft pastel colors */
- .interviewer-bg {
-    border: 3px solid #66D9FF; /* Soft pastel blue */
+/* Define soft pastel colors */
+.interviewer-bg {
+    border: 3px solid #66D9FF;
+    /* Soft pastel blue */
 }
 
 .candidate-bg {
-    border: 3px solid rgb(121, 225, 98); /* Soft pastel green */
+    border: 3px solid rgb(121, 225, 98);
+    /* Soft pastel green */
 }
 
 .advice-bg {
-    border: 3px solid #ffcc80; /* Soft pastel orange-yellow */
+    border: 3px solid #ffcc80;
+    /* Soft pastel orange-yellow */
 }
 
 .encouragment-bg {
-    border: 3px solid rgb(204, 153, 255); /* Soft pastel orange-yellow */
+    border: 3px solid rgb(204, 153, 255);
+    /* Soft pastel orange-yellow */
 }
 
 
@@ -310,7 +295,8 @@ button#fetchButton:hover, button#submitButton:hover {
     bottom: 0;
     right: 0;
     margin-right: 2px;
-    z-index: 10; /* Higher value to ensure it stays on top */
+    z-index: 10;
+    /* Higher value to ensure it stays on top */
 
 }
 
@@ -338,13 +324,17 @@ button#fetchButton:hover, button#submitButton:hover {
 
 #collapseFilter {
     border-radius: 8px;
+    margin: 0;
 }
 
 
 #checkboxes {
     color: whitesmoke;
-    display: flex; /* Use flexbox for alignment */
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    display: flex;
+    /* Use flexbox for alignment */
+    flex-wrap: wrap;
+    /* Allow items to wrap to the next line */
+    margin: 0 8px;
 }
 
 #checkboxes label {
@@ -353,7 +343,8 @@ button#fetchButton:hover, button#submitButton:hover {
     border: 3px solid whitesmoke;
     border-radius: 8px;
     display: inline-block;
-    width: auto; /* Ensure width is set to auto for proper wrapping */
+    width: auto;
+    /* Ensure width is set to auto for proper wrapping */
     font-weight: bold;
     transition: border-color 0.3s, color 0.3s;
     margin: 4px;
@@ -361,25 +352,30 @@ button#fetchButton:hover, button#submitButton:hover {
 }
 
 input[type="checkbox"] {
-    display: none; /* Hide the default checkbox */
+    display: none;
+    /* Hide the default checkbox */
 }
 
 /* Styling for each checkbox label when checked */
-input[type="checkbox"]:checked + label {
-    font-weight: bolder; /* Make text bold when checked */
-    color: #fff; /* Text color for visibility */
-    
+input[type="checkbox"]:checked+label {
+    font-weight: bolder;
+    /* Make text bold when checked */
+    color: #fff;
+    /* Text color for visibility */
+
 }
 
 
-input[type="checkbox"]#interviewer + label {
+input[type="checkbox"]#interviewer+label {
     margin-left: 0;
 }
 
 /* Border colors for checked checkboxes */
-input[type="checkbox"]#interviewer:checked + label {
-    border-color: #66D9FF; /* Soft pastel blue for Interviewer */
-    color: #66D9FF; /* Text color for Interviewer */
+input[type="checkbox"]#interviewer:checked+label {
+    border-color: #66D9FF;
+    /* Soft pastel blue for Interviewer */
+    color: #66D9FF;
+    /* Text color for Interviewer */
 
 }
 
@@ -387,32 +383,40 @@ input[type="checkbox"]#interviewer:checked + label {
 
 
 
-input[type="checkbox"]#candidate:checked + label {
-    border-color: rgb(121, 225, 98); /* Soft pastel green for Candidate */
-    color: rgb(121, 225, 98); /* Text color for Candidate */
+input[type="checkbox"]#candidate:checked+label {
+    border-color: rgb(121, 225, 98);
+    /* Soft pastel green for Candidate */
+    color: rgb(121, 225, 98);
+    /* Text color for Candidate */
 }
 
 
-input[type="checkbox"]#advice:checked + label {
-    border-color: #ffcc80; /* Soft pastel orange-yellow for Advice */
-    color: #ffcc80; /* Text color for Advice */
+input[type="checkbox"]#advice:checked+label {
+    border-color: #ffcc80;
+    /* Soft pastel orange-yellow for Advice */
+    color: #ffcc80;
+    /* Text color for Advice */
 }
 
 
-input[type="checkbox"]#encouragement:checked + label {
-    border-color: rgb(204, 153, 255); /* Soft pastel purple for Encouragement */
-    color: rgb(204, 153, 255); /* Text color for Encouragement */
+input[type="checkbox"]#encouragement:checked+label {
+    border-color: rgb(204, 153, 255);
+    /* Soft pastel purple for Encouragement */
+    color: rgb(204, 153, 255);
+    /* Text color for Encouragement */
 }
 
 
-input[type="checkbox"]#edit + label {
+input[type="checkbox"]#edit+label {
     margin-right: 0;
 
 }
 
-input[type="checkbox"]#edit:checked + label {
-    border-color: rgb(255, 85, 55); /* Distinct color for Edit */
-    color: rgb(255, 85, 55); /* Text color for Edit */
+input[type="checkbox"]#edit:checked+label {
+    border-color: rgb(255, 85, 55);
+    /* Distinct color for Edit */
+    color: rgb(255, 85, 55);
+    /* Text color for Edit */
 }
 
 /* Fallback for older browsers */
@@ -431,11 +435,12 @@ input[type="checkbox"]#edit:checked + label {
 
 
 
- #radioButtonsContainer {
+#radioButtonsContainer {
     /* margin-top: 16px; */
     display: flex;
     justify-content: space-between;
-    color: whitesmoke;/* 
+    color: whitesmoke;
+    /* 
     margin-left: 0;
     margin-right: 0; */
     margin: 4px 0;
@@ -458,60 +463,77 @@ input[type="checkbox"]#edit:checked + label {
     width: 45px;
     padding: 4px;
     cursor: pointer;
-    border: 2px solid whitesmoke; /* Default border color and thickness */
+    border: 2px solid whitesmoke;
+    /* Default border color and thickness */
     border-radius: 8px;
     display: inline-block;
-    font-weight: bold; /* Default text weight */
-    transition: border-color 0.3s, color 0.3s; /* Smooth transition */
+    font-weight: bold;
+    /* Default text weight */
+    transition: border-color 0.3s, color 0.3s;
+    /* Smooth transition */
     margin: 2px;
     text-align: center;
 }
 
 /* Default styling for checkboxes and radio buttons */
-input[type="checkbox"], input[type="radio"] {
-    display: none; /* Hide the default checkbox and radio button */
+input[type="checkbox"],
+input[type="radio"] {
+    display: none;
+    /* Hide the default checkbox and radio button */
 }
 
 /* Styling for each checkbox and radio button label when checked */
-input[type="checkbox"]:checked + label,
-input[type="radio"]:checked + label {
-    font-weight: bolder; /* Make text bold when checked */
-    color: #fff; /* Text color for visibility */
+input[type="checkbox"]:checked+label,
+input[type="radio"]:checked+label {
+    font-weight: bolder;
+    /* Make text bold when checked */
+    color: #fff;
+    /* Text color for visibility */
 }
 
 /* Border colors for checked radio buttons */
-input[type="radio"]#radioInterviewer + label {
+input[type="radio"]#radioInterviewer+label {
     margin-left: 0;
 }
 
-input[type="radio"]#radioInterviewer:checked + label {
-    border-color: #66D9FF; /* Soft pastel blue for Interviewer */
-    color: #66D9FF; /* Text color for Interviewer */
+input[type="radio"]#radioInterviewer:checked+label {
+    border-color: #66D9FF;
+    /* Soft pastel blue for Interviewer */
+    color: #66D9FF;
+    /* Text color for Interviewer */
 }
 
-input[type="radio"]#radioCandidate:checked + label {
-    border-color: rgb(121, 225, 98); /* Soft pastel green for Candidate */
-    color: rgb(121, 225, 98); /* Text color for Candidate */
+input[type="radio"]#radioCandidate:checked+label {
+    border-color: rgb(121, 225, 98);
+    /* Soft pastel green for Candidate */
+    color: rgb(121, 225, 98);
+    /* Text color for Candidate */
 }
 
-input[type="radio"]#radioAdvice:checked + label {
-    border-color: #ffcc80; /* Soft pastel orange-yellow for Advice */
-    color: #ffcc80; /* Text color for Advice */
+input[type="radio"]#radioAdvice:checked+label {
+    border-color: #ffcc80;
+    /* Soft pastel orange-yellow for Advice */
+    color: #ffcc80;
+    /* Text color for Advice */
 }
 
-input[type="radio"]#radioEncouragement:checked + label {
-    border-color: rgb(204, 153, 255); /* Soft pastel purple for Encouragement */
-    color: rgb(204, 153, 255); /* Text color for Encouragement */
+input[type="radio"]#radioEncouragement:checked+label {
+    border-color: rgb(204, 153, 255);
+    /* Soft pastel purple for Encouragement */
+    color: rgb(204, 153, 255);
+    /* Text color for Encouragement */
 }
 
 /* Border color for checked checkbox */
-input[type="checkbox"]#checkboxEdit + label {
+input[type="checkbox"]#checkboxEdit+label {
     margin-right: 0;
 }
 
-input[type="checkbox"]#checkboxEdit:checked + label {
-    border-color: rgb(255, 85, 55); /* Distinct color for Edit */
-    color: rgb(255, 85, 55); /* Text color for Edit */
+input[type="checkbox"]#checkboxEdit:checked+label {
+    border-color: rgb(255, 85, 55);
+    /* Distinct color for Edit */
+    color: rgb(255, 85, 55);
+    /* Text color for Edit */
 }
 
 
@@ -521,10 +543,10 @@ input[type="checkbox"]#checkboxEdit:checked + label {
 #search-input {
     width: 100%;
     max-width: 800px;
-    margin: 8px 8px 0 8px;
+    margin: 8px 8px 8px 8px;
     padding-left: 8px;
     height: 45px;
-    border-radius: 16px;
+    border-radius: 8px;
     font-size: 16px;
     border: .5px solid #9595955a;
 
@@ -536,7 +558,7 @@ input[type="checkbox"]#checkboxEdit:checked + label {
 /* SCROLLABLE */
 
 .scrollable {
-    
+
     margin: auto;
     width: 100%;
     max-width: 800px;
@@ -548,11 +570,13 @@ input[type="checkbox"]#checkboxEdit:checked + label {
     border-radius: 8px;
     padding: 8px;
     margin-top: 0;
-    box-sizing: border-box; /* Ensure padding does not cause overflow */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    box-sizing: border-box;
+    /* Ensure padding does not cause overflow */
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
     overflow-x: hidden;
 
-scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 
@@ -579,9 +603,9 @@ textarea {
     height: 100%;
     /* Hidden textarea with specific dimensions */
     border-radius: 8px;
-}   
+}
 
-#editableText{
+#editableText {
     width: 100%;
     overflow-x: hidden;
 }
@@ -590,10 +614,11 @@ textarea {
 #questions-container {
     height: 100%;
     width: 100%;
-        /* Container styling for questions */
-        overflow-x: hidden;
-        
-    box-sizing: border-box; /* Ensure padding does not cause overflow */
+    /* Container styling for questions */
+    overflow-x: hidden;
+
+    box-sizing: border-box;
+    /* Ensure padding does not cause overflow */
     padding: 0;
 
 }
@@ -601,9 +626,9 @@ textarea {
 /* Show All Questions Page */
 
 #questions-container a {
-    
+
     padding: 8px;
-    
+
 
 }
 
@@ -612,6 +637,7 @@ textarea {
     font-weight: bolder;
 
 }
+
 /* Anchor Link Styles */
 a {
     display: inline-block;
@@ -623,5 +649,3 @@ a {
 
 
 /* --------------------- */
-
-

@@ -144,22 +144,20 @@ function colorAssociation(topic, edition) {
 function addNewData() {
     console.log("submitButton read");
 
-/*     if (foundLine.edition = true) {
-        foundLine.edition = false;
-    }
- */
     // Retrieve data from text areas
-
-    savedQuestion = document.getElementById('displayText1').innerHTML;
-    console.log(savedQuestion)
+    let savedQuestion = document.getElementById('displayText1').innerHTML;
+    console.log(savedQuestion);
     localStorage.setItem("savedQuestion", savedQuestion);
+
+    // Find the specific object in savedData that contains the fetched question
+    let matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
 
     // Create new data object including styled content
     const newData = {
-        question: document.getElementById('displayText1').innerHTML,
+        question: savedQuestion,
         explanation: document.getElementById('displayText2').innerHTML,
-        "topic": foundLine.topic,
-        "edition": foundLine.edition,
+        topic: matchedObject ? matchedObject.topic : 'DefaultTopic', // Ensure topic is set
+        edition: matchedObject ? matchedObject.edition : false, // Ensure edition is set
         answer: document.getElementById('displayText3').innerHTML,
         example: document.getElementById('displayText4').innerHTML
     };
@@ -167,11 +165,13 @@ function addNewData() {
     console.log("NEW DATA");
     console.log(newData);
 
-    savedData.lines = savedData.lines.filter(line => line.question !== foundLine.question);
+    // Remove the previous object with the same question from the array
+    savedData.lines = savedData.lines.filter(line => line.question !== savedQuestion);
 
     console.log("data stored online before updating new one");
     console.log(savedData);
 
+    // Add the new data to the array
     savedData.lines.push(newData);
     let dataToUpload = savedData;
 
@@ -190,22 +190,20 @@ function addNewData() {
         if (!response.ok) {
             throw new Error('Failed to add new data');
         }
-        // Wait 3 seconds before fetching and displaying updated data
-        console.log("CLEAR TEXTAREA");
-        document.getElementById('displayText1').value = "";
-        document.getElementById('displayText2').value = "";
-        document.getElementById('displayText3').value = "";
-        document.getElementById('displayText4').value = "";
+        // Clear text areas after successful update
+        document.getElementById('displayText1').innerHTML = "";
+        document.getElementById('displayText2').innerHTML = "";
+        document.getElementById('displayText3').innerHTML = "";
+        document.getElementById('displayText4').innerHTML = "";
 
         localStorage.setItem('savedQuestion', savedQuestion);
-        
     })
     .catch(error => console.error('Error adding new data:', error));
 }
 
 // Updated function to display saved question with styling
 function showJustEditedQuestion() {
-    if (localStorage.getItem('savedQuestion')) {
+    
         savedQuestion = localStorage.getItem('savedQuestion');
         console.log("showjusteditedquestion: " + savedQuestion);
 
@@ -231,13 +229,15 @@ function showJustEditedQuestion() {
                 document.getElementById('displayText4').innerHTML = foundLine.example;
 
                 colorAssociation(foundLine.topic, foundLine.edition);
+            } else {
+                fetchRandomText();
             }
         })
         .catch(error => console.error('Error fetching JSON:', error));
-    } else {
-        fetchRandomText()
+    
+        
     }
-}
+
 function handleSelection() {
     console.log("-------------------");
 
@@ -431,7 +431,7 @@ function deleteCurrentText() {
 
 
 
-                localStorage.removeItem("savedQuestion")
+                
                 window.location.href = currentUrl;
             })
             .catch(error => console.error('Error updating data:', error));
