@@ -340,7 +340,7 @@ button#submitButton:hover {
 #checkboxes label {
     padding: 4px 16px;
     cursor: pointer;
-    border: 3px solid whitesmoke;
+    border: 1px solid whitesmoke;
     border-radius: 8px;
     display: inline-block;
     width: auto;
@@ -463,7 +463,7 @@ input[type="checkbox"]#edit:checked+label {
     width: 45px;
     padding: 4px;
     cursor: pointer;
-    border: 2px solid whitesmoke;
+    border: 1px solid whitesmoke;
     /* Default border color and thickness */
     border-radius: 8px;
     display: inline-block;
