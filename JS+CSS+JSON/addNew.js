@@ -28,12 +28,31 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function handleSelection() {
-    // This function will be used if any additional handling is needed on selection change
+    const topic = document.querySelector('input[name="topic"]:checked')?.value;
+    const edition = document.getElementById('checkboxEdit').checked;
+    colorAssociation(topic, edition);
+}
+
+function getBorderColorForTopic(topic) {
+    switch (topic) {
+        case 'Candidate':
+            return 'rgb(121, 225, 98)'; // Soft pastel green
+        case 'Advice':
+            return '#ffcc80'; // Soft pastel orange-yellow
+        case 'Encouragement':
+            return 'rgb(204, 153, 255)'; // Soft pastel purple
+        default:
+            return '#66D9FF'; // Soft pastel blue
+    }
 }
 
 function colorAssociation(topic, edition) {
     let questionSection = document.querySelector(".questionSection");
     questionSection.classList.remove('interviewer-bg', 'candidate-bg', 'advice-bg', 'encouragment-bg');
+
+    // Determine the border color based on the topic
+    const borderColor = getBorderColorForTopic(topic);
+    questionSection.style.border = `3px solid ${borderColor}`;
 
     switch (topic) {
         case 'Candidate':
@@ -63,10 +82,10 @@ function colorAssociation(topic, edition) {
 function addNewData() {
     console.log("submitButton read");
 
-    const question = document.getElementById('displayText1').innerText.trim();
-    const explanation = document.getElementById('displayText2').innerText.trim();
-    const answer = document.getElementById('displayText3').innerText.trim();
-    const example = document.getElementById('displayText4').innerText.trim();
+    const question = document.getElementById('displayText1').innerHTML.trim(); // Store HTML content
+    const explanation = document.getElementById('displayText2').innerHTML.trim(); // Store HTML content
+    const answer = document.getElementById('displayText3').innerHTML.trim(); // Store HTML content
+    const example = document.getElementById('displayText4').innerHTML.trim(); // Store HTML content
 
     const topic = document.querySelector('input[name="topic"]:checked')?.value;
     const edition = document.getElementById('checkboxEdit').checked;
@@ -76,13 +95,16 @@ function addNewData() {
         return;
     }
 
+    const borderColor = getBorderColorForTopic(topic);
+
     const newData = {
         question: question,
         topic: topic,
         edition: edition,
         explanation: explanation,
         answer: answer,
-        example: example
+        example: example,
+        borderColor: borderColor // Include border color in the data
     };
 
     console.log("TEXTAREA OBJECT");
@@ -106,13 +128,12 @@ function addNewData() {
         },
         body: JSON.stringify(dataToUpload),
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to add new data');
-            }
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to add new data');
+        }
 
-
-            window.location.href = "fetch.html";
-        })
-        .catch(error => console.error('Error adding new data:', error));
+        window.location.href = "fetch.html";
+    })
+    .catch(error => console.error('Error adding new data:', error));
 }

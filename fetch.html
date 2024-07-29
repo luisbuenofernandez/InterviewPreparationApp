@@ -58,20 +58,43 @@
            margin-bottom: 0;
         }
 
-        .flex1 {
+        .flex div {
+            
             display: flex;
-            width:50%;
+            align-items: center;
+            justify-content: center;
             border: .5px solid #9595955a;
             border-radius: 8px;
-            margin-right: 8px;
         }
+        .flex1 {
+            margin-right: 8px;
+            width: 100%;
+        }
+
+        
+        .flex1 button {
+            border: none;
+        }
+        
         .flex2 {
-            display: flex;
-            width:50%;
-            border: .5px solid #9595955a;
-            border-radius: 8px;
             justify-content: end;
             padding: 0 4px;
+            width: 100%;
+        }
+        
+        .flex3 {
+            width: 15%;
+            display: flex;
+            margin-left: 8px;
+        }
+
+        .removeStyle {
+            background-color: white;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
         #saveButton,
@@ -207,25 +230,49 @@
                 <div class="flex1">
 
                     <!-- Updated buttons with symbols -->
-                    <button class="circleButton" onclick="formatText('bold')">𝐁</button>
-                    <button class="circleButton" onclick="formatText('strikethrough')">S̶</button>
-                    <button class="circleButton" onclick="formatText('italic')">𝑖</button>
-                    <button class="circleButton" onclick="formatText('underline')">U̲</button>
+                    <button class="circleButton" onclick="formatText('bold')">
+                        <span class="material-symbols-rounded">
+                            format_bold
+                            </span>
+                    </button>
+                    <button class="circleButton" onclick="formatText('strikethrough')">
+                        <span class="material-symbols-rounded">
+                            strikethrough_s
+                            </span>
+                    </button>
+                    <button class="circleButton" onclick="formatText('italic')">
+                        <span class="material-symbols-rounded">
+                            format_italic
+                            </span>
+                    </button>
+                    <button class="circleButton" onclick="formatText('underline')">
+                        <span class="material-symbols-rounded">
+                            format_underlined
+                            </span>
+                    </button>
                 </div>
                 
+               
                 <div id="highlightContainer" class="flex2">
-                    <button class="highlight-button" style="background-color: #33CCFF;"
-                        onclick="highlightText('#33CCFF')"></button>
-                    <button class="highlight-button" style="background-color: lightgreen;"
+                    <button class="highlight-button" style="background-color: #66D6FF;"
+                        onclick="highlightText('#66D6FF')"></button>
+                        <button class="highlight-button" style="background-color: lightgreen;"
                         onclick="highlightText('lightgreen')"></button>
                     <button class="highlight-button" style="background-color: #ffcc80;"
                         onclick="highlightText('#ffcc80')"></button>
-                    <button class="highlight-button" style="background-color: pink;"
-                        onclick="highlightText('pink')"></button>
-                    <button class="highlight-button" style="background-color: rgb(204, 153, 255);;"
-                        onclick="highlightText('rgb(204, 153, 255)')"></button>
-                    <button class="highlight-button" style="background-color: white; border: .5px solid #9595955a"
-                        onclick="removeHighlight()"></button>
+                   
+                    <button class="highlight-button" style="background-color: #D5A9FF;"
+                        onclick="highlightText('#D5A9FF')"></button>
+                    
+                </div>
+                
+                <div class="flex3">
+                    <button class="removeStyle"
+                        onclick="removeHighlight()">
+                        <span class="material-symbols-rounded">
+                            ink_eraser_off
+                            </span>
+                    </button>
                 </div>
             </div>
         </div>
