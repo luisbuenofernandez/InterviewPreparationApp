@@ -1,16 +1,28 @@
 let currentUrl = window.location.href;
-const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON";
-let dataStoredOnline;
+/* const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON"; */
 
-fetchData();
 
-function fetchData() {
-    fetch(urlData)
+const url_InterviewerCandidate = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/InterviewerCandidateData";
+const url_AdviceEncouragement = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/AdviceEncouragmentData";
+let dataStoredOnline_InterviewerCandidate = { lines: [] };
+let dataStoredOnline_AdviceEncouragement = { lines: [] };
+
+fetchData(url_InterviewerCandidate, 'InterviewerCandidate'); // Fetch initial data for InterviewerCandidate
+fetchData(url_AdviceEncouragement, 'AdviceEncouragement'); // Fetch initial data for AdviceEncouragement
+
+function fetchData(url, type) {
+    fetch(url)
         .then(response => response.json())
         .then(data => {
-            dataStoredOnline = data;
-            console.log("DATA FROM FETCHDATA FUNCTION");
-            console.log(dataStoredOnline);
+            if (type === 'InterviewerCandidate') {
+                dataStoredOnline_InterviewerCandidate = data;
+                console.log("DATA FROM FETCHDATA FUNCTION - INTERVIEWER CANDIDATE");
+                console.log(dataStoredOnline_InterviewerCandidate);
+            } else if (type === 'AdviceEncouragement') {
+                dataStoredOnline_AdviceEncouragement = data;
+                console.log("DATA FROM FETCHDATA FUNCTION - ADVICE ENCOURAGEMENT");
+                console.log(dataStoredOnline_AdviceEncouragement);
+            }
         });
 }
 
@@ -112,16 +124,25 @@ function addNewData() {
 
     localStorage.setItem("savedQuestion", question);
 
-    console.log("data stored online before updating new one");
-    console.log(dataStoredOnline);
+    let url, dataToUpload;
 
-    dataStoredOnline.lines.push(newData);
-    let dataToUpload = dataStoredOnline;
+    if (topic === 'Interviewer' || topic === 'Candidate' || !topic) {
+        dataStoredOnline_InterviewerCandidate.lines.push(newData);
+        dataToUpload = dataStoredOnline_InterviewerCandidate;
+        url = url_InterviewerCandidate;
+    } else if (topic === 'Advice' || topic === 'Encouragement') {
+        dataStoredOnline_AdviceEncouragement.lines.push(newData);
+        dataToUpload = dataStoredOnline_AdviceEncouragement;
+        url = url_AdviceEncouragement;
+    } else {
+        alert('Invalid topic selected.');
+        return;
+    }
 
     console.log("DATA ABOUT TO BE UPDATED");
-    console.log(dataStoredOnline);
+    console.log(dataToUpload);
 
-    fetch(urlData, {
+    fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -133,7 +154,7 @@ function addNewData() {
             throw new Error('Failed to add new data');
         }
 
-        window.location.href = "fetch.html";
+        window.location.href = "index.html";
     })
     .catch(error => console.error('Error adding new data:', error));
 }

@@ -1,5 +1,8 @@
-const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON";
-let data;
+const url_InterviewerCandidate = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/InterviewerCandidateData";
+const url_AdviceEncouragement = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/AdviceEncouragmentData";
+
+
+let data = { lines: [] };
 
 document.addEventListener('DOMContentLoaded', function () {
     const dataList = document.getElementById('output');
@@ -41,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         filteredData.forEach(item => {
             const a = document.createElement('a');
             a.classList.add('data-item');
-            a.href = 'fetch.html';
+            a.href = 'index.html';
 
             // Save the question in localStorage with "savedQuestion"
             a.addEventListener('click', () => {
@@ -50,6 +53,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Strip HTML tags from the question before displaying
             a.textContent = stripHtml(item.question);
+
+            // Apply CSS styles to make the <a> tag full width and stay on one line
+            a.style.display = 'block';
+            a.style.width = '100%';
+            a.style.marginBottom = '10px';
+            a.style.padding = '0';
+            a.style.boxSizing = 'border-box';
+            a.style.textDecoration = 'none';
 
             dataList.appendChild(a);
         });
@@ -62,11 +73,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return div.textContent || div.innerText || '';
     }
 
-    fetch(urlData)
-        .then(response => response.json())
-        .then(jsonData => {
-            data = jsonData;
-            displayData(data.lines);
-        })
-        .catch(error => console.error('Error loading data:', error));
+    // Fetch data from both URLs and combine them
+    Promise.all([
+        fetch(url_InterviewerCandidate).then(response => response.json()),
+        fetch(url_AdviceEncouragement).then(response => response.json())
+    ])
+    .then(([interviewerCandidateData, adviceEncouragementData]) => {
+        data.lines = [...interviewerCandidateData.lines, ...adviceEncouragementData.lines];
+        displayData(data.lines);
+    })
+    .catch(error => console.error('Error loading data:', error));
 });

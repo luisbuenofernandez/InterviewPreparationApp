@@ -5,6 +5,13 @@ let currentTextIndex = -1;
 
 let currentUrl = window.location.href;
 const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON"
+const url_InterviewerCandidate = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/InterviewerCandidateData";
+const url_AdviceEncouragement = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/AdviceEncouragmentData";
+
+let data_InterviewerCandidate;
+let data_AdviceEncouragement;
+
+
 let dataStoredOnline;
 
 let newData;
@@ -12,10 +19,6 @@ let savedQuestion;
 let savedData = null;
 let matchedObject;
 let foundLine;
-
-
-
-
 
 
 const editButton = document.getElementById('editButton');
@@ -33,6 +36,281 @@ const checkboxEdit = document.getElementById('checkboxEdit');
 
 
 let isEditing;
+
+
+
+
+
+
+/* DECIDES TO WHICH URL SAVE THE DATA BASED ON TOPIC */
+function handleTopicAndPost(topic, savedData) {
+    let filteredData;
+    let postUrl;
+    let consoletrack;
+
+    if (!topic || topic === 'Interviewer' || topic === 'Candidate') {
+        postUrl = url_InterviewerCandidate;
+        consoletrack = "url_InterviewerCandidate";
+        filteredData = {
+            lines: savedData.lines.filter(obj => obj.topic === 'Interviewer' || obj.topic === 'Candidate')
+        };
+        data_InterviewerCandidate = filteredData; // Update local data store
+    } else if (topic === 'Advice' || topic === 'Encouragement') {
+        postUrl = url_AdviceEncouragement;
+        consoletrack = "url_AdviceEncouragement";
+        filteredData = {
+            lines: savedData.lines.filter(obj => obj.topic === 'Advice' || obj.topic === 'Encouragement')
+        };
+        data_AdviceEncouragement = filteredData; // Update local data store
+    } else {
+        console.error('Unknown topic selected');
+        return;
+    }
+
+    console.log("Filtered data about to send to JSON with the new info");
+    console.log(filteredData);
+    console.log(consoletrack);
+
+    // Send the filtered data to the selected URL
+    fetch(postUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(filteredData),
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to add new data');
+            }
+            console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
+        })
+        .catch(error => console.error('Error adding new data:', error));
+}
+
+
+
+
+/* FETCH AND COMBINE DATA FROM BOTH URL */
+function fetchAndCombineData() {
+    // Fetch data from the first URL
+    return fetch(url_InterviewerCandidate)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch data from InterviewerCandidate URL');
+            }
+            return response.json();
+        })
+        .then(dataIC => {
+            console.log("Fetched data from InterviewerCandidate URL:", dataIC);
+            
+
+            // Fetch data from the second URL
+            return fetch(url_AdviceEncouragement)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch data from AdviceEncouragement URL');
+                    }
+                    return response.json();
+                })
+                .then(dataAE => {
+                    console.log("Fetched data from AdviceEncouragement URL:", dataAE);
+                    
+                    
+
+                    // Combine the data from both sources
+                    const combinedData = { lines: [...dataIC.lines, ...dataAE.lines] };
+                    console.log("Combined data:", combinedData);
+
+                    // Save the combined data to savedData
+                    savedData = combinedData;
+                    console.log("Saved data:", savedData);
+
+                    // Return the combined data for further use if needed
+                    
+                    
+                    
+                    
+                    /* SHOWS LAAST ONE IN LOCALSTORAGE AND ALLOWS RANDOM AFTER CLICK */
+                    showJustEditedQuestion(savedData)
+                    document.getElementById('fetchButton').addEventListener('click' || "enter", fetchRandomText);
+                });
+        })
+        .catch(error => console.error('Error loading or combining data:', error));
+}
+
+
+/* SHOW AUTOMATICALLY THE QUESTION IN LOCALSTORAGE */
+function showJustEditedQuestion(savedData) {
+    
+    savedQuestion = localStorage.getItem('savedQuestion');
+    console.log("showjusteditedquestion: " + savedQuestion);
+/* 
+    fetch(urlData)
+    .then(response => response.json())
+    .then(data => { */
+        // If you want to find a specific question
+        foundLine = savedData.lines.find(line => line.question === savedQuestion);
+        console.log(foundLine)
+
+        if (foundLine) {
+            document.getElementById('displayText1').innerHTML = foundLine.question;
+            document.getElementById('displayText2').innerHTML = foundLine.explanation;
+
+            document.querySelectorAll('input[name="topic"]').forEach(radio => {
+                if (radio.value === foundLine.topic) {
+                    radio.checked = true;
+                }
+            });
+            document.getElementById('checkboxEdit').checked = foundLine.edition === true;
+
+            document.getElementById('displayText3').innerHTML = foundLine.answer;
+            document.getElementById('displayText4').innerHTML = foundLine.example;
+
+            colorAssociation(foundLine.topic, foundLine.edition);
+
+
+          
+        } else {
+            fetchRandomText();
+        }
+/*     })
+    .catch(error => console.error('Error fetching JSON:', error));
+ */
+    
+}
+
+
+/* FETCH RANDOM QUESTION AFTER PRESSING THE BUTTON */
+function fetchRandomText() {
+    console.log("FetchButton Click")
+    document.getElementById('editableText').scrollTop = 0;
+
+    // Filter questions based on selected checkboxes
+    const topicCheckboxes = Array.from(document.querySelectorAll('#checkboxes input[type="checkbox"]:not([value="true"])'));
+    const isEditingChecked = document.querySelector('#checkboxes input[value="true"]').checked;
+
+    let filteredLines = savedData.lines.filter(item => {
+        const matchesTopic = topicCheckboxes.length === 0 || topicCheckboxes.some(checkbox => checkbox.checked && item.topic === checkbox.value);
+        const matchesEditing = !isEditingChecked || (isEditingChecked && (item.edition === true || item.edition === "true"));
+        return matchesTopic && matchesEditing;
+    });
+
+    if (filteredLines.length > 0) {
+        const randomIndex = Math.floor(Math.random() * filteredLines.length);
+        const selectedItem = filteredLines[randomIndex];
+
+        savedQuestion = selectedItem.question;
+        foundLine = selectedItem;
+        console.log('Selected item:', selectedItem);
+        console.log(savedQuestion);
+        localStorage.setItem('savedQuestion', savedQuestion);
+
+        document.getElementById('displayText1').innerHTML = selectedItem.question;
+        document.getElementById('displayText2').innerHTML = selectedItem.explanation;
+        document.getElementById('displayText3').innerHTML = selectedItem.answer;
+        document.getElementById('displayText4').innerHTML = selectedItem.example;
+
+        // Automatically select the corresponding radio button
+        let radios = document.querySelectorAll('input[name="topic"]');
+        radios.forEach(radio => {
+            if (radio.value === selectedItem.topic) {
+                radio.checked = true;
+            }
+        });
+
+        document.getElementById('checkboxEdit').checked = selectedItem.edition === true;
+
+        colorAssociation(selectedItem.topic, selectedItem.edition)
+
+
+
+
+
+        /* document.getElementById('fetchButton').addEventListener('click' || "enter", fetchRandomText); */
+    } else {
+        document.getElementById('displayText1').innerText = 'No text available based on the selected filters.';
+        document.getElementById('displayText2').innerText = '';
+        document.getElementById('displayText3').innerText = '';
+        document.getElementById('displayText4').innerText = '';
+    }
+}
+
+
+/* SEPARATES BY TOPIC THE DATA BEFORE SENDING INTO THE JSON DEPENDING WITH THE RIGHT URL*/
+
+function handleSelection() {
+    console.log("-------------------");
+
+    // Find the specific object in savedData that contains the fetched question
+    let matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
+
+    if (matchedObject) {
+        console.log("Found the matched object:", matchedObject);
+    } else {
+        console.log("No matched object found.");
+        return; // Exit if no matched object is found
+    }
+
+    // Get the selected radio button value
+    let radios = document.querySelectorAll('input[name="topic"]:checked');
+    let topic = radios.length > 0 ? radios[0].value : 'Interviewer';
+
+    // Get the checkbox value
+    let checkboxEdit = document.getElementById("checkboxEdit");
+    let edition = checkboxEdit.checked; // true or false
+
+    // Change background color and update SVG based on the selected values
+    colorAssociation(topic, edition);
+
+    // Create new data object
+    let newData = {
+        question: matchedObject.question,
+        explanation: matchedObject.explanation,
+        topic: topic,
+        edition: edition, // true or false
+        answer: matchedObject.answer,
+        example: matchedObject.example
+    };
+
+    console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully!');
+    console.log(newData);
+
+    // Remove the previous object with the same question from the array
+    savedData.lines = savedData.lines.filter(obj => obj.question !== matchedObject.question);
+
+    // Add the new data to the array
+    savedData.lines.push(newData);
+    console.log("Whole object about to send to JSON with the new info");
+    console.log(savedData);
+
+    // Filter savedData based on the selected topic 
+    
+    handleTopicAndPost(topic, savedData)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function initDisplay() {
@@ -141,16 +419,25 @@ function colorAssociation(topic, edition) {
 }
 
 // Updated function to store styling and save data
+
+
 function addNewData() {
+
+    let savedQuestion = localStorage.getItem("savedQuestion");
+    let matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
+    console.log("matchedObject previous to replace", matchedObject);
+    savedData.lines = savedData.lines.filter(line => line.question !== savedQuestion);
+
+
     console.log("submitButton read");
 
     // Retrieve data from text areas
-    let savedQuestion = document.getElementById('displayText1').innerHTML;
-    console.log(savedQuestion);
-    localStorage.setItem("savedQuestion", savedQuestion);
+    savedQuestion = document.getElementById('displayText1').innerHTML;
+    
+    
 
     // Find the specific object in savedData that contains the fetched question
-    let matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
+    
 
     // Create new data object including styled content
     const newData = {
@@ -162,11 +449,13 @@ function addNewData() {
         example: document.getElementById('displayText4').innerHTML
     };
 
-    console.log("NEW DATA");
+
+    localStorage.setItem("savedQuestion", savedQuestion);
+    console.log("NEW DATA replacing the previous one");
     console.log(newData);
 
     // Remove the previous object with the same question from the array
-    savedData.lines = savedData.lines.filter(line => line.question !== savedQuestion);
+    
 
     console.log("data stored online before updating new one");
     console.log(savedData);
@@ -179,126 +468,28 @@ function addNewData() {
     console.log(dataToUpload);
 
     // POST request to add new data
-    fetch(urlData, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataToUpload),
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to add new data');
-        }
-        // Clear text areas after successful update
-        document.getElementById('displayText1').innerHTML = "";
-        document.getElementById('displayText2').innerHTML = "";
-        document.getElementById('displayText3').innerHTML = "";
-        document.getElementById('displayText4').innerHTML = "";
+    
 
-        localStorage.setItem('savedQuestion', savedQuestion);
-    })
-    .catch(error => console.error('Error adding new data:', error));
+    handleTopicAndPost(matchedObject.topic, dataToUpload)
+
+
 }
 
 // Updated function to display saved question with styling
-function showJustEditedQuestion() {
-    
-        savedQuestion = localStorage.getItem('savedQuestion');
-        console.log("showjusteditedquestion: " + savedQuestion);
 
-        fetch(urlData)
-        .then(response => response.json())
-        .then(data => {
-            // If you want to find a specific question
-            foundLine = data.lines.find(line => line.question === savedQuestion);
-            console.log(foundLine)
 
-            if (foundLine) {
-                document.getElementById('displayText1').innerHTML = foundLine.question;
-                document.getElementById('displayText2').innerHTML = foundLine.explanation;
 
-                document.querySelectorAll('input[name="topic"]').forEach(radio => {
-                    if (radio.value === foundLine.topic) {
-                        radio.checked = true;
-                    }
-                });
-                document.getElementById('checkboxEdit').checked = foundLine.edition === true;
 
-                document.getElementById('displayText3').innerHTML = foundLine.answer;
-                document.getElementById('displayText4').innerHTML = foundLine.example;
 
-                colorAssociation(foundLine.topic, foundLine.edition);
-            } else {
-                fetchRandomText();
-            }
-        })
-        .catch(error => console.error('Error fetching JSON:', error));
-    
-        
-    }
 
-function handleSelection() {
-    console.log("-------------------");
+// Define URLs for posting data based on topics
 
-    // Find the specific object in savedData that contains the fetched question
-    let matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
+// Data saved from fetchAndCombineData
 
-    if (matchedObject) {
-        console.log("Found the matched object:", matchedObject);
-    } else {
-        console.log("No matched object found.");
-        return; // Exit if no matched object is found
-    }
 
-    // Get the selected radio button value
-    let radios = document.querySelectorAll('input[name="topic"]:checked');
-    let topic = radios.length > 0 ? radios[0].value : 'Interviewer';
 
-    // Get the checkbox value
-    let checkboxEdit = document.getElementById("checkboxEdit");
-    let edition = checkboxEdit.checked; // true or false
 
-    // Change background color and update SVG based on the selected values
-    colorAssociation(topic, edition);
 
-    // Create new data object
-    let newData = {
-        question: matchedObject.question,
-        explanation: matchedObject.explanation,
-        topic: topic,
-        edition: edition, // true or false
-        answer: matchedObject.answer,
-        example: matchedObject.example
-    };
-
-    console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully!');
-    console.log(newData);
-
-    // Remove the previous object with the same question from the array
-    savedData.lines = savedData.lines.filter(obj => obj.question !== matchedObject.question);
-
-    // Add the new data to the array
-    savedData.lines.push(newData);
-    console.log("Whole object about to send to JSON with the new info");
-    console.log(savedData);
-
-    // Send the updated data to the server
-    fetch(urlData, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(savedData),
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to add new data');
-            }
-            console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
-        })
-        .catch(error => console.error('Error adding new data:', error));
-}
 // Initialize the default selection result on page load
 /* document.addEventListener("DOMContentLoaded", function () {
     handleSelection();
@@ -310,19 +501,9 @@ function handleSelection() {
 
 /* FETCH THE INITIAL DATA FROM "DATA.JSON" DOCUMENT*/
 
-fetch(urlData)
-    .then(response => response.json())
-    .then(jsonData => {
-        data = jsonData;
-        console.log('Data loaded:', data);
+// Function to fetch data from both URLs and combine them
 
-        // Save the data to savedData for later manipulation
-        savedData = data;
-
-        // Correctly log the savedData object
-        console.log("saved data:", savedData);
-    })
-    .catch(error => console.error('Error loading data:', error));
+// Call the function to fetch and combine data
 
 
 
@@ -330,111 +511,75 @@ fetch(urlData)
 
 
 
-
-/* SHOW QUESTION AND ANSWER INSIDE THE SCROLLABLE AREA */
-
-function fetchRandomText() {
-    document.getElementById('editableText').scrollTop = 0;
-
-    // Filter questions based on selected checkboxes
-    const topicCheckboxes = Array.from(document.querySelectorAll('#checkboxes input[type="checkbox"]:not([value="true"])'));
-    const isEditingChecked = document.querySelector('#checkboxes input[value="true"]').checked;
-
-    let filteredLines = data.lines.filter(item => {
-        const matchesTopic = topicCheckboxes.length === 0 || topicCheckboxes.some(checkbox => checkbox.checked && item.topic === checkbox.value);
-        const matchesEditing = !isEditingChecked || (isEditingChecked && (item.edition === true || item.edition === "true"));
-        return matchesTopic && matchesEditing;
-    });
-
-    if (filteredLines.length > 0) {
-        const randomIndex = Math.floor(Math.random() * filteredLines.length);
-        const selectedItem = filteredLines[randomIndex];
-
-        savedQuestion = selectedItem.question;
-        foundLine = selectedItem;
-        console.log('Selected item:', selectedItem);
-        console.log(savedQuestion);
-        localStorage.setItem('savedQuestion', savedQuestion);
-
-        document.getElementById('displayText1').innerHTML = selectedItem.question;
-        document.getElementById('displayText2').innerHTML = selectedItem.explanation;
-        document.getElementById('displayText3').innerHTML = selectedItem.answer;
-        document.getElementById('displayText4').innerHTML = selectedItem.example;
-
-        // Automatically select the corresponding radio button
-        let radios = document.querySelectorAll('input[name="topic"]');
-        radios.forEach(radio => {
-            if (radio.value === selectedItem.topic) {
-                radio.checked = true;
-            }
-        });
-
-        document.getElementById('checkboxEdit').checked = selectedItem.edition === true;
-
-        colorAssociation(selectedItem.topic, selectedItem.edition)
-    } else {
-        document.getElementById('displayText1').innerText = 'No text available based on the selected filters.';
-        document.getElementById('displayText2').innerText = '';
-        document.getElementById('displayText3').innerText = '';
-        document.getElementById('displayText4').innerText = '';
-    }
-}
-
-
-
-
-
-/* THIS FUNCTION ACTUALIZES THE JSON AFTER EDITING OR DELETING */
-
-function saveData() {
-    fetch(urlData, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(jsonData => {
-            console.log('Data saved:', jsonData);
-        })
-        .catch(error => console.error('Error saving data:', error));
-}
 
 
 
 /* DELETES CURRENT QUESTION AND ANSWER */
 
 function deleteCurrentText() {
+    // Retrieve the saved question from localStorage
+    let savedQuestion = localStorage.getItem("savedQuestion");
+    console.log("Saved question from localStorage:", savedQuestion);
+
     // Find the specific object in savedData that contains the fetched question
     let matchedObject = savedData.lines.find(obj => obj.question === savedQuestion);
+    console.log("Matched object found:", matchedObject);
 
     if (matchedObject) {
-        console.log("Found the matched object:", matchedObject);
+        let topic = matchedObject.topic;
 
-        // This line deletes the previous object from the array
-        savedData.lines = savedData.lines.filter(obj => obj !== matchedObject);
+        // Filter out the object based on the question property
+        savedData.lines = savedData.lines.filter(obj => obj.question !== savedQuestion);
         console.log("Object deleted. Remaining data:", savedData.lines);
 
-        // Upload the modified data online
-        fetch(urlData, {
+        // Determine the URL and filtered data based on the topic
+        let filteredData;
+        let postUrl;
+        let consoletrack;
+
+        if (!topic || topic === 'Interviewer' || topic === 'Candidate') {
+            postUrl = url_InterviewerCandidate;
+            consoletrack = "url_InterviewerCandidate";
+            filteredData = {
+                lines: savedData.lines.filter(obj => obj.topic === 'Interviewer' || obj.topic === 'Candidate')
+            };
+            data_InterviewerCandidate = filteredData; // Update local data store
+        } else if (topic === 'Advice' || topic === 'Encouragement') {
+            postUrl = url_AdviceEncouragement;
+            consoletrack = "url_AdviceEncouragement";
+            filteredData = {
+                lines: savedData.lines.filter(obj => obj.topic === 'Advice' || obj.topic === 'Encouragement')
+            };
+            data_AdviceEncouragement = filteredData; // Update local data store
+        } else {
+            console.error('Unknown topic selected');
+            return;
+        }
+
+        console.log("Filtered data about to send to JSON with the new info");
+        console.log(filteredData);
+        console.log(consoletrack);
+
+        // Send the filtered data to the selected URL
+        fetch(postUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(savedData),
+            body: JSON.stringify(filteredData),
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Failed to update data');
+                    throw new Error('Failed to add new data');
                 }
-
-
-
+                console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
                 
-                window.location.href = currentUrl;
+        fetchAndCombineData()
+        window.location.href = currentUrl;
             })
-            .catch(error => console.error('Error updating data:', error));
+            .catch(error => console.error('Error adding new data:', error));
+
+        // Redirect to current URL
     } else {
         console.log("No matched object found to delete.");
     }
@@ -457,7 +602,7 @@ function deleteCurrentText() {
 document.getElementById('confirm-question-to-delete').addEventListener('click', deleteCurrentText);
 /* document.getElementById("editBtn").addEventListener("click", editBtnShowModal);
  */
-document.getElementById('fetchButton').addEventListener('click' || "enter", fetchRandomText);
+
 /* document.getElementById('editBtn').addEventListener('click', goToEdit); */
 
 /* goToFetchOrHome(); */
@@ -479,6 +624,23 @@ editButton.addEventListener('click', function () {
 
 // Handle the save button click
 saveButton.addEventListener('click', function () {
+
+    /* ELIMINATES THE PREVIOUS OBJECT BEFORE STORING IN NEWDATA OTHERWISE YOURE TRYING TO DELETE 
+    A NON EXISTING OBJECT AND THEN PUSHING THE NEWDATA */
+
+    /* IF YOU DELETE HERE, YOU ARE DELETING THE ONE THAT WAS PREVIOUS EDITING */
+
+    /* IN HERE YOU ARE STILL WITH THE PREVIOUS OBJECT STORED IN SAVDDATA, THE EXACT SAME ONE 
+    THAT WAS WHEN YOU PRESSED EDIT */
+
+    /* IF YOU TRY TO DELETE IN ADDNEWDATA FUNC, IT ONLY DELETE THOSE WHEN YOU DIDN'T UPDATED DE
+    QUESTION AND IS STILL SPELLED EXACTLY LIKE BEFORE, BUT IF YOU CHANGE THE QUESTION, YOU WILL TRY TO
+    DELETE A NON EXISTING OBJECT AND THEN PUSHING THE NEW ONE*/
+
+    /* IF YOU DELETE HERE IT DELETES THE RIGHT ONE */
+    
+
+
     toggleEditing(false);
 
     addNewData();
@@ -519,9 +681,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-showJustEditedQuestion();
+fetchAndCombineData();
+/* showJustEditedQuestion(); */
 // Initialize the display
+
+
+
 initDisplay();
 
 handleSelection();

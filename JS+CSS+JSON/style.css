@@ -74,6 +74,14 @@ h1 {
     justify-content: space-between;
 }
 
+
+.topRightCorner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
 .topLeftCorner {
     display: flex;
     flex-direction: row;
