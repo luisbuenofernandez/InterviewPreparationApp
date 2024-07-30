@@ -183,8 +183,15 @@ function showJustEditedQuestion(savedData) {
 
 /* FETCH RANDOM QUESTION AFTER PRESSING THE BUTTON */
 function fetchRandomText() {
-    console.log("FetchButton Click")
+    console.log("FetchButton Click");
     document.getElementById('editableText').scrollTop = 0;
+
+    // Add default topic 'Interviewer' to objects without a topic
+    savedData.lines.forEach(item => {
+        if (!item.topic) {
+            item.topic = 'Interviewer';
+        }
+    });
 
     // Filter questions based on selected checkboxes
     const topicCheckboxes = Array.from(document.querySelectorAll('#checkboxes input[type="checkbox"]:not([value="true"])'));
@@ -221,13 +228,7 @@ function fetchRandomText() {
 
         document.getElementById('checkboxEdit').checked = selectedItem.edition === true;
 
-        colorAssociation(selectedItem.topic, selectedItem.edition)
-
-
-
-
-
-        /* document.getElementById('fetchButton').addEventListener('click' || "enter", fetchRandomText); */
+        colorAssociation(selectedItem.topic, selectedItem.edition);
     } else {
         document.getElementById('displayText1').innerText = 'No text available based on the selected filters.';
         document.getElementById('displayText2').innerText = '';
@@ -235,7 +236,6 @@ function fetchRandomText() {
         document.getElementById('displayText4').innerText = '';
     }
 }
-
 
 /* SEPARATES BY TOPIC THE DATA BEFORE SENDING INTO THE JSON DEPENDING WITH THE RIGHT URL*/
 
