@@ -103,7 +103,7 @@ function fetchAndCombineData() {
         })
         .then(dataIC => {
             console.log("Fetched data from InterviewerCandidate URL:", dataIC);
-            
+
 
             // Fetch data from the second URL
             return fetch(url_AdviceEncouragement)
@@ -115,8 +115,8 @@ function fetchAndCombineData() {
                 })
                 .then(dataAE => {
                     console.log("Fetched data from AdviceEncouragement URL:", dataAE);
-                    
-                    
+
+
 
                     // Combine the data from both sources
                     const combinedData = { lines: [...dataIC.lines, ...dataAE.lines] };
@@ -127,10 +127,29 @@ function fetchAndCombineData() {
                     console.log("Saved data:", savedData);
 
                     // Return the combined data for further use if needed
-                    
-                    
-                    
-                    
+
+
+
+                    // Add default topic 'Interviewer' to objects without a topic
+                    savedData.lines.forEach(item => {
+                        if (!item.topic) {
+                            item.topic = 'Interviewer';
+                        }
+                        if (!item.explanation) {
+                            item.explanation = "...";
+                        }
+                        if (!item.answer) {
+                            item.answer = "...";
+                        }
+                        if (!item.example) {
+                            item.example = "...";
+                        }
+                    });
+
+
+
+
+
                     /* SHOWS LAAST ONE IN LOCALSTORAGE AND ALLOWS RANDOM AFTER CLICK */
                     showJustEditedQuestion(savedData)
                     document.getElementById('fetchButton').addEventListener('click' || "enter", fetchRandomText);
@@ -142,42 +161,42 @@ function fetchAndCombineData() {
 
 /* SHOW AUTOMATICALLY THE QUESTION IN LOCALSTORAGE */
 function showJustEditedQuestion(savedData) {
-    
+
     savedQuestion = localStorage.getItem('savedQuestion');
     console.log("showjusteditedquestion: " + savedQuestion);
-/* 
-    fetch(urlData)
-    .then(response => response.json())
-    .then(data => { */
-        // If you want to find a specific question
-        foundLine = savedData.lines.find(line => line.question === savedQuestion);
-        console.log(foundLine)
+    /* 
+        fetch(urlData)
+        .then(response => response.json())
+        .then(data => { */
+    // If you want to find a specific question
+    foundLine = savedData.lines.find(line => line.question === savedQuestion);
+    console.log(foundLine)
 
-        if (foundLine) {
-            document.getElementById('displayText1').innerHTML = foundLine.question;
-            document.getElementById('displayText2').innerHTML = foundLine.explanation;
+    if (foundLine) {
+        document.getElementById('displayText1').innerHTML = foundLine.question;
+        document.getElementById('displayText2').innerHTML = foundLine.explanation;
 
-            document.querySelectorAll('input[name="topic"]').forEach(radio => {
-                if (radio.value === foundLine.topic) {
-                    radio.checked = true;
-                }
-            });
-            document.getElementById('checkboxEdit').checked = foundLine.edition === true;
+        document.querySelectorAll('input[name="topic"]').forEach(radio => {
+            if (radio.value === foundLine.topic) {
+                radio.checked = true;
+            }
+        });
+        document.getElementById('checkboxEdit').checked = foundLine.edition === true;
 
-            document.getElementById('displayText3').innerHTML = foundLine.answer;
-            document.getElementById('displayText4').innerHTML = foundLine.example;
+        document.getElementById('displayText3').innerHTML = foundLine.answer;
+        document.getElementById('displayText4').innerHTML = foundLine.example;
 
-            colorAssociation(foundLine.topic, foundLine.edition);
+        colorAssociation(foundLine.topic, foundLine.edition);
 
 
-          
-        } else {
-            fetchRandomText();
-        }
-/*     })
-    .catch(error => console.error('Error fetching JSON:', error));
- */
-    
+
+    } else {
+        fetchRandomText();
+    }
+    /*     })
+        .catch(error => console.error('Error fetching JSON:', error));
+     */
+
 }
 
 
@@ -185,13 +204,6 @@ function showJustEditedQuestion(savedData) {
 function fetchRandomText() {
     console.log("FetchButton Click");
     document.getElementById('editableText').scrollTop = 0;
-
-    // Add default topic 'Interviewer' to objects without a topic
-    savedData.lines.forEach(item => {
-        if (!item.topic) {
-            item.topic = 'Interviewer';
-        }
-    });
 
     // Filter questions based on selected checkboxes
     const topicCheckboxes = Array.from(document.querySelectorAll('#checkboxes input[type="checkbox"]:not([value="true"])'));
@@ -285,7 +297,7 @@ function handleSelection() {
     console.log(savedData);
 
     // Filter savedData based on the selected topic 
-    
+
     handleTopicAndPost(topic, savedData)
 }
 
@@ -344,36 +356,36 @@ function resetCheckboxes() {
 
 
 
-    function toggleEditing(isEditing) {
-        const section1 = document.querySelector('.section-1');
-    
-        section1.style.display = isEditing ? 'none' : 'block';
-        formatButtons.style.display = isEditing ? 'block' : 'none';
-    
-        // Show/Hide save and cancel buttons based on editing state
-        saveButton.style.display = isEditing ? 'inline-block' : 'none';
-        cancelButton.style.display = isEditing ? 'inline-block' : 'none';
-        
+function toggleEditing(isEditing) {
+    const section1 = document.querySelector('.section-1');
+
+    section1.style.display = isEditing ? 'none' : 'block';
+    formatButtons.style.display = isEditing ? 'block' : 'none';
+
+    // Show/Hide save and cancel buttons based on editing state
+    saveButton.style.display = isEditing ? 'inline-block' : 'none';
+    cancelButton.style.display = isEditing ? 'inline-block' : 'none';
+
     fetchButton.style.display = isEditing ? 'none' : 'inline-block'; // Hide fetchButton when editing
-        // Toggle edit mode on text elements
-        const contentEditable = isEditing ? 'true' : 'false';
-        displayText1.contentEditable = contentEditable;
-        displayText2.contentEditable = contentEditable;
-        displayText3.contentEditable = contentEditable;
-        displayText4.contentEditable = contentEditable;
-    
-        // Ensure highlighting and formatting can be applied during editing
-        if (isEditing) {
-            document.execCommand('defaultParagraphSeparator', false, 'p');
-    
-            // Save the original content
-            originalContent1 = displayText1.innerHTML;
-            originalContent2 = displayText2.innerHTML;
-            originalContent3 = displayText3.innerHTML;
-            originalContent4 = displayText4.innerHTML;
-        }
+    // Toggle edit mode on text elements
+    const contentEditable = isEditing ? 'true' : 'false';
+    displayText1.contentEditable = contentEditable;
+    displayText2.contentEditable = contentEditable;
+    displayText3.contentEditable = contentEditable;
+    displayText4.contentEditable = contentEditable;
+
+    // Ensure highlighting and formatting can be applied during editing
+    if (isEditing) {
+        document.execCommand('defaultParagraphSeparator', false, 'p');
+
+        // Save the original content
+        originalContent1 = displayText1.innerHTML;
+        originalContent2 = displayText2.innerHTML;
+        originalContent3 = displayText3.innerHTML;
+        originalContent4 = displayText4.innerHTML;
     }
-    
+}
+
 
 function highlightText(color) {
     if (isEditing) {
@@ -433,11 +445,11 @@ function addNewData() {
 
     // Retrieve data from text areas
     savedQuestion = document.getElementById('displayText1').innerHTML;
-    
-    
+
+
 
     // Find the specific object in savedData that contains the fetched question
-    
+
 
     // Create new data object including styled content
     const newData = {
@@ -455,7 +467,7 @@ function addNewData() {
     console.log(newData);
 
     // Remove the previous object with the same question from the array
-    
+
 
     console.log("data stored online before updating new one");
     console.log(savedData);
@@ -468,7 +480,7 @@ function addNewData() {
     console.log(dataToUpload);
 
     // POST request to add new data
-    
+
 
     handleTopicAndPost(matchedObject.topic, dataToUpload)
 
@@ -573,9 +585,9 @@ function deleteCurrentText() {
                     throw new Error('Failed to add new data');
                 }
                 console.log('New data (TOPIC, EDITION AND REPRESENTATION) added successfully to JSON ONLINE!');
-                
-        fetchAndCombineData()
-        window.location.href = currentUrl;
+
+                fetchAndCombineData()
+                window.location.href = currentUrl;
             })
             .catch(error => console.error('Error adding new data:', error));
 
@@ -638,7 +650,7 @@ saveButton.addEventListener('click', function () {
     DELETE A NON EXISTING OBJECT AND THEN PUSHING THE NEW ONE*/
 
     /* IF YOU DELETE HERE IT DELETES THE RIGHT ONE */
-    
+
 
 
     toggleEditing(false);
@@ -658,7 +670,7 @@ cancelButton.addEventListener('click', function () {
     toggleEditing(false);
     // Reset the checkboxes layout and styles
     resetCheckboxes();
-    
+
     // Revert to the original content
     displayText1.innerHTML = originalContent1;
     displayText2.innerHTML = originalContent2;
