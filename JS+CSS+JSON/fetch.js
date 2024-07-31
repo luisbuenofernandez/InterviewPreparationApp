@@ -135,13 +135,13 @@ function fetchAndCombineData() {
                         if (!item.topic) {
                             item.topic = 'Interviewer';
                         }
-                        if (!item.explanation) {
+                        if (!item.explanation || item.explanation === "Explanation") {
                             item.explanation = "...";
                         }
-                        if (!item.answer) {
+                        if (!item.answer || item.answer === "Answer") {
                             item.answer = "...";
                         }
-                        if (!item.example) {
+                        if (!item.example || item.example === "Example") {
                             item.example = "...";
                         }
                     });
