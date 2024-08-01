@@ -152,7 +152,11 @@ function fetchAndCombineData() {
 
                     /* SHOWS LAAST ONE IN LOCALSTORAGE AND ALLOWS RANDOM AFTER CLICK */
                     showJustEditedQuestion(savedData)
-                    document.getElementById('fetchButton').addEventListener('click' || "enter", fetchRandomText);
+                    document.getElementById('fetchButton').addEventListener('click', function() {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        fetchRandomText(); // Call your existing function after scrolling
+                    });
+                    
                 });
         })
         .catch(error => console.error('Error loading or combining data:', error));
