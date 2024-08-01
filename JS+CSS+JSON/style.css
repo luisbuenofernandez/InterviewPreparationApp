@@ -568,6 +568,11 @@ input[type="checkbox"]#checkboxEdit:checked+label {
 
 /* SCROLLABLE */
 
+.scrollable-edit {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
 .scrollable {
 
     margin: auto;
