@@ -57,10 +57,6 @@ h1 {
 }
 
 
-.fetch-heading {
-
-    margin-bottom: 0;
-}
 
 .fetch-heading .btn {
     width: 35px;
@@ -90,8 +86,9 @@ h1 {
 
 
 #section-3Fetch {
-    margin-top: 0;
+    padding-top: 8px;
     font-weight: bolder;
+/*     border: .5px solid #9595955a; */
 }
 
 .circleButton {
@@ -262,7 +259,7 @@ button#submitButton:hover {
 .questionSection {
     
     border: 1px solid #9595955a;
-    margin: 8px 8px 0 8px;
+    margin: 0 8px 0 8px;
     border-radius: 12px;
     padding: 8px;
     position: relative;
@@ -564,15 +561,13 @@ input[type="checkbox"]#checkboxEdit:checked+label {
 
 }
 
+#scrollable-edit {
+    height: 100%;
+    overflow-y: auto;
+}
 
 
 /* SCROLLABLE */
-
-#scrollable-edit {
-    overflow-y: auto;
-    scroll-behavior: smooth;
-    height: 100%;
-}
 
 .scrollable {
 
