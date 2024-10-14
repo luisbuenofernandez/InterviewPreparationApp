@@ -2,8 +2,9 @@ let currentUrl = window.location.href;
 /* const urlData = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/INTERVIEW PREPARATION APP OFFICIAL JSON"; */
 
 
-const url_InterviewerCandidate = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/InterviewerCandidateData";
-const url_AdviceEncouragement = "https://getpantry.cloud/apiv1/pantry/a1edfe85-a3c4-44fe-807d-6717b6738152/basket/AdviceEncouragmentData";
+const url_InterviewerCandidate = "https://getpantry.cloud/apiv1/pantry/c8769b00-008e-4d82-b672-8fcc1446798d/basket/InterviewerCandidateData";
+const url_AdviceEncouragement = "https://getpantry.cloud/apiv1/pantry/c8769b00-008e-4d82-b672-8fcc1446798d/basket/AdviceEncouragmentData";
+
 let dataStoredOnline_InterviewerCandidate = { lines: [] };
 let dataStoredOnline_AdviceEncouragement = { lines: [] };
 
